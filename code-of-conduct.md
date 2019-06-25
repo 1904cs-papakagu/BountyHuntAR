@@ -1,7 +1,7 @@
 
 # RULE #1: DON'T BE A DICK
 # RULE #2: NO COWBOY CODING
-
+ 
 ## WHAT EACH MEMBER WANTS TO GET OUT OF THIS EXPERIENCE
 - Kevin: Learn a new technology (here, AR)
 - Wilson: AR experience
