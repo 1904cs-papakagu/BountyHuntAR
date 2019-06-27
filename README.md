@@ -9,6 +9,10 @@ An AR assassination App
 - first player to shoot target gets "cash"
 - companion website with leaderboard data and other stats displayed with d3
 
+# TIER 1
+- hard-coded target locations
+- generic 3D models
+
 # Wish List
 - website with leaderboard data
 - moving target
