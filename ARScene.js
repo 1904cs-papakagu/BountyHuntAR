@@ -12,6 +12,7 @@ import {
 } from 'react-viro';
 
 import Targets from './Targets';
+import Walls from './Walls';
 
 export default class ARScene extends Component {
   constructor() {
@@ -92,7 +93,8 @@ export default class ARScene extends Component {
         </ViroARCamera>
 
         <Targets boxCollide={this.boxCollide} />
-        
+        <Walls />
+
       </ViroARScene>
     );
   }

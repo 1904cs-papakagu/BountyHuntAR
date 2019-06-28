@@ -24,7 +24,7 @@ var sharedProps = {
   apiKey: "C53DE6A2-B177-4757-97D9-4855405BC265",     // this is passed to ViroARSceneNavigator
 };
 
-export default class DcApp extends Component {
+class DcApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,22 +48,25 @@ export default class DcApp extends Component {
       //   <Text style={styles.instructions}>{instructions}</Text>
       // </View>
 
-      <View style={styles.container}>
-        {this.state.user.name ? (
-          <WelcomeScreen user={this.state.user} />
-        ) : (
-          <SignupScreen />
-        )}
-      </View>
+      // LOGIN DISPLAY
+      // <View style={styles.container}>
+      //   {this.state.user.name ? (
+      //     <WelcomeScreen user={this.state.user} />
+      //   ) : (
+      //     <SignupScreen />
+      //   )}
+      // </View>
 
-      // <View style={{ flex: 1 }} >
-      //   <ViroARSceneNavigator {...sharedProps}
-      //     initialScene={{ scene: require('./ARScene.js') }}
-      //     worldAlignment="Gravity"
-      //     debug={true}
-      //   />
-      //   {/* crosshair is its on view, following a stylesheet */}
-      // <View style={styles.crosshair} />
+      // AR SCENE
+      <View style={{ flex: 1 }} >
+        <ViroARSceneNavigator {...sharedProps}
+          initialScene={{ scene: require('./ARScene.js') }}
+          worldAlignment="Gravity"
+          debug={true}
+        />
+        {/* crosshair is its on view, following a stylesheet */}
+        <View style={styles.crosshair} />
+      </View>
     );
   }
 }
