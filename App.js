@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Dimensions} from 'react-native';
+import WelcomeScreen from './js/ui-components/WelcomeScreen';
+import SignupScreen from './js/ui-components/SignupScreen';
+import { Provider, connect } from 'react-redux'
+import store from './js/store'
 import {
   ViroARSceneNavigator,
 } from 'react-viro';
@@ -20,7 +24,21 @@ var sharedProps = {
   apiKey: "C53DE6A2-B177-4757-97D9-4855405BC265",     // this is passed to ViroARSceneNavigator
 };
 
-export default class App extends Component {
+export default class DcApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
+  componentDidMount() {
+    this.setState({
+      user: {
+        name: 'Cody',
+        email: 'cody@cody.com'
+      }
+    });
+  }
   render() {
     return (
       // ORIGINAL DISPLAY
@@ -30,16 +48,22 @@ export default class App extends Component {
       //   <Text style={styles.instructions}>{instructions}</Text>
       // </View>
 
-      <View style={{ flex: 1 }} >
-        <ViroARSceneNavigator {...sharedProps}
-          initialScene={{ scene: require('./ARScene.js') }}
-          worldAlignment="Gravity"
-          debug={true}
-        />
-        {/* crosshair is its on view, following a stylesheet */}
-        <View style={styles.crosshair} />
+      <View style={styles.container}>
+        {this.state.user.name ? (
+          <WelcomeScreen user={this.state.user} />
+        ) : (
+          <SignupScreen />
+        )}
       </View>
 
+      // <View style={{ flex: 1 }} >
+      //   <ViroARSceneNavigator {...sharedProps}
+      //     initialScene={{ scene: require('./ARScene.js') }}
+      //     worldAlignment="Gravity"
+      //     debug={true}
+      //   />
+      //   {/* crosshair is its on view, following a stylesheet */}
+      // <View style={styles.crosshair} />
     );
   }
 }
@@ -51,12 +75,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
@@ -74,3 +98,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
 });
+
+const App = connect(
+  null,
+  null
+)(DcApp);
+
+export default () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
