@@ -10,8 +10,23 @@ module.exports = {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: false,
-      },
-    }),
+        inlineRequires: false
+      }
+    })
   },
+  resolver: {
+    assetExts: [
+      ...assetExts,
+      'obj',
+      'mtl',
+      'JPG',
+      'vrx',
+      'hdr',
+      'gltf',
+      'glb',
+      'bin',
+      'arobject',
+      'gif'
+    ]
+  }
 };

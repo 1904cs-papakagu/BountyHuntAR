@@ -9,6 +9,8 @@ import {
   ViroMaterials,
   ViroAnimations,
   ViroARCamera,
+  ViroSpotLight,
+  ViroAmbientLight
 } from 'react-viro';
 
 import Targets from './Targets';
@@ -38,7 +40,11 @@ export default class ARScene extends Component {
 
   // NOTE: setState will cause a re-render!!!
   async getForce() {
-    const { forward, position, rotation } = await this.refs.scene.getCameraOrientationAsync();
+    const {
+      forward,
+      position,
+      rotation
+    } = await this.refs.scene.getCameraOrientationAsync();
     this.force = forward.map(c => 8000 * c);
     this.pos = position;
     this.rot = rotation;
@@ -51,23 +57,25 @@ export default class ARScene extends Component {
       <ViroBox
         position={this.pos}
         rotation={this.rot}
-        height={.5} width={.5} length={.9}
+        height={0.5}
+        width={0.5}
+        length={0.9}
         materials={['grid']}
         physicsBody={{
           type: 'Dynamic',
           mass: 10,
           force: { value: this.force },
           friction: 1,
-          useGravity: true,
+          useGravity: true
         }}
         ref={'boxBullet'}
         viroTag={'boxBullet'}
       />
-    )
+    );
   }
 
   boxCollide(tag) {
-    if (tag === "boxBullet") {
+    if (tag === 'boxBullet') {
       const score = this.state.score + 1;
       this.setState({ score });
     }
@@ -75,9 +83,10 @@ export default class ARScene extends Component {
 
   render() {
     return (
-      <ViroARScene ref="scene"
+      <ViroARScene
+        ref="scene"
         onTrackingUpdated={this._onInitialized}
-        postProcessEffects={[""]}
+        postProcessEffects={['']}
         onCameraTransformUpdate={this.boxFollow}
         onClick={this.getForce}
       >
@@ -91,10 +100,17 @@ export default class ARScene extends Component {
             position={[0, 1, -2]}
           />
         </ViroARCamera>
-
+        <ViroAmbientLight color={'#aaaaaa'} />
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, -1, -0.2]}
+          position={[0, 3, 1]}
+          color="#ffffff"
+          castsShadow={true}
+        />
         <Targets boxCollide={this.boxCollide} />
         <Walls />
-
       </ViroARScene>
     );
   }
@@ -114,20 +130,20 @@ export default class ARScene extends Component {
 
 ViroMaterials.createMaterials({
   grid: {
-    diffuseTexture: require('./js/res/BG.png'),
-  },
+    diffuseTexture: require('./js/res/BG.png')
+  }
 });
 
 ViroAnimations.registerAnimations({
   spinBox: {
     properties: {
-      rotateX: "+=90",
-      rotateY: "+=90",
-      rotateZ: "+=90",
+      rotateX: '+=90',
+      rotateY: '+=90',
+      rotateZ: '+=90'
     },
     duration: 500
   }
-})
+});
 
 // STYLESHEETS
 
@@ -137,8 +153,8 @@ var styles = StyleSheet.create({
     fontSize: 60,
     color: '#ffaaaf',
     textAlignVertical: 'center',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
 
 module.exports = ARScene;
