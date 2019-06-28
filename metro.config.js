@@ -16,7 +16,6 @@ module.exports = {
   },
   resolver: {
     assetExts: [
-      ...assetExts,
       'obj',
       'mtl',
       'JPG',
@@ -26,7 +25,8 @@ module.exports = {
       'glb',
       'bin',
       'arobject',
-      'gif'
+      'gif',
+      'png'
     ]
   }
 };
