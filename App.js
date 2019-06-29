@@ -47,7 +47,7 @@ class DcApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playing: true
+      playing: false
     };
     this.startGame = this.startGame.bind(this);
   }
