@@ -7,7 +7,7 @@ export default class WelcomeScreen extends Component{
       <View>
         <Text>Welcome to BountyHuntAR</Text>
         <Text>AgentID:</Text>
-        <Button title="start">Start</Button>
+        <Button title="start" onPress={this.props.start}>Start</Button>
       </View>
     )
   }
