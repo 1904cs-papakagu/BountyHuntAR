@@ -18,8 +18,15 @@ import { ViroARSceneNavigator } from 'react-viro';
 // type Props = {};
 // export default class App extends Component<Props> {
 
+const keyRing = [
+  '5C6EF69F-7244-462B-B067-37CBC6FB6093',
+  '53ECFECF-D5F2-43F0-A8CE-C2CA87613B4D',
+  'C53DE6A2-B177-4757-97D9-4855405BC265',
+  '1FF8955D-8B22-4A90-9A68-CF5A12817107'
+]
+
 var sharedProps = {
-  apiKey: 'C53DE6A2-B177-4757-97D9-4855405BC265' // this is passed to ViroARSceneNavigator
+  apiKey: keyRing[Math.floor(Math.random()*4)]
 };
 
 const Game = () => (
@@ -40,7 +47,7 @@ class DcApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playing: false
+      playing: true
     };
     this.startGame = this.startGame.bind(this);
   }

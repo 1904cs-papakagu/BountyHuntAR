@@ -4,75 +4,21 @@ import { ViroBox, Viro3DObject } from 'react-viro';
 const targets = [
   {
     position: [-3, 0, -10],
-    height: 7,
-    width: 2,
-    length: 2,
-    materials: ['grid'],
-    physicsBody: {
-      type: 'Dynamic',
-      friction: 1,
-      mass: 1
-    }
   },
   {
     position: [10, 0, 8],
-    height: 7,
-    width: 2,
-    length: 2,
-    materials: ['grid'],
-    physicsBody: {
-      type: 'Dynamic',
-      friction: 1,
-      mass: 1
-    }
   },
   {
-    position: [-13, 0, 0],
-    height: 7,
-    width: 2,
-    length: 2,
-    materials: ['grid'],
-    physicsBody: {
-      type: 'Dynamic',
-      friction: 1,
-      mass: 1
-    }
+    position: [0, 0, -2],
   },
   {
     position: [-20, 0, -18],
-    height: 7,
-    width: 2,
-    length: 2,
-    materials: ['grid'],
-    physicsBody: {
-      type: 'Dynamic',
-      friction: 1,
-      mass: 1
-    }
   },
   {
     position: [3, 0, 18],
-    height: 7,
-    width: 2,
-    length: 2,
-    materials: ['grid'],
-    physicsBody: {
-      type: 'Dynamic',
-      friction: 1,
-      mass: 1
-    }
   },
   {
     position: [-10, 0, -16],
-    height: 7,
-    width: 2,
-    length: 2,
-    materials: ['grid'],
-    physicsBody: {
-      type: 'Dynamic',
-      friction: 1,
-      mass: 1
-    }
   }
 ];
 
@@ -94,17 +40,24 @@ const Targets = props => {
   // })
 
   // 3D MODELS
-  return (
+  return targets.map((target, i) => (
     <Viro3DObject
+      key={i}
       source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
-      position={[-2, -0.5, -1]}
+      position={target.position}
       scale={[0.0075, 0.0075, 0.0075]}
       type="OBJ"
       dragType="FixedDistance"
-      physicsBody={{ type: 'Dynamic', mass: 1, useGravity: true }}
-      onDrag={() => {}}
+      physicsBody={{ 
+        type: 'Dynamic', 
+        mass: 1, 
+        useGravity: true,
+        shape: {type: 'Box', params: [1,2,1]}
+      }}
+      scalePivot={[0,0,0]}
+      rotationPivot={[.2,1,.2]}
     />
-  );
+  ));
 };
 
 export default Targets;
