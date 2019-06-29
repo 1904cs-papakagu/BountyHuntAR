@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { classBody } from '@babel/types';
 
 const initState = {
   username: null
@@ -17,11 +18,12 @@ const setUserOnState = user => {
 export const loginThunk = (email, password) => {
   return async dispatch => {
     try {
-          const {data} = await axios({
-      url: 'bountyhuntar.herokuapp.com/auth/login',
+    const {data} = await axios({
+      url: 'http://bountyhuntar.herokuapp.com/auth/login',
       method: 'POST',
       data: {email, password}
     })
+    // const data = {name: 'Cody'}
     dispatch(setUserOnState(data))
     }
     catch (error) {
