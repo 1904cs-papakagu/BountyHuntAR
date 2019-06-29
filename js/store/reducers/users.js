@@ -6,6 +6,7 @@ const initState = {
 
 const SET_USER_ON_STATE = 'SET_USER_ON_STATE';
 
+
 const setUserOnState = user => {
   return {
     type: SET_USER_ON_STATE,
@@ -13,16 +14,23 @@ const setUserOnState = user => {
   };
 };
 
-export const loginThunk = () => {
+export const loginThunk = (email, password) => {
   return async dispatch => {
-    //dummy thunk
-    //To-Do: connect to serve when implemented
-    const user = { name: Cody };
-    dispatch(setUserOnState(user))
-  };
-};
+    try {
+          const {data} = await axios({
+      url: 'bountyhuntar.herokuapp.com/auth/login',
+      method: 'POST',
+      data: {email, password}
+    })
+    dispatch(setUserOnState(data))
+    }
+    catch (error) {
+      console.error(error)
+    }
+  }
+}
 
-export function users(state = initState, action) {
+export function user(state = initState, action) {
   switch (action.type){
     case SET_USER_ON_STATE:
       return action.user
