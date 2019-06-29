@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import {
   ViroARScene,
   ViroText,
@@ -97,7 +97,7 @@ export default class ARScene extends Component {
             width={1}
             height={1}
             color="#ffaad0"
-            position={[0, 1, -2]}
+            position={[.2, 1, -5]}
           />
         </ViroARCamera>
         <ViroAmbientLight color={'#aaaaaa'} />

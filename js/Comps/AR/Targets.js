@@ -52,7 +52,6 @@ const Targets = props => {
         type: 'Dynamic', 
         mass: 1, 
         useGravity: true,
-        shape: {type: 'Box', params: [1,2,1]}
       }}
       scalePivot={[0,0,0]}
       rotationPivot={[.2,1,.2]}
