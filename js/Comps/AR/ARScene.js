@@ -49,7 +49,7 @@ export default class ARScene extends Component {
     this.pos = position;
     this.rot = rotation;
     this.setState({ shoot: true });
-    setTimeout(() => this.setState({ shoot: false }), 1000);
+    setTimeout(() => this.setState({ shoot: false }), 1500);
   }
 
   boxShoot() {
@@ -59,11 +59,11 @@ export default class ARScene extends Component {
         rotation={this.rot}
         height={0.5}
         width={0.5}
-        length={0.9}
+        length={0.8}
         materials={['grid']}
         physicsBody={{
           type: 'Dynamic',
-          mass: 10,
+          mass: 15,
           force: { value: this.force },
           friction: 1,
           useGravity: true
