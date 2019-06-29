@@ -96,12 +96,12 @@ const Targets = props => {
   // 3D MODELS
   return (
     <Viro3DObject
-      source={require('./js/res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
-      position={[-2, 0.5, -1]}
+      source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
+      position={[-2, -0.5, -1]}
       scale={[0.0075, 0.0075, 0.0075]}
       type="OBJ"
       dragType="FixedDistance"
-      physicsBody={{ type: 'Dynamic', friction: 1, mass: 1, useGravity: false }}
+      physicsBody={{ type: 'Dynamic', mass: 1, useGravity: true }}
       onDrag={() => {}}
     />
   );

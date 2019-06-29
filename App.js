@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Dimensions} from 'react-native';
-import WelcomeScreen from './js/ui-components/WelcomeScreen';
-import SignupScreen from './js/ui-components/SignupScreen';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
+import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
+import SignupScreen from './js/Comps/UI/SignupScreen';
 import { Provider, connect } from 'react-redux'
 import store from './js/store'
 import {
@@ -24,50 +24,45 @@ var sharedProps = {
   apiKey: "C53DE6A2-B177-4757-97D9-4855405BC265",     // this is passed to ViroARSceneNavigator
 };
 
+const Game = () => (
+  // AR SCENE
+  <View style={{ flex: 1 }} >
+    <ViroARSceneNavigator {...sharedProps}
+      initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
+      worldAlignment="Gravity"
+      debug={true}
+    />
+    {/* crosshair is its own view, following a stylesheet */}
+    <View style={styles.crosshair} />
+  </View>
+)
+
 class DcApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      playing: false
     };
+    this.startGame = this.startGame.bind(this)
   }
-  componentDidMount() {
-    this.setState({
-      user: {
-        name: 'Cody',
-        email: 'cody@cody.com'
-      }
-    });
-  }
+  // componentDidMount() {
+
+  // }
   render() {
+    if (this.state.playing) {
+      return <Game />
+    }
     return (
-      // ORIGINAL DISPLAY
-      // <View style={styles.container}>
-      //   <Text style={styles.welcome}>Welcome to React Native!</Text>
-      //   <Text style={styles.instructions}>To get started, edit App.js</Text>
-      //   <Text style={styles.instructions}>{instructions}</Text>
-      // </View>
-
-      // LOGIN DISPLAY
-      // <View style={styles.container}>
-      //   {this.state.user.name ? (
-      //     <WelcomeScreen user={this.state.user} />
-      //   ) : (
-      //     <SignupScreen />
-      //   )}
-      // </View>
-
-      // AR SCENE
-      <View style={{ flex: 1 }} >
-        <ViroARSceneNavigator {...sharedProps}
-          initialScene={{ scene: require('./ARScene.js') }}
-          worldAlignment="Gravity"
-          debug={true}
-        />
-        {/* crosshair is its on view, following a stylesheet */}
-        <View style={styles.crosshair} />
+      <View style={styles.container}>
+        <WelcomeScreen start={this.startGame} />
       </View>
     );
+  }
+
+  startGame() {
+    this.setState({
+      playing: true
+    })
   }
 }
 

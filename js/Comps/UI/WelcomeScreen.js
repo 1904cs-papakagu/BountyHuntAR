@@ -6,7 +6,7 @@ export default class WelcomeScreen extends Component{
     return (
       <View>
         <Text>Welcome to BountyHuntAR</Text>
-        <Text>AgentID: {this.props.user.name}</Text>
+        <Text>AgentID:</Text>
         <Button title="start">Start</Button>
       </View>
     )
