@@ -53,7 +53,7 @@ class DcApp extends Component {
     }
     return (
       <View style={styles.container}>
-        {this.props.user.name ? (
+        {this.props.user.userName ? (
           <WelcomeScreen start={this.startGame} user={this.props.user} />
         ) : (
           <SignupScreen login={this.props.login} />
