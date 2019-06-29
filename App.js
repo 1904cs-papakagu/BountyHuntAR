@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
-import SignupScreen from './js/Comps/UI/SigninScreen';
+import SigninScreen from './js/Comps/UI/SigninScreen';
 import { Provider, connect } from 'react-redux';
 import store, {loginThunk} from './js/store';
 import { ViroARSceneNavigator } from 'react-viro';
@@ -56,7 +56,7 @@ class DcApp extends Component {
         {this.props.user.userName ? (
           <WelcomeScreen start={this.startGame} user={this.props.user} />
         ) : (
-          <SignupScreen login={this.props.login} />
+          <SigninScreen login={this.props.login} error={this.props.user.error} />
         )}
       </View>
     );
