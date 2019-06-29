@@ -1,10 +1,13 @@
 import axios from 'axios'
+import { classBody } from '@babel/types';
 
 const initState = {
   username: null
 };
 
 const SET_USER_ON_STATE = 'SET_USER_ON_STATE';
+const HANDLE_ERROR = 'HANDLE_ERROR'
+
 
 const setUserOnState = user => {
   return {
@@ -13,19 +16,36 @@ const setUserOnState = user => {
   };
 };
 
-export const loginThunk = () => {
-  return async dispatch => {
-    //dummy thunk
-    //To-Do: connect to serve when implemented
-    const user = { name: Cody };
-    dispatch(setUserOnState(user))
-  };
-};
+const handleError = error => {
+  return {
+    type: HANDLE_ERROR,
+    error
+  }
+}
 
-export function users(state = initState, action) {
+export const loginThunk = (email, password) => {
+  return async dispatch => {
+    try {
+    const {data} = await axios({
+      url: 'http://bountyhuntar.herokuapp.com/auth/login',
+      method: 'POST',
+      data: {email, password}
+    })
+    // const data = {name: 'Cody'}
+    dispatch(setUserOnState(data))
+    }
+    catch (error) {
+      dispatch(handleError(error))
+    }
+  }
+}
+
+export function user(state = initState, action) {
   switch (action.type){
     case SET_USER_ON_STATE:
       return action.user
+    case HANDLE_ERROR:
+      return {error: action.error}
     default:
       return state
   }
