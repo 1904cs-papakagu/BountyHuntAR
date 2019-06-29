@@ -130,7 +130,7 @@ export default class ARScene extends Component {
 
 ViroMaterials.createMaterials({
   grid: {
-    diffuseTexture: require('./js/res/BG.png')
+    diffuseTexture: require('./res/BG.png')
   }
 });
 
