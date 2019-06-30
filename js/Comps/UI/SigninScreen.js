@@ -5,7 +5,9 @@ import {
   Text,
   View,
   Button,
-  TextInput
+  TextInput,
+  Dimensions,
+  Image
 } from 'react-native';
 
 export default class SigninScreen extends Component {
@@ -19,35 +21,91 @@ export default class SigninScreen extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Welcome to BountyHuntAR</Text>
+      <View style={styles.container}>
+        <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
         <TextInput
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email}
-          placeholder="email"
-          style={this.props.error ? {borderColor: '#ffaab6', borderWidth: 1} : {}}
+          placeholder="E-Mail"
+          placeholderTextColor="#ffffff"
+          style={
+            this.props.error
+              ? {
+                  color: '#ffffff',
+                  borderColor: '#f54242',
+                  borderWidth: 1,
+                  width: Dimensions.get('window').width - 60,
+                  height: 60,
 
+                }
+              : {
+                  color: '#ffffff',
+                  width: Dimensions.get('window').width - 60,
+                  height: 60
+                }
+          }
         />
         <TextInput
           secureTextEntry={true}
           onChangeText={text => this.setState({ password: text })}
           value={this.state.password}
-          placeholder="password"
+          placeholder="Password"
+          placeholderTextColor="#ffffff"
           textContentType="password"
-          style={this.props.error ? {borderColor: '#ffaab6', borderWidth: 1} : {}}
+          style={
+            this.props.error
+              ? {
+                  color: '#ffffff',
+                  borderColor: '#f54242',
+                  borderWidth: 1,
+                  width: Dimensions.get('window').width - 60,
+                  height: 60
+                }
+              : {
+                  color: '#ffffff',
+                  width: Dimensions.get('window').width - 60,
+                  height: 60
+                }
+          }
         />
+        {this.props.error ? (
+          <Text
+            style={{
+              color: '#f54242'
+            }}
+          >
+            Invalid E-Mail and/or Password
+          </Text>
+        ) : (
+          <></>
+        )}
         <Button
           onPress={() => {
             const { email, password } = this.state;
             this.props.login(email, password);
           }}
-          title="signin"
-        >
-          Sign In
-        </Button>
-        {this.props.error ?
-        <Text style={{color: '#ffaab6'}}>Invalid e-mail or password.</Text> : <></>}
+          title="Sign In"
+          color="#ffffff"
+        />
       </View>
     );
   }
 }
+
+let { height, width } = Dimensions.get('window');
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: height,
+    width: width,
+    backgroundColor: '#000000'
+  },
+  welcomeText: {
+    fontFamily: 'American Typewriter',
+    fontSize: 50,
+    color: '#f54242',
+    textAlign: 'center'
+  },
+});
