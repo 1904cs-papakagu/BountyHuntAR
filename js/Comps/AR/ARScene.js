@@ -13,6 +13,10 @@ import {
   ViroAmbientLight
 } from 'react-viro';
 
+import { connect } from 'react-redux';
+
+import Geolocation from 'react-native-geolocation-service';
+
 import Targets from './Targets';
 import Walls from './Walls';
 
@@ -23,7 +27,8 @@ export default class ARScene extends Component {
     // set initial state here
     this.state = {
       shoot: false,
-      score: 0
+      score: 0,
+      displacement: [0, -2],        // temporary value for dev
     };
 
     // custom constants
@@ -33,6 +38,7 @@ export default class ARScene extends Component {
 
     // method binds
     this._onInitialized = this._onInitialized.bind(this);
+    this._updateLocation = this._updateLocation.bind(this);
     this.boxShoot = this.boxShoot.bind(this);
     this.boxCollide = this.boxCollide.bind(this);
     this.getForce = this.getForce.bind(this);
@@ -101,7 +107,7 @@ export default class ARScene extends Component {
           color="#ffffff"
           castsShadow={true}
         />
-        <Targets boxCollide={this.boxCollide} />
+        <Targets boxCollide={this.boxCollide} location={this.state.displacement} />
         <Walls />
       </ViroARScene>
     );
@@ -111,12 +117,37 @@ export default class ARScene extends Component {
   // https://docs.viromedia.com/docs/viroarscene
   _onInitialized(state, reason) {
     if (state === ViroConstants.TRACKING_NORMAL) {
-      this.setState({
-        ready: true
-      });
+      // get user location
+      this._updateLocation();
+      // calculate displacement
+      // spawn a target
     } else if (state === ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
     }
+  }
+
+  // NOT SURE IF ASYNC IS NECESSARY
+  async _updateLocation() {
+    console.log('NOW INSIDE _UPDATELOCATION!');
+    Geolocation.getCurrentPosition(
+      position => {
+        const currentLatitude = position.coords.latitude;
+        const currentLongitude = position.coords.longitude;
+        const {targetLatitude, targetLongitude} = this.props.location;
+        const displacement = [
+          targetLatitude - currentLatitude,
+          targetLongitude - currentLongitude,
+        ];
+        this.setState({displacement});
+        console.log('POSITION:', position);
+      },
+      error => { console.log('ERR0R:', error.message) },
+      {
+        enableHighAccuracy: true,
+        timeout: 25000,
+        maximumAge: 3600000
+      }
+    );
   }
 }
 
@@ -149,4 +180,11 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = ARScene;
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    location: state.location,
+  };
+};
+
+module.exports = connect(mapStateToProps, null)(ARScene);

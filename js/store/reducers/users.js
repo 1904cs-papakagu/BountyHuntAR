@@ -1,13 +1,18 @@
 import axios from 'axios'
 import { classBody } from '@babel/types';
 
+// DEFAULT STATE
+
 const initState = {
   username: null
 };
 
+// ACTION TYPES
+
 const SET_USER_ON_STATE = 'SET_USER_ON_STATE';
 const HANDLE_ERROR = 'HANDLE_ERROR'
 
+// ACTION CREATORS
 
 const setUserOnState = user => {
   return {
@@ -22,6 +27,8 @@ const handleError = error => {
     error
   }
 }
+
+// THUNKS
 
 export const loginThunk = (email, password) => {
   return async dispatch => {
@@ -39,6 +46,8 @@ export const loginThunk = (email, password) => {
     }
   }
 }
+
+// REDUCER
 
 export function user(state = initState, action) {
   switch (action.type){

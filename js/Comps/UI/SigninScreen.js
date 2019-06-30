@@ -19,6 +19,9 @@ export default class SigninScreen extends Component {
     this.state = {
       email: '',
       password: '',
+      // THE PROPERTIES BELOW ARE ONLY FOR TESTING PURPOSES - DELETE LATER
+      lat: null,
+      long: null,
       asdf: 'asdf'
     };
     this._updateLocation = this._updateLocation.bind(this);
@@ -29,11 +32,10 @@ export default class SigninScreen extends Component {
     this._updateLocation();
   }
 
+  // THIS BLOCK IS ONLY HERE FOR TESTING PURPOSES - DELETE LATER
+  // NOT SURE IF ASYNC IS NECESSARY
   async _updateLocation() {
     console.log('NOW INSIDE _UPDATELOCATION!');
-
-
-
     Geolocation.getCurrentPosition(
       position => {
         let currentLatitude = position.coords.latitude;

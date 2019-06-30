@@ -3,8 +3,10 @@ import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
 import { Provider, connect } from 'react-redux';
-import store, {loginThunk} from './js/store';
+import store, { loginThunk, getActiveLocationThunk } from './js/store';
 import { ViroARSceneNavigator } from 'react-viro';
+
+import Geolocation from 'react-native-geolocation-service';
 
 // TESTING INSTRUCTIONS
 // const instructions = Platform.select({
@@ -47,13 +49,73 @@ class DcApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playing: false
+      playing: false,
+      // playing: true,     // FOR DEV PURPOSES - SKIPS LOGIN SCREEN
+      location: {
+        lat: null,
+        long: null,
+      },
     };
+    // method binds
     this.startGame = this.startGame.bind(this);
+    this._updateLocation = this._updateLocation.bind(this);
   }
-  // componentDidMount() {
 
-  // }
+  async componentDidMount() {
+
+    // STEP 1: DETERMINE THE OS AND THEN UPDATE LOCATION
+
+    console.log('WHAT IS THE OS?');
+    switch(Platform.OS) {
+      case 'android':
+        console.log('ANDROID!');
+        // FOR NOW, WE ARE USING DUMMY DATA FOR ANDROID INSTEAD OF INVOKING THIS._UPDATELOCATION
+        await this.setState({
+          location: {
+            lat: 40.7050975,
+            long: -74.00901303,
+          }
+        });
+        break;
+      case 'ios':
+        console.log('IOS!');
+        await this._updateLocation();
+        break;
+      default:
+        break;
+    }
+    console.log('WHAT IS CURRENT LOCATION?');
+    console.log('LAT:', this.state.location.lat);
+    console.log('LONG:', this.state.location.long);
+
+    // STEP 2: DETERMINE IF NEAR ACTIVE LOCATION (aka KILL ZONE)
+
+    await this.props.getActiveLocation(this.state.location);
+
+  }
+
+  // NOT SURE IF ASYNC IS NECESSARY
+  async _updateLocation() {
+    console.log('NOW INSIDE _UPDATELOCATION!');
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log('POSITION:', position);
+        this.setState({
+          location: {
+            lat: position.coords.latitude,
+            long: position.coords.longitude,
+          }
+        });
+      },
+      error => { console.log('ERR0R:', error.message) },
+      {
+        enableHighAccuracy: true,
+        timeout: 25000,
+        maximumAge: 3600000
+      }
+    );
+  }
+
   render() {
     if (this.state.playing) {
       return <Game />;
@@ -61,7 +123,7 @@ class DcApp extends Component {
     return (
       <View style={styles.container}>
         {this.props.user.userName ? (
-          <WelcomeScreen start={this.startGame} user={this.props.user} />
+          <WelcomeScreen start={this.startGame} user={this.props.user} nearKillzone={this.props.nearKillzone} />
         ) : (
           <SigninScreen login={this.props.login} error={this.props.user.error} />
         )}
@@ -109,7 +171,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    nearKillzone: state.location.targetLatitude === null ? false : true,
   };
 };
 
@@ -117,7 +180,10 @@ const mapDispatchToProps = dispatch => {
   return {
     login(email, password) {
       dispatch(loginThunk(email, password));
-    }
+    },
+    getActiveLocation(location) {
+      dispatch(getActiveLocationThunk(location));
+    },
   };
 };
 
