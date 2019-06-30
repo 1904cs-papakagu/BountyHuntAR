@@ -35,7 +35,7 @@ const Game = () => (
     <ViroARSceneNavigator
       {...sharedProps}
       initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
-      worldAlignment="Gravity"
+      worldAlignment="GravityAndHeading"
       debug={true}
     />
     {/* crosshair is its own view, following a stylesheet */}

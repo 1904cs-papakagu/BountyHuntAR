@@ -91,15 +91,7 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.state.shoot ? this.boxShoot() : <></>}
-        <ViroARCamera>
-          <ViroText
-            text={`${this.state.score}`}
-            width={1}
-            height={1}
-            color="#ffaad0"
-            position={[.2, 1, -5]}
-          />
-        </ViroARCamera>
+        
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
