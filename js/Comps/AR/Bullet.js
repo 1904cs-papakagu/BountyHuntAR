@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+
 import { ViroBox } from 'react-viro';
-
-import { connect } from 'react-redux';
-
-import Geolocation from 'react-native-geolocation-service';
-import { setInActiveThunk } from '../../store/';
-import Targets from './Targets';
-import Walls from './Walls';
 
 export default class Bullet extends Component {
   constructor() {
