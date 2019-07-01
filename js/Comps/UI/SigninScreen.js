@@ -21,13 +21,8 @@ export default class SigninScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
-        <Text style={styles.welcomeText}>
-          {this.props.location ? this.props.location.targetLatitude : 'NO LAT'}
-        </Text>
-        <Text style={styles.welcomeText}>
-          {this.props.location
-            ? this.props.location.targetLongitude
-            : 'NO LONG'}
+        <Text style={styles.coordinates}>
+          {this.props.location ? this.props.location.targetLatitude : 'NO LAT'}, {this.props.location ? this.props.location.targetLongitude : 'NO LONG'}
         </Text>
         <TextInput
           onChangeText={text => this.setState({ email: text })}
@@ -74,6 +69,10 @@ const styles = StyleSheet.create({
     height: height,
     width: width,
     backgroundColor: '#000000'
+  },
+  coordinates: {
+    color: '#f54242',
+    textAlign: 'center'
   },
   welcomeText: {
     fontFamily: 'American Typewriter',
