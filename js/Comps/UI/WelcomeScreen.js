@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -24,9 +23,9 @@ export default props => (
       </Text>
 
       <Button
-        title={props.nearKillzone ? "Start" : "Not inside an active kill zone"}
+        title={props.nearKillzone ? 'Start' : 'Not inside an active kill zone'}
         onPress={props.nearKillzone ? props.start : () => {}}
-        color={props.nearKillzone ? "#008000" : "#ff0000"}
+        color={props.nearKillzone ? '#008000' : '#ff0000'}
       />
     </View>
 );
@@ -59,5 +58,5 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#ffffff',
     textAlign: 'center'
-  }
+  },
 });
