@@ -1,6 +1,11 @@
 import React from 'react';
 import { ViroBox, Viro3DObject } from 'react-viro';
 
+// DELETE AFTER:
+import {ViroText} from 'react-viro';
+import {StyleSheet, View} from 'react-native';
+// ---
+
 const targets = [
   {
     position: [-3, 0, -10],
@@ -60,11 +65,18 @@ const Targets = props => {
 
   // ACTUAL TARGETS
 
-  const [x, z] = props.location;
+  // const [x, z] = props.location;
+  const x = Number(props.location[0]);
+  const z = Number(props.location[1]);
+
+  // console.log('IS X NaN?', Number.isNaN(x));
+  // console.log('IS NaN NaN?', Number.isNaN(NaN));
+  console.log('WHAT IS X?', x);
+  console.log('WHAT IS Z?', z);
 
   return (
     <ViroBox
-      position={[Number(x), 0, Number(z)]}    // y (altitude) should always be 0
+      position={[x, 0, z]}    // y (altitude) should always be 0
       height={2.0}
       width={0.4}
       length={0.4}
@@ -78,4 +90,31 @@ const Targets = props => {
   );
 };
 
+// FOR DEBUGGING:
+
+// <ViroText text={x.toString() + z.toString()} height={1} width={4} position={[0, 0, -2]} style={styles.helloWorldTextStyle}/>
+// <ViroBox
+//   position={[x, 0, z]}    // y (altitude) should always be 0
+//   height={2.0}
+//   width={0.4}
+//   length={0.4}
+//   materials={['grid']}
+//   physicsBody={{
+//     type: 'Dynamic',
+//     mass: 1,
+//     useGravity: true,
+//   }}
+// />
+
 export default Targets;
+
+// DELETE AFTER:
+var styles = StyleSheet.create({
+  helloWorldTextStyle: {
+    fontFamily: 'Arial',
+    fontSize: 50,
+    color: '#ffffff',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+  },
+});

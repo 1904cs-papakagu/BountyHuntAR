@@ -118,25 +118,29 @@ export default class ARScene extends Component {
   _onInitialized(state, reason) {
     if (state === ViroConstants.TRACKING_NORMAL) {
       // get user location
+      console.log('STATE === ViroConstants.TRACKING_NORMAL');
       this._updateLocation();
       // calculate displacement
       // spawn a target
     } else if (state === ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
+      console.log('STATE === ViroConstants.TRACKING_NONE');
     }
   }
 
   // NOT SURE IF ASYNC IS NECESSARY
-  async _updateLocation() {
+  _updateLocation() {
     console.log('NOW INSIDE _UPDATELOCATION!');
     Geolocation.getCurrentPosition(
       position => {
         const currentLatitude = position.coords.latitude;
         const currentLongitude = position.coords.longitude;
-        const {targetLatitude, targetLongitude} = this.props.location;
+        const {targetLatitude, targetLongitude} = this.props.location;    // from mapStateToProps
+        console.log('TARGETLATITUDE:', targetLatitude);
+        console.log('TARGETLONGITUDE:', targetLongitude);
         const displacement = [
-          targetLatitude - currentLatitude,
-          targetLongitude - currentLongitude,
+          Number(Number(targetLatitude) - Number(currentLatitude)),
+          Number(Number(targetLongitude) - Number(currentLongitude)),
         ];
         this.setState({displacement});
         console.log('POSITION:', position);

@@ -57,15 +57,15 @@ export const getActiveLocationThunk = currentLocation => {
       // });
 
       for (let i = 0; i < data.length; i++) {
-        const location = data[i];
-        const [targetLatitude, targetLongitude] = location.GPS;
+        const killzone = data[i];
+        const [targetLatitude, targetLongitude] = killzone.GPS;
         const [userLatitude, userLongitude] = currentLocation;
         const distance = Math.sqrt((targetLatitude - userLatitude) ** 2 + (targetLongitude - userLongitude) ** 2);
-        if (distance <= location.radius) {
+        if (distance <= killzone.radius) {
           dispatch(setLocationOnState({
             targetLatitude,
             targetLongitude,
-            radius: location.radius,
+            radius: killzone.radius,
           }));
           break;    // stop analyzing the remaining kill zones once a match has been found
         }
