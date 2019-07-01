@@ -65,18 +65,11 @@ const Targets = props => {
 
   // ACTUAL TARGETS
 
-  // const [x, z] = props.location;
-  const x = Number(props.location[0]);
-  const z = Number(props.location[1]);
-
-  console.log('IS X NaN?', Number.isNaN(x));
-  console.log('IS NaN NaN?', Number.isNaN(NaN));
-  console.log('WHAT IS X?', x);
-  console.log('WHAT IS Z?', z);
+  const [x, z] = props.displacement;
 
   return (
     <ViroBox
-      position={[x, 0, z]} // y (altitude) should always be 0
+      position={[x, 0, z]}    // y (altitude) should always be 0
       height={2.0}
       width={0.4}
       length={0.4}

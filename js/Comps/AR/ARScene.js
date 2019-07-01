@@ -108,10 +108,7 @@ export default class ARScene extends Component {
           color="#ffffff"
           castsShadow={true}
         />
-        <Targets
-          boxCollide={this.boxCollide}
-          location={this.state.displacement}
-        />
+        <Targets boxCollide={this.boxCollide} displacement={this.state.displacement} />
         <Walls />
       </ViroARScene>
     );
@@ -132,22 +129,27 @@ export default class ARScene extends Component {
     }
   }
 
-  // NOT SURE IF ASYNC IS NECESSARY
   _updateLocation() {
-    console.log('NOW INSIDE _UPDATELOCATION!');
+    console.log('NOW INSIDE ARSCENE.JS _UPDATELOCATION!');
     Geolocation.getCurrentPosition(
       position => {
         const currentLatitude = position.coords.latitude;
         const currentLongitude = position.coords.longitude;
-        const { targetLatitude, targetLongitude } = this.props.location; // from mapStateToProps
+        const {targetLatitude, targetLongitude} = this.props.location;
+
+        console.log('CURRENTLATITUDE:', currentLatitude);
+        console.log('CURRENTLONGITUDE:', currentLongitude);
         console.log('TARGETLATITUDE:', targetLatitude);
         console.log('TARGETLONGITUDE:', targetLongitude);
+
         const displacement = [
-          Number(Number(targetLatitude) - Number(currentLatitude)),
-          Number(Number(targetLongitude) - Number(currentLongitude))
+          (targetLatitude - currentLatitude) * 111111,
+          (targetLongitude - currentLongitude) * 111111 * Math.cos(Math.PI * targetLatitude / 180),
         ];
-        console.log('DISPLACEMENT:', displacement);
-        this.setState({ displacement });
+
+        console.log('DISPLACEMENT IN METERS:', displacement);
+
+        this.setState({displacement});
         console.log('POSITION:', position);
       },
       error => {

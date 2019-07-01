@@ -20,16 +20,12 @@ export default class SigninScreen extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('COMPONENT DID MOUNT!');
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
-        <Text style={styles.welcomeText}>{this.props.location.lat ? this.props.location.lat : 'NO LAT'}</Text>
-        <Text style={styles.welcomeText}>{this.props.location.long ? this.props.location.long : 'NO LONG'}</Text>
+        <Text style={styles.welcomeText}>{this.props.location ? this.props.location.targetLatitude : 'NO LAT'}</Text>
+        <Text style={styles.welcomeText}>{this.props.location ? this.props.location.targetLongitude : 'NO LONG'}</Text>
         <TextInput
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email}
