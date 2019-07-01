@@ -60,11 +60,11 @@ const Targets = props => {
 
   // ACTUAL TARGETS
 
-  const [x, z] = props.location;
+  const [x, z] = props.displacement;
 
   return (
     <ViroBox
-      position={[Number(x), 0, Number(z)]}    // y (altitude) should always be 0
+      position={[x, 0, z]}    // y (altitude) should always be 0
       height={2.0}
       width={0.4}
       length={0.4}

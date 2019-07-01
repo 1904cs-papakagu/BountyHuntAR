@@ -8,18 +8,6 @@ import { ViroARSceneNavigator } from 'react-viro';
 
 import Geolocation from 'react-native-geolocation-service';
 
-// TESTING INSTRUCTIONS
-// const instructions = Platform.select({
-//   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-//   android:
-//     'Double tap R on your keyboard to reload,\n' +
-//     'Shake or press menu button for dev menu',
-// });
-
-// ADD FLOW TYPES TO REACT COMPONENTS? https://flow.org/en/docs/react/components/
-// type Props = {};
-// export default class App extends Component<Props> {
-
 const keyRing = [
   '5C6EF69F-7244-462B-B067-37CBC6FB6093',
   '53ECFECF-D5F2-43F0-A8CE-C2CA87613B4D',
@@ -50,70 +38,40 @@ class DcApp extends Component {
     super(props);
     this.state = {
       playing: false,
-      // playing: true,     // FOR DEV PURPOSES - SKIPS LOGIN SCREEN
-      location: {
-        lat: null,
-        long: null,
-      },
     };
     // method binds
     this.startGame = this.startGame.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
   }
 
-  async componentDidMount() {
-
-    // STEP 1: DETERMINE THE OS AND THEN UPDATE LOCATION
-
-    console.log('WHAT IS THE OS?');
-    switch(Platform.OS) {
-      case 'android':
-        console.log('ANDROID!');
-        // FOR NOW, WE ARE USING DUMMY DATA FOR ANDROID INSTEAD OF INVOKING THIS._UPDATELOCATION
-        await this.setState({
-          location: {
-            lat: 40.7050975,
-            long: -74.00901303,
-          }
-        });
-        break;
-      case 'ios':
-        console.log('IOS!');
-        await this._updateLocation();
-        break;
-      default:
-        break;
-    }
-    console.log('WHAT IS CURRENT LOCATION?');
-    console.log('LAT:', this.state.location.lat);
-    console.log('LONG:', this.state.location.long);
-
-    // STEP 2: DETERMINE IF NEAR ACTIVE LOCATION (aka KILL ZONE)
-
-    await this.props.getActiveLocation(this.state.location);
-
+  componentWillMount() {
+    console.log('APP.JS COMPONENT WILL MOUNT');
+    this._updateLocation();
   }
 
-  // NOT SURE IF ASYNC IS NECESSARY
-  async _updateLocation() {
-    console.log('NOW INSIDE _UPDATELOCATION!');
-    Geolocation.getCurrentPosition(
-      position => {
-        console.log('POSITION:', position);
-        this.setState({
-          location: {
-            lat: position.coords.latitude,
-            long: position.coords.longitude,
-          }
-        });
-      },
-      error => { console.log('ERR0R:', error.message) },
-      {
-        enableHighAccuracy: true,
-        timeout: 25000,
-        maximumAge: 3600000
-      }
-    );
+  _updateLocation() {
+    console.log('NOW INSIDE APP.JS _UPDATELOCATION!');
+
+    if (Platform.OS === 'android') {
+      // FOR NOW, WE ARE USING DUMMY DATA FOR ANDROID INSTEAD OF INVOKING THIS._UPDATELOCATION
+      this.props.getActiveLocation([40.7050975, -74.00901303])
+    } else {    // ios
+      Geolocation.getCurrentPosition(
+        position => {
+          console.log('POSITION:', position);
+          this.props.getActiveLocation([
+            position.coords.latitude,
+            position.coords.longitude
+          ]);
+        },
+        error => { console.log('ERR0R:', error.message) },
+        {
+          enableHighAccuracy: true,
+          timeout: 25000,
+          maximumAge: 3600000
+        }
+      );
+    }
   }
 
   render() {
@@ -125,7 +83,7 @@ class DcApp extends Component {
         {this.props.user.userName ? (
           <WelcomeScreen start={this.startGame} user={this.props.user} nearKillzone={this.props.nearKillzone} />
         ) : (
-          <SigninScreen login={this.props.login} error={this.props.user.error} />
+          <SigninScreen login={this.props.login} error={this.props.user.error} location={this.props.location} />
         )}
       </View>
     );
@@ -172,7 +130,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     user: state.user,
-    nearKillzone: state.location.targetLatitude === null ? false : true,
+    location: state.location,
+    nearKillzone: !!state.location.radius
   };
 };
 
