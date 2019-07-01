@@ -31,7 +31,7 @@ export default class ARScene extends Component {
     this.force = [0, 0, 0];
     this.pos = [0, 0, 0];
     this.rot = [0, 0, 0];
-
+    this.bullets = [];
     // method binds
     this._onInitialized = this._onInitialized.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
@@ -50,8 +50,9 @@ export default class ARScene extends Component {
     this.force = forward.map(c => 8000 * c);
     this.pos = position;
     this.rot = rotation;
+    this.bullets.push(this.boxShoot());
     this.setState({ shoot: true });
-    setTimeout(() => this.setState({ shoot: false }), 1500);
+    setTimeout(() => this.bullets.unshift(), 1500);
   }
 
   boxShoot() {
@@ -77,7 +78,7 @@ export default class ARScene extends Component {
         onCameraTransformUpdate={this.boxFollow}
         onClick={this.getForce}
       >
-        {this.state.shoot ? this.boxShoot() : <></>}
+        {this.bullets}
 
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
