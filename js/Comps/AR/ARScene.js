@@ -142,6 +142,7 @@ export default class ARScene extends Component {
           Number(Number(targetLatitude) - Number(currentLatitude)),
           Number(Number(targetLongitude) - Number(currentLongitude)),
         ];
+        console.log('DISPLACEMENT:', displacement);
         this.setState({displacement});
         console.log('POSITION:', position);
       },

@@ -69,8 +69,8 @@ const Targets = props => {
   const x = Number(props.location[0]);
   const z = Number(props.location[1]);
 
-  // console.log('IS X NaN?', Number.isNaN(x));
-  // console.log('IS NaN NaN?', Number.isNaN(NaN));
+  console.log('IS X NaN?', Number.isNaN(x));
+  console.log('IS NaN NaN?', Number.isNaN(NaN));
   console.log('WHAT IS X?', x);
   console.log('WHAT IS Z?', z);
 
