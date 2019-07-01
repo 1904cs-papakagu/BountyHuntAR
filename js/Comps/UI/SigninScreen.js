@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   Button,
   TextInput,
   Dimensions,
-  Image,
-  PermissionsAndroid,
 } from 'react-native';
 
 export default class SigninScreen extends Component {
@@ -16,7 +13,7 @@ export default class SigninScreen extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: ''
     };
   }
 
@@ -24,29 +21,20 @@ export default class SigninScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
-        <Text style={styles.welcomeText}>{this.props.location ? this.props.location.targetLatitude : 'NO LAT'}</Text>
-        <Text style={styles.welcomeText}>{this.props.location ? this.props.location.targetLongitude : 'NO LONG'}</Text>
+        <Text style={styles.welcomeText}>
+          {this.props.location ? this.props.location.targetLatitude : 'NO LAT'}
+        </Text>
+        <Text style={styles.welcomeText}>
+          {this.props.location
+            ? this.props.location.targetLongitude
+            : 'NO LONG'}
+        </Text>
         <TextInput
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email}
           placeholder="E-Mail"
           placeholderTextColor="#ffffff"
-          style={
-            this.props.error
-              ? {
-                  color: '#ffffff',
-                  borderColor: '#f54242',
-                  borderWidth: 1,
-                  width: Dimensions.get('window').width - 60,
-                  height: 60,
-
-                }
-              : {
-                  color: '#ffffff',
-                  width: Dimensions.get('window').width - 60,
-                  height: 60
-                }
-          }
+          style={this.props.error ? styles.errorField : styles.inputField}
         />
         <TextInput
           secureTextEntry={true}
@@ -55,28 +43,10 @@ export default class SigninScreen extends Component {
           placeholder="Password"
           placeholderTextColor="#ffffff"
           textContentType="password"
-          style={
-            this.props.error
-              ? {
-                  color: '#ffffff',
-                  borderColor: '#f54242',
-                  borderWidth: 1,
-                  width: Dimensions.get('window').width - 60,
-                  height: 60
-                }
-              : {
-                  color: '#ffffff',
-                  width: Dimensions.get('window').width - 60,
-                  height: 60
-                }
-          }
+          style={this.props.error ? styles.errorField : styles.inputField}
         />
         {this.props.error ? (
-          <Text
-            style={{
-              color: '#f54242'
-            }}
-          >
+          <Text style={styles.errorMessage}>
             Invalid E-Mail and/or Password
           </Text>
         ) : (
@@ -111,4 +81,21 @@ const styles = StyleSheet.create({
     color: '#f54242',
     textAlign: 'center'
   },
+  errorMessage: {
+    fontFamily: 'American Typewriter',
+    color: '#f54242',
+    textAlign: 'center'
+  },
+  errorField: {
+    color: '#ffffff',
+    borderColor: '#f54242',
+    borderWidth: 1,
+    width: width - 60,
+    height: 60
+  },
+  inputField: {
+    color: '#ffffff',
+    width: width - 60,
+    height: 60
+  }
 });
