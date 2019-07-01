@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -20,13 +19,18 @@ export default props => (
 
       <Text
         style={styles.userInfoText}>
-          AgentID: {props.user.userName}
+          Welcome {props.user.userName}
+      </Text>
+
+      <Text
+        style={styles.enterKillzone}>
+          Mission: {props.nearKillzone ? 'Enter the Killzone and eliminate the target!' : 'Get to the Killzone!'}
       </Text>
 
       <Button
-        title={props.nearKillzone ? "Start" : "Not inside an active kill zone"}
+        title={props.nearKillzone ? 'Start' : 'You are not inside an active kill zone'}
         onPress={props.nearKillzone ? props.start : () => {}}
-        color={props.nearKillzone ? "#008000" : "#ff0000"}
+        color={props.nearKillzone ? '#008000' : '#ff0000'}
       />
     </View>
 );
@@ -56,8 +60,15 @@ const styles = StyleSheet.create({
   },
   userInfoText: {
     fontFamily: 'American Typewriter',
-    fontSize: 17,
+    fontSize: 23,
     color: '#ffffff',
     textAlign: 'center'
+  },
+  enterKillzone: {
+    fontFamily: 'American Typewriter',
+    fontSize: 20,
+    color: '#f54242',
+    textAlign: 'center'
+
   }
 });
