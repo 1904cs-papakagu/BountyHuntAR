@@ -72,7 +72,7 @@ export const getActiveLocationThunk = currentLocation => {
   };
 };
 
-// REDUCER
+// REDUCER 
 
 export function location(state = initState, action) {
   switch (action.type) {
