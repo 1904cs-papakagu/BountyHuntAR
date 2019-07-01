@@ -37,26 +37,45 @@ const Targets = props => {
   //       // ref={`box${i}`}
   //     />
   //   );
-  // })
+  // });
 
   // 3D MODELS
-  return targets.map((target, i) => (
-    <Viro3DObject
-      key={i}
-      source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
-      position={target.position}
-      scale={[0.0075, 0.0075, 0.0075]}
-      type="OBJ"
-      dragType="FixedDistance"
-      physicsBody={{ 
-        type: 'Dynamic', 
-        mass: 1, 
+  // return targets.map((target, i) => (
+  //   <Viro3DObject
+  //     key={i}
+  //     source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
+  //     position={target.position}
+  //     scale={[0.0075, 0.0075, 0.0075]}
+  //     type="OBJ"
+  //     dragType="FixedDistance"
+  //     physicsBody={{
+  //       type: 'Dynamic',
+  //       mass: 1,
+  //       useGravity: true,
+  //     }}
+  //     scalePivot={[0,0,0]}
+  //     rotationPivot={[.2,1,.2]}
+  //   />
+  // ));
+
+  // ACTUAL TARGETS
+
+  const [x, z] = props.location;
+
+  return (
+    <ViroBox
+      position={[Number(x), 0, Number(z)]}    // y (altitude) should always be 0
+      height={2.0}
+      width={0.4}
+      length={0.4}
+      materials={['grid']}
+      physicsBody={{
+        type: 'Dynamic',
+        mass: 1,
         useGravity: true,
       }}
-      scalePivot={[0,0,0]}
-      rotationPivot={[.2,1,.2]}
     />
-  ));
+  );
 };
 
 export default Targets;

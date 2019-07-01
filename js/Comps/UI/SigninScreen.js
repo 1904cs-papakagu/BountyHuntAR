@@ -7,22 +7,57 @@ import {
   Button,
   TextInput,
   Dimensions,
-  Image
+  Image,
+  PermissionsAndroid,
 } from 'react-native';
+
+import Geolocation from 'react-native-geolocation-service';
 
 export default class SigninScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      // THE PROPERTIES BELOW ARE ONLY FOR TESTING PURPOSES - DELETE LATER
+      lat: null,
+      long: null,
+      asdf: 'asdf'
     };
+    this._updateLocation = this._updateLocation.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('COMPONENT DID MOUNT!');
+    this._updateLocation();
+  }
+
+  // THIS BLOCK IS ONLY HERE FOR TESTING PURPOSES - DELETE LATER
+  // NOT SURE IF ASYNC IS NECESSARY
+  async _updateLocation() {
+    console.log('NOW INSIDE _UPDATELOCATION!');
+    Geolocation.getCurrentPosition(
+      position => {
+        let currentLatitude = position.coords.latitude;
+        let currentLongitude = position.coords.longitude;
+        this.setState({ lat: currentLatitude, long: currentLongitude });
+        console.log('POSITION:', position);
+      },
+      error => { console.log('ERR0R:', error.message) },
+      {
+        enableHighAccuracy: true,
+        timeout: 25000,
+        maximumAge: 3600000
+      }
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
+        <Text style={styles.welcomeText}>{this.state.asdf ? this.state.lat : 'NO LAT'}</Text>
+        <Text style={styles.welcomeText}>{this.state.long ? this.state.long : 'NO LONG'}</Text>
         <TextInput
           onChangeText={text => this.setState({ email: text })}
           value={this.state.email}

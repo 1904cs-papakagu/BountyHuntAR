@@ -24,9 +24,9 @@ export default props => (
       </Text>
 
       <Button
-        title="Start"
-        onPress={props.start}
-        color="#ffffff"
+        title={props.nearKillzone ? "Start" : "Not inside an active kill zone"}
+        onPress={props.nearKillzone ? props.start : () => {}}
+        color={props.nearKillzone ? "#008000" : "#ff0000"}
       />
     </View>
 );

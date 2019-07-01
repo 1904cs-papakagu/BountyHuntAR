@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loggingMiddleware, thunkMiddleware } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { user, loginThunk } from './reducers/users'
+import { user, loginThunk } from './reducers/users';
+import { location, getActiveLocationThunk } from './reducers/locations';
 
 const reducer = combineReducers({
-  user
+  user,
+  location,
 })
 
 export default createStore(
@@ -13,5 +15,6 @@ export default createStore(
 )
 
 export {
-  loginThunk
+  loginThunk,
+  getActiveLocationThunk,
 }
