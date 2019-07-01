@@ -125,7 +125,7 @@ class DcApp extends Component {
         {this.props.user.userName ? (
           <WelcomeScreen start={this.startGame} user={this.props.user} nearKillzone={this.props.nearKillzone} />
         ) : (
-          <SigninScreen login={this.props.login} error={this.props.user.error} />
+          <SigninScreen login={this.props.login} error={this.props.user.error} location={this.state.location} />
         )}
       </View>
     );
