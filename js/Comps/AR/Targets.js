@@ -48,9 +48,9 @@ const Targets = props => {
   //     scale={[0.0075, 0.0075, 0.0075]}
   //     type="OBJ"
   //     dragType="FixedDistance"
-  //     physicsBody={{ 
-  //       type: 'Dynamic', 
-  //       mass: 1, 
+  //     physicsBody={{
+  //       type: 'Dynamic',
+  //       mass: 1,
   //       useGravity: true,
   //     }}
   //     scalePivot={[0,0,0]}
@@ -64,14 +64,14 @@ const Targets = props => {
 
   return (
     <ViroBox
-      position={[x, 0, z]}    // y (altitude) should always be 0
+      position={[Number(x), 0, Number(z)]}    // y (altitude) should always be 0
       height={2.0}
       width={0.4}
       length={0.4}
       materials={['grid']}
-      physicsBody={{ 
-        type: 'Dynamic', 
-        mass: 1, 
+      physicsBody={{
+        type: 'Dynamic',
+        mass: 1,
         useGravity: true,
       }}
     />

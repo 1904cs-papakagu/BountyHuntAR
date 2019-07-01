@@ -56,7 +56,7 @@ export default class SigninScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
-        <Text style={styles.welcomeText}>{this.state.asdf ? this.state.asdf : 'NO LAT'}</Text>
+        <Text style={styles.welcomeText}>{this.state.asdf ? this.state.lat : 'NO LAT'}</Text>
         <Text style={styles.welcomeText}>{this.state.long ? this.state.long : 'NO LONG'}</Text>
         <TextInput
           onChangeText={text => this.setState({ email: text })}
