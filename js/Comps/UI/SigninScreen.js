@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   Button,
   TextInput,
   Dimensions,
-  Image,
-  PermissionsAndroid
 } from 'react-native';
 
 export default class SigninScreen extends Component {
