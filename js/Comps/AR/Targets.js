@@ -3,22 +3,22 @@ import { ViroBox, Viro3DObject } from 'react-viro';
 
 const targets = [
   {
-    position: [-3, 0, -10],
+    position: [-3, 0, -10]
   },
   {
-    position: [10, 0, 8],
+    position: [10, 0, 8]
   },
   {
-    position: [0, 0, -2],
+    position: [0, 0, -2]
   },
   {
-    position: [-20, 0, -18],
+    position: [-20, 0, -18]
   },
   {
-    position: [3, 0, 18],
+    position: [3, 0, 18]
   },
   {
-    position: [-10, 0, -16],
+    position: [-10, 0, -16]
   }
 ];
 
@@ -64,7 +64,8 @@ const Targets = props => {
 
   return (
     <ViroBox
-      position={[Number(x), 0, Number(z)]}    // y (altitude) should always be 0
+      // position={[Number(x), 0, Number(z)]}    // y (altitude) should always be 0
+      position={[-2, 0, -2]}
       height={2.0}
       width={0.4}
       length={0.4}
@@ -72,7 +73,7 @@ const Targets = props => {
       physicsBody={{
         type: 'Dynamic',
         mass: 1,
-        useGravity: true,
+        useGravity: true
       }}
     />
   );

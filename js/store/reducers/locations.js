@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { classBody } from '@babel/types';
+import console = require('console');
 
 // DEFAULT STATE - tracks information re: your current kill zone, if any
 
 const initState = {
   targetLatitude: null,
   targetLongitude: null,
-  radius: null
+  radius: null,
+  id: null
 };
 
 // ACTION TYPES
@@ -31,6 +33,19 @@ const handleError = error => {
 };
 
 // THUNKS
+export const setInactiveThunk = locationID => {
+  return async dispatch => {
+    try {
+      await axios({
+        url: `http://bountyhuntar.herokuapp.com/api/locations/${locationID}`,
+        method: 'PUT'
+      });
+      dispatch(setLocationOnState(initState));
+    } catch (error) {
+      console.error(error)
+    }
+  };
+};
 
 export const getActiveLocationThunk = currentLocation => {
   return async dispatch => {
