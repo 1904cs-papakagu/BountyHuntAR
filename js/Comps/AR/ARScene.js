@@ -16,7 +16,7 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-
+import { setInActiveThunk } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 
@@ -28,7 +28,7 @@ export default class ARScene extends Component {
     this.state = {
       shoot: false,
       score: 0,
-      displacement: [0, -2],        // temporary value for dev
+      displacement: [0, -2] // temporary value for dev
     };
 
     // custom constants
@@ -82,6 +82,7 @@ export default class ARScene extends Component {
 
   boxCollide(tag) {
     if (tag === 'boxBullet') {
+      this.setInActive(this.props.location.id);
       const score = this.state.score + 1;
       this.setState({ score });
     }
@@ -97,7 +98,7 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.state.shoot ? this.boxShoot() : <></>}
-        
+
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
@@ -118,11 +119,13 @@ export default class ARScene extends Component {
   _onInitialized(state, reason) {
     if (state === ViroConstants.TRACKING_NORMAL) {
       // get user location
+      console.log('STATE === ViroConstants.TRACKING_NORMAL');
       this._updateLocation();
       // calculate displacement
       // spawn a target
     } else if (state === ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
+      console.log('STATE === ViroConstants.TRACKING_NONE');
     }
   }
 
@@ -149,7 +152,9 @@ export default class ARScene extends Component {
         this.setState({displacement});
         console.log('POSITION:', position);
       },
-      error => { console.log('ERR0R:', error.message) },
+      error => {
+        console.log('ERR0R:', error.message);
+      },
       {
         enableHighAccuracy: true,
         timeout: 25000,
@@ -187,12 +192,19 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-
+const mapDispatchToProps = dispatch => {
+  return {
+    setInActive: id => dispatch(setInActiveThunk(id))
+  };
+};
 const mapStateToProps = state => {
   return {
     user: state.user,
-    location: state.location,
+    location: state.location
   };
 };
 
-module.exports = connect(mapStateToProps, null)(ARScene);
+module.exports = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ARScene);

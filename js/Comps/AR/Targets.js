@@ -1,24 +1,29 @@
 import React from 'react';
 import { ViroBox, Viro3DObject } from 'react-viro';
 
+// DELETE AFTER:
+import { ViroText } from 'react-viro';
+import { StyleSheet, View } from 'react-native';
+// ---
+
 const targets = [
   {
-    position: [-3, 0, -10],
+    position: [-3, 0, -10]
   },
   {
-    position: [10, 0, 8],
+    position: [10, 0, 8]
   },
   {
-    position: [0, 0, -2],
+    position: [0, 0, -2]
   },
   {
-    position: [-20, 0, -18],
+    position: [-20, 0, -18]
   },
   {
-    position: [3, 0, 18],
+    position: [3, 0, 18]
   },
   {
-    position: [-10, 0, -16],
+    position: [-10, 0, -16]
   }
 ];
 
@@ -72,10 +77,37 @@ const Targets = props => {
       physicsBody={{
         type: 'Dynamic',
         mass: 1,
-        useGravity: true,
+        useGravity: true
       }}
     />
   );
 };
 
+// FOR DEBUGGING:
+
+// <ViroText text={x.toString() + z.toString()} height={1} width={4} position={[0, 0, -2]} style={styles.helloWorldTextStyle}/>
+// <ViroBox
+//   position={[x, 0, z]}    // y (altitude) should always be 0
+//   height={2.0}
+//   width={0.4}
+//   length={0.4}
+//   materials={['grid']}
+//   physicsBody={{
+//     type: 'Dynamic',
+//     mass: 1,
+//     useGravity: true,
+//   }}
+// />
+
 export default Targets;
+
+// DELETE AFTER:
+var styles = StyleSheet.create({
+  helloWorldTextStyle: {
+    fontFamily: 'Arial',
+    fontSize: 50,
+    color: '#ffffff',
+    textAlignVertical: 'center',
+    textAlign: 'center'
+  }
+});

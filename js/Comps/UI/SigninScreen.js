@@ -20,10 +20,6 @@ export default class SigninScreen extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('SIGNINSCREEN COMPONENT DID MOUNT!');
-  }
-
   render() {
     return (
       <View style={styles.container}>
