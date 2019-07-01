@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { classBody } from '@babel/types';
-import console = require('console');
 
 // DEFAULT STATE - tracks information re: your current kill zone, if any
 
