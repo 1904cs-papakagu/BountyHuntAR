@@ -31,7 +31,7 @@ const handleError = error => {
 };
 
 // THUNKS
-export const setInactiveThunk = locationID => {
+export const setInActiveThunk = locationID => {
   return async dispatch => {
     try {
       await axios({
@@ -40,7 +40,7 @@ export const setInactiveThunk = locationID => {
       });
       dispatch(setLocationOnState(initState));
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 };
@@ -72,7 +72,7 @@ export const getActiveLocationThunk = currentLocation => {
   };
 };
 
-// REDUCER 
+// REDUCER
 
 export function location(state = initState, action) {
   switch (action.type) {

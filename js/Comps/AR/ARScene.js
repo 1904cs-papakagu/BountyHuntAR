@@ -8,7 +8,6 @@ import {
   ViroBox,
   ViroMaterials,
   ViroAnimations,
-  ViroARCamera,
   ViroSpotLight,
   ViroAmbientLight
 } from 'react-viro';
@@ -19,19 +18,16 @@ import Geolocation from 'react-native-geolocation-service';
 import { setInActiveThunk } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
+import Bullet from './Bullet';
 
 export default class ARScene extends Component {
   constructor() {
     super();
-
-    // set initial state here
     this.state = {
       shoot: false,
       score: 0,
-      displacement: [0, -2] // temporary value for dev
+      displacement: [0, -2]
     };
-
-    // custom constants
     this.force = [0, 0, 0];
     this.pos = [0, 0, 0];
     this.rot = [0, 0, 0];
@@ -60,23 +56,7 @@ export default class ARScene extends Component {
 
   boxShoot() {
     return (
-      <ViroBox
-        position={this.pos}
-        rotation={this.rot}
-        height={0.5}
-        width={0.5}
-        length={0.8}
-        materials={['grid']}
-        physicsBody={{
-          type: 'Dynamic',
-          mass: 15,
-          force: { value: this.force },
-          friction: 1,
-          useGravity: true
-        }}
-        ref={'boxBullet'}
-        viroTag={'boxBullet'}
-      />
+      <Bullet position={this.pos} force={this.force} rotation={this.rot} />
     );
   }
 
@@ -108,52 +88,39 @@ export default class ARScene extends Component {
           color="#ffffff"
           castsShadow={true}
         />
-        <Targets boxCollide={this.boxCollide} displacement={this.state.displacement} />
+        <Targets
+          boxCollide={this.boxCollide}
+          displacement={this.state.displacement}
+        />
         <Walls />
       </ViroARScene>
     );
   }
 
-  // DOCUMENTATION HAS IT AS if (state == ...) BUT I CHANGED IT TO STRICTLY EQUALS
-  // https://docs.viromedia.com/docs/viroarscene
   _onInitialized(state, reason) {
     if (state === ViroConstants.TRACKING_NORMAL) {
-      // get user location
-      console.log('STATE === ViroConstants.TRACKING_NORMAL');
       this._updateLocation();
-      // calculate displacement
-      // spawn a target
     } else if (state === ViroConstants.TRACKING_NONE) {
       // Handle loss of tracking
-      console.log('STATE === ViroConstants.TRACKING_NONE');
     }
   }
 
   _updateLocation() {
-    console.log('NOW INSIDE ARSCENE.JS _UPDATELOCATION!');
     Geolocation.getCurrentPosition(
       position => {
         const currentLatitude = position.coords.latitude;
         const currentLongitude = position.coords.longitude;
-        const {targetLatitude, targetLongitude} = this.props.location;
-
-        console.log('CURRENTLATITUDE:', currentLatitude);
-        console.log('CURRENTLONGITUDE:', currentLongitude);
-        console.log('TARGETLATITUDE:', targetLatitude);
-        console.log('TARGETLONGITUDE:', targetLongitude);
-
+        const { targetLatitude, targetLongitude } = this.props.location;
         const displacement = [
           (targetLatitude - currentLatitude) * 111111,
-          (targetLongitude - currentLongitude) * 111111 * Math.cos(Math.PI * targetLatitude / 180),
+          (targetLongitude - currentLongitude) *
+            111111 *
+            Math.cos((Math.PI * targetLatitude) / 180)
         ];
-
-        console.log('DISPLACEMENT IN METERS:', displacement);
-
-        this.setState({displacement});
-        console.log('POSITION:', position);
+        this.setState({ displacement });
       },
       error => {
-        console.log('ERR0R:', error.message);
+        console.error(error);
       },
       {
         enableHighAccuracy: true,
