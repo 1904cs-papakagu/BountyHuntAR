@@ -30,7 +30,7 @@ const Targets = props => {
 
     <ViroBox
     key={0}
-      position={[x, 0, z]}
+      position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       height={2.0}
       width={0.4}
       length={0.4}
