@@ -39,7 +39,6 @@ export const setInactiveThunk = (userId, killzoneId , userScore) => {
         method: 'POST',
         data: {userId, killzoneId , userScore}
       });
-      dispatch(setLocationOnState(initState));
     } catch (error) {
       console.error(error);
     }
@@ -56,7 +55,7 @@ export const getActiveLocationThunk = currentLocation => {
       });
 
       if (data) {
-        const [targetLatitude, targetLongitude] = data.GPS;
+        const [targetLatitude, targetLongitude] = data.GPS
         dispatch(
           setLocationOnState({
             id: data.id,

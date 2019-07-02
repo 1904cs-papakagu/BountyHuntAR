@@ -21,7 +21,14 @@ export default props => (
         style={styles.userInfoText}>
           Welcome {props.user.userName}
       </Text>
-
+      <Text
+        style={styles.userInfoText}>
+          $$: {props.user.cash}
+      </Text>
+      <Text
+        style={styles.userInfoText}>
+          Score: {props.user.score}
+      </Text>
       <Text
         style={styles.enterKillzone}>
           Mission: {props.nearKillzone ? 'Enter the Killzone and eliminate the target!' : 'Get to the Killzone!'}

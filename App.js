@@ -16,7 +16,7 @@ var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
 
-const Game = () => (
+const Game = ()) => (
   <View style={{ flex: 1 }}>
     <ViroARSceneNavigator
       {...sharedProps}
@@ -38,6 +38,7 @@ class DcApp extends Component {
     };
 
     this.startGame = this.startGame.bind(this);
+
     this._updateLocation = this._updateLocation.bind(this);
   }
 
@@ -73,6 +74,7 @@ class DcApp extends Component {
       playing: true
     });
   }
+
 
   render() {
     if (this.state.playing) {
