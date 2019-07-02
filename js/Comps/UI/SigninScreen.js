@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View,
   Button,
   TextInput,
   Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 export default class SigninScreen extends Component {
@@ -19,7 +19,7 @@ export default class SigninScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
         <Text style={styles.coordinates}>
           {this.props.location ? this.props.location.targetLatitude : 'NO LAT'}, {this.props.location ? this.props.location.targetLongitude : 'NO LONG'}
@@ -55,7 +55,7 @@ export default class SigninScreen extends Component {
           title="Sign In"
           color="#ffffff"
         />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
