@@ -16,7 +16,7 @@ var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
 
-const Game = ()) => (
+const Game = () => (
   <View style={{ flex: 1 }}>
     <ViroARSceneNavigator
       {...sharedProps}
