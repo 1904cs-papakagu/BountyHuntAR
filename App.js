@@ -10,7 +10,7 @@ import store, { loginThunk, getActiveLocationThunk } from './js/store';
 import { ViroARSceneNavigator } from 'react-viro';
 import Geolocation from 'react-native-geolocation-service';
 
-import { keyRing } from './secrets.js'
+import { keyRing } from './secrets.js';
 
 var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
@@ -30,36 +30,25 @@ const Game = () => (
 );
 
 class DcApp extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      playing: false,
+      playing: true
     };
 
     this.startGame = this.startGame.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
   }
 
-
   componentWillMount() {
-
     this._updateLocation();
   }
 
-
   _updateLocation() {
-
     if (Platform.OS === 'android') {
-
-      this.props.getActiveLocation([
-         40.7050975,
-        -74.00901303
-      ])
-
+      this.props.getActiveLocation([40.7050975, -74.00901303]);
     } else {
-
       Geolocation.getCurrentPosition(
         position => {
           this.props.getActiveLocation([
@@ -67,7 +56,9 @@ class DcApp extends Component {
             position.coords.longitude
           ]);
         },
-        error => { console.log('ERR0R:', error.message) },
+        error => {
+          console.log('ERR0R:', error.message);
+        },
         {
           enableHighAccuracy: true,
           timeout: 25000,
@@ -90,15 +81,22 @@ class DcApp extends Component {
     return (
       <View style={styles.container}>
         {this.props.user.userName ? (
-          <WelcomeScreen start={this.startGame} user={this.props.user} nearKillzone={this.props.nearKillzone} />
+          <WelcomeScreen
+            start={this.startGame}
+            user={this.props.user}
+            nearKillzone={this.props.nearKillzone}
+          />
         ) : (
-          <SigninScreen login={this.props.login} error={this.props.user.error} location={this.props.location}/>
-          )}
+          <SigninScreen
+            login={this.props.login}
+            error={this.props.user.error}
+            location={this.props.location}
+          />
+        )}
       </View>
     );
   }
 }
-
 
 const mapStateToProps = state => {
   return {
@@ -115,7 +113,7 @@ const mapDispatchToProps = dispatch => {
     },
     getActiveLocation(location) {
       dispatch(getActiveLocationThunk(location));
-    },
+    }
   };
 };
 
@@ -124,13 +122,11 @@ const App = connect(
   mapDispatchToProps
 )(DcApp);
 
-
 export default () => (
   <Provider store={store}>
     <App />
   </Provider>
 );
-
 
 const styles = StyleSheet.create({
   container: {

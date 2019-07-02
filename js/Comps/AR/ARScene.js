@@ -24,11 +24,11 @@ export default class ARScene extends Component {
   constructor() {
     super();
     this.state = {
-      shoot: false,
+      shoot: true,
       score: 0,
       displacement: [0, -2]
     };
-    this.force = [0, 0, 0];
+    this.velocity = [0, 0, 0];
     this.pos = [0, 0, 0];
     this.rot = [0, 0, 0];
     this.bullets = [];
@@ -47,17 +47,25 @@ export default class ARScene extends Component {
       position,
       rotation
     } = await this.refs.scene.getCameraOrientationAsync();
-    this.force = forward.map(c => 8000 * c);
+    this.velocity = forward.map(vector => 15 * vector);
     this.pos = position;
     this.rot = rotation;
-    this.bullets.push(this.boxShoot());
-    this.setState({ shoot: true });
+    if (this.state.shoot) {
+      this.bullets.push(this.boxShoot());
+      this.setState({ shoot: false });
+    }
+
+    setTimeout(() => this.setState({ shoot: true }), 1500);
     setTimeout(() => this.bullets.unshift(), 1500);
   }
 
   boxShoot() {
     return (
-      <Bullet position={this.pos} force={this.force} rotation={this.rot} />
+      <Bullet
+        position={this.pos}
+        velocity={this.velocity}
+        rotation={this.rot}
+      />
     );
   }
 
