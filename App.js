@@ -16,7 +16,7 @@ var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
 
-const Game = props => (
+const Game = ()) => (
   <View style={{ flex: 1 }}>
     <ViroARSceneNavigator
       {...sharedProps}
@@ -78,7 +78,7 @@ class DcApp extends Component {
 
   render() {
     if (this.state.playing) {
-      return <Game endGame={this.endGame} />;
+      return <Game />;
     }
     return (
       <View style={styles.container}>
