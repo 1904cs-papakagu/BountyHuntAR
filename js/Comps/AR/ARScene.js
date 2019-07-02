@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-import { setInactiveThunk } from '../../store/';
+import { setInactiveThunk,endGame } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
@@ -75,6 +75,7 @@ export default class ARScene extends Component {
     if (tag === 'boxBullet') {
       const score = this.state.score + 3;
       this.props.setInactive(this.props.uid, this.props.lid, score);
+      this.props.endGame()
     }
   }
 
@@ -172,7 +173,12 @@ var styles = StyleSheet.create({
 });
 const mapDispatchToProps = dispatch => {
   return {
-    setInactive: (uid, lid, score) => dispatch(setInactiveThunk(uid, lid, score))
+    setInactive: (uid, lid, score) => {
+      dispatch(setInactiveThunk(uid, lid, score)) 
+    },
+    endGame(){
+      dispatch(endGame())
+    }
   };
 };
 const mapStateToProps = state => {

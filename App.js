@@ -5,7 +5,7 @@ import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
 
-import store, { loginThunk, getActiveLocationThunk } from './js/store';
+import store, { loginThunk, getActiveLocationThunk, startGame } from './js/store';
 
 import { ViroARSceneNavigator } from 'react-viro';
 import Geolocation from 'react-native-geolocation-service';
@@ -16,7 +16,7 @@ var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
 
-const Game = () => (
+const Game = (props) => (
   <View style={{ flex: 1 }}>
     <ViroARSceneNavigator
       {...sharedProps}
@@ -32,13 +32,6 @@ const Game = () => (
 class DcApp extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      playing: false
-    };
-
-    this.startGame = this.startGame.bind(this);
-
     this._updateLocation = this._updateLocation.bind(this);
   }
 
@@ -69,34 +62,29 @@ class DcApp extends Component {
     }
   }
 
-  startGame() {
-    this.setState({
-      playing: true
-    });
-  }
-
-
   render() {
-    if (this.state.playing) {
-      return <Game />;
+    if (this.props.playing) {
+      return <Game end={this.terminate} />;
+    } else {
+
+      return (
+        <View style={styles.container}>
+          {this.props.user.userName ? (
+            <WelcomeScreen
+              start={this.props.start}
+              user={this.props.user}
+              nearKillzone={this.props.nearKillzone}
+            />
+          ) : (
+              <SigninScreen
+                login={this.props.login}
+                error={this.props.user.error}
+                location={this.props.location}
+              />
+            )}
+        </View>
+      );
     }
-    return (
-      <View style={styles.container}>
-        {this.props.user.userName ? (
-          <WelcomeScreen
-            start={this.startGame}
-            user={this.props.user}
-            nearKillzone={this.props.nearKillzone}
-          />
-        ) : (
-          <SigninScreen
-            login={this.props.login}
-            error={this.props.user.error}
-            location={this.props.location}
-          />
-        )}
-      </View>
-    );
   }
 }
 
@@ -104,7 +92,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     nearKillzone: state.location.targetLatitude === null ? false : true,
-    location: state.location
+    location: state.location,
+    playing: state.game.playing
   };
 };
 
@@ -115,6 +104,9 @@ const mapDispatchToProps = dispatch => {
     },
     getActiveLocation(location) {
       dispatch(getActiveLocationThunk(location));
+    },
+    start() {
+      dispatch(startGame())
     }
   };
 };
