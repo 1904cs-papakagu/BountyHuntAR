@@ -18,4 +18,4 @@ export default createStore(
   composeWithDevTools(applyMiddleware(loggingMiddleware, thunkMiddleware))
 );
 
-export { loginThunk, getActiveLocationThunk };
+export { loginThunk, getActiveLocationThunk, setInactiveThunk };

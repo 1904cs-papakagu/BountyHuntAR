@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-import { setInActiveThunk } from '../../store/';
+import { setInactiveThunk } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
@@ -36,7 +36,7 @@ export default class ARScene extends Component {
     this._onInitialized = this._onInitialized.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
     this.boxShoot = this.boxShoot.bind(this);
-    this.boxCollide = this.boxCollide.bind(this);
+    this.hit = this.hit.bind(this);
     this.getForce = this.getForce.bind(this);
   }
 
@@ -61,9 +61,9 @@ export default class ARScene extends Component {
     );
   }
 
-  boxCollide(tag) {
+  hit(tag) {
     if (tag === 'boxBullet') {
-      this.setInActive(this.props.location.id);
+      this.props.setInactive(this.props.location.id);
       const score = this.state.score + 1;
       this.setState({ score });
     }
@@ -90,7 +90,7 @@ export default class ARScene extends Component {
           castsShadow={true}
         />
         <Targets
-          boxCollide={this.boxCollide}
+          hit={this.hit}
           displacement={this.state.displacement}
         />
         <Walls />
@@ -133,21 +133,14 @@ export default class ARScene extends Component {
 }
 
 ViroMaterials.createMaterials({
-  grid: {
-    diffuseTexture: require('./res/BG.png')
+  dummy: {
+    diffuseTexture: require('./res/dummy.png')
+  },
+  target: {
+    diffuseTexture: require('./res/target.png')
   }
 });
 
-ViroAnimations.registerAnimations({
-  spinBox: {
-    properties: {
-      rotateX: '+=90',
-      rotateY: '+=90',
-      rotateZ: '+=90'
-    },
-    duration: 500
-  }
-});
 
 // STYLESHEETS
 
@@ -162,7 +155,7 @@ var styles = StyleSheet.create({
 });
 const mapDispatchToProps = dispatch => {
   return {
-    setInActive: id => dispatch(setInActiveThunk(id))
+    setInactive: id => dispatch(setInactiveThunk(id))
   };
 };
 const mapStateToProps = state => {
