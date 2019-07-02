@@ -35,7 +35,7 @@ export const setInactiveThunk = (userId, killzoneID , userScore) => {
   return async dispatch => {
     try {
       await axios({
-        url: `http://bountyhuntar.herokuapp.com/api/locations`,
+        url: 'http://bountyhuntar.herokuapp.com/api/locations/active',
         method: 'POST',
         data: {userId, killzoneID , userScore}
       });
