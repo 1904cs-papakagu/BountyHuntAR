@@ -56,7 +56,7 @@ export const getActiveLocationThunk = currentLocation => {
       });
 
       if (data) {
-        const [targetLatitude, targetLongitude] = data.GPS;
+        const [targetLatitude, targetLongitude] = data.GPS
         dispatch(
           setLocationOnState({
             id: data.id,
