@@ -31,7 +31,7 @@ const handleError = error => {
 };
 
 // THUNKS
-export const setInActiveThunk = locationID => {
+export const setInactiveThunk = locationID => {
   return async dispatch => {
     try {
       await axios({
@@ -58,6 +58,7 @@ export const getActiveLocationThunk = currentLocation => {
         const [targetLatitude, targetLongitude] = data.GPS;
         dispatch(
           setLocationOnState({
+            id: data.id,
             targetLatitude,
             targetLongitude,
             radius: data.radius

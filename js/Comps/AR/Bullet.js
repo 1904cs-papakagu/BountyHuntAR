@@ -14,7 +14,7 @@ export default class Bullet extends Component {
         height={0.5}
         width={0.5}
         length={0.8}
-        materials={['grid']}
+        materials={['dummy']}
         physicsBody={{
           type: 'Dynamic',
           mass: 15,
