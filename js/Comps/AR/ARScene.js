@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-import { setInactiveThunk,endGame } from '../../store/';
+import { setInactiveThunk, endGame } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
@@ -49,7 +49,7 @@ export default class ARScene extends Component {
       position,
       rotation
     } = await this.refs.scene.getCameraOrientationAsync();
-    this.velocity = forward.map(vector => 15 * vector);
+    this.velocity = forward.map(vector => 35 * vector);
     this.pos = position;
     this.rot = rotation;
     if (this.state.shoot) {
@@ -75,7 +75,7 @@ export default class ARScene extends Component {
     if (tag === 'boxBullet') {
       const score = this.state.score + 3;
       this.props.setInactive(this.props.uid, this.props.lid, score);
-      this.props.endGame()
+      this.props.endGame();
     }
   }
 
@@ -159,7 +159,6 @@ ViroMaterials.createMaterials({
   }
 });
 
-
 // STYLESHEETS
 
 var styles = StyleSheet.create({
@@ -174,10 +173,10 @@ var styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => {
   return {
     setInactive: (uid, lid, score) => {
-      dispatch(setInactiveThunk(uid, lid, score)) 
+      dispatch(setInactiveThunk(uid, lid, score));
     },
-    endGame(){
-      dispatch(endGame())
+    endGame() {
+      dispatch(endGame());
     }
   };
 };
