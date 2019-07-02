@@ -40,7 +40,7 @@ const Targets = props => {
         mass: 1,
         useGravity: true
       }}
-      onCollision={props.hit}
+      onCollision={props.hitTarget}
       viroTag="target"
     />,
     ...positions.map((target, i) => (
@@ -56,6 +56,8 @@ const Targets = props => {
           mass: 1,
           useGravity: true
         }}
+        onCollision={props.hitCiv}
+
       />
     ))
   ])
