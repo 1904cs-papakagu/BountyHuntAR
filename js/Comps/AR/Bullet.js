@@ -18,8 +18,7 @@ export default class Bullet extends Component {
         physicsBody={{
           type: 'Dynamic',
           mass: 15,
-          force: { value: this.props.force },
-          friction: 1,
+          velocity: this.props.velocity,
           useGravity: true
         }}
         ref={'boxBullet'}
