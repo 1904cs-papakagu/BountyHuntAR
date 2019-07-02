@@ -76,9 +76,6 @@ export default class ARScene extends Component {
       const score = this.state.score + 3;
       this.props.setInactive(this.props.uid, this.props.lid, score);
       this.props.endGame()
-      this.props.sceneNavigator.viroAppProps.end()
-      this.props.sceneNavigator.pop()
-
     }
   }
 

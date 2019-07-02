@@ -6,7 +6,7 @@ const STOP_PLAYING = "STOP_PLAYING"
 
 export const startGame = () => {return{type: START_PLAYING}}
 
-export const endGame = () => {return{type: START_PLAYING}}
+export const endGame = () => {return{type: STOP_PLAYING}}
 
 export default function(state = initState, action){
     switch(action.type){

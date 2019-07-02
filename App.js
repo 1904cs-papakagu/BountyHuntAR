@@ -20,9 +20,6 @@ const Game = (props) => (
   <View style={{ flex: 1 }}>
     <ViroARSceneNavigator
       {...sharedProps}
-      viroAppProps={{
-        end: props.end
-      }}
       initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
       worldAlignment="GravityAndHeading"
       debug={true}
@@ -35,11 +32,7 @@ const Game = (props) => (
 class DcApp extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      terminated: false
-    }
     this._updateLocation = this._updateLocation.bind(this);
-    this.terminate = this.terminate.bind(this)
   }
 
   componentWillMount() {
@@ -67,12 +60,6 @@ class DcApp extends Component {
         }
       );
     }
-  }
-
-  terminate() {
-    this.setState({
-      terminated: true
-    })
   }
 
   render() {
