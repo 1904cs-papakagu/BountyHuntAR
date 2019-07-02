@@ -31,12 +31,13 @@ const handleError = error => {
 };
 
 // THUNKS
-export const setInactiveThunk = locationID => {
+export const setInactiveThunk = (userId, killzoneID , userScore) => {
   return async dispatch => {
     try {
       await axios({
-        url: `http://bountyhuntar.herokuapp.com/api/locations/${locationID}`,
-        method: 'PUT'
+        url: `http://bountyhuntar.herokuapp.com/api/locations`,
+        method: 'POST',
+        data: {userId, killzoneID , userScore}
       });
       dispatch(setLocationOnState(initState));
     } catch (error) {

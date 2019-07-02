@@ -36,7 +36,9 @@ export default class ARScene extends Component {
     this._onInitialized = this._onInitialized.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
     this.boxShoot = this.boxShoot.bind(this);
-    this.hit = this.hit.bind(this);
+    this.hitTarget = this.hitTarget.bind(this);
+    this.hitCiv = this.hitCiv.bind(this);
+
     this.getForce = this.getForce.bind(this);
   }
 
@@ -61,10 +63,16 @@ export default class ARScene extends Component {
     );
   }
 
-  hit(tag) {
+  hitTarget(tag) {
     if (tag === 'boxBullet') {
-      this.props.setInactive(this.props.location.id);
-      const score = this.state.score + 1;
+      const score = this.state.score + 3;
+      this.props.setInactive(this.props.uid, this.props.lid, score);
+    }
+  }
+
+  hitCiv(tag) {
+    if (tag === 'boxBullet') {
+      const score = this.state.score - 1;
       this.setState({ score });
     }
   }
@@ -90,7 +98,8 @@ export default class ARScene extends Component {
           castsShadow={true}
         />
         <Targets
-          hit={this.hit}
+          hitTarget={this.hitTarget}
+          hitCiv={this.hitCiv}
           displacement={this.state.displacement}
         />
         <Walls />
@@ -155,13 +164,15 @@ var styles = StyleSheet.create({
 });
 const mapDispatchToProps = dispatch => {
   return {
-    setInactive: id => dispatch(setInactiveThunk(id))
+    setInactive: (uid, lid, score) => dispatch(setInactiveThunk(uid, lid, score))
   };
 };
 const mapStateToProps = state => {
   return {
     user: state.user,
-    location: state.location
+    location: state.location,
+    uid: state.user.id,
+    lid: state.location.id
   };
 };
 
