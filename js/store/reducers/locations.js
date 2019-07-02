@@ -39,7 +39,6 @@ export const setInactiveThunk = (userId, killzoneId , userScore) => {
         method: 'POST',
         data: {userId, killzoneId , userScore}
       });
-      dispatch(setLocationOnState(initState));
     } catch (error) {
       console.error(error);
     }
