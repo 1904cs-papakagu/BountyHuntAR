@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllActiveLocationThunk } from '../../store/';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 class KillZone extends React.Component {
@@ -50,17 +50,19 @@ class KillZone extends React.Component {
   }
   render() {
     return (
-      <View>
-        {<Text>{this.state.currentCoordinates[0]}</Text>}
+      <View style={styles.container}>
+        {<Text style={styles.textStyle}>{this.state.currentCoordinates[0]}</Text>}
         {this.props.locations ? (
           this.props.locations.map(location => (
-            <Text key={location.id}>
+            <Text
+            style={styles.textStyle}
+            key={location.id}>
               Distance:{' '}
               {Math.floor(this.calculateDisplacement(...location.GPS))}m away
             </Text>
           ))
         ) : (
-          <Text>{String(this.props.locations)}</Text>
+          <Text style={styles.textStyle}>{String(this.props.locations)}</Text>
         )}
       </View>
     );
@@ -82,3 +84,15 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(KillZone);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black'
+  },
+  textStyle: {
+    color: 'white'
+  }
+})
