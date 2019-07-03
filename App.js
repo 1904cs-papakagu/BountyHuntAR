@@ -12,6 +12,8 @@ import Geolocation from 'react-native-geolocation-service';
 
 import { keyRing } from './secrets.js';
 
+import socket, { joinRoom } from './socket';
+
 var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
@@ -74,6 +76,7 @@ class DcApp extends Component {
               start={this.props.start}
               user={this.props.user}
               nearKillzone={this.props.nearKillzone}
+              locationId={this.props.location.id}
             />
           ) : (
               <SigninScreen
@@ -105,7 +108,8 @@ const mapDispatchToProps = dispatch => {
     getActiveLocation(location) {
       dispatch(getActiveLocationThunk(location));
     },
-    start() {
+    start(lid) {
+      joinRoom(lid)
       dispatch(startGame())
     }
   };
