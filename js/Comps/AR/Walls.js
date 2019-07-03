@@ -11,7 +11,7 @@ const walls = [
       type: 'Static',
       friction: 1,
     },
-    opacity: 0.1,
+    opacity: 0.0,
   },
   {
     position: [100, 45, 0],
@@ -22,7 +22,7 @@ const walls = [
       type: 'Static',
       friction: 1,
     },
-    opacity: 0.1,
+    opacity: 0.0,
   },
   {
     position: [-100, 45, 0],
@@ -33,7 +33,7 @@ const walls = [
       type: 'Static',
       friction: 1,
     },
-    opacity: 0.1,
+    opacity: 0.0,
   },
   {
     position: [0, 45, 100],
@@ -44,7 +44,7 @@ const walls = [
       type: 'Static',
       friction: 1,
     },
-    opacity: 0.1,
+    opacity: 0.0,
   },
   {
     position: [0, 45, -100],
@@ -55,7 +55,7 @@ const walls = [
       type: 'Static',
       friction: 1,
     },
-    opacity: 0.1,
+    opacity: 0.0,
   },
 ];
 

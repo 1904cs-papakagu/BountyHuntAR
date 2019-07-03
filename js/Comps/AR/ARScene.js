@@ -26,7 +26,7 @@ export default class ARScene extends Component {
     this.state = {
       shoot: true,
       score: 0,
-      displacement: [0, -2]
+      displacement: [0, -7]
     };
     this.velocity = [0, 0, 0];
     this.pos = [0, 0, 0];
