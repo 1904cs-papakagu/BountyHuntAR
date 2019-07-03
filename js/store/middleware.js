@@ -25,7 +25,7 @@ const socketMiddleware = ({dispatch}) => {
     dispatch(endGame());
   });
   return next => action => {
-    next(action);
+    return next(action);
   }
 }
 
