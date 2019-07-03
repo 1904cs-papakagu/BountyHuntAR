@@ -7,40 +7,61 @@ import {
   Dimensions,
   Image
 } from 'react-native';
+import KillZone from './KillZone';
 
-export default props => (
-    <View style={styles.container}>
-      <Text style={styles.bountyhuntar}>Welcome to BountyHuntAR</Text>
+export default class WelcomePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      renderKillZone: false
+    };
+    this.onChange = this.onChange.bind(this);
+  }
 
-      <Image
-        source={require('../../Images/cody.png')}
-        style={styles.profileImg}
-      />
+  onChange(bool) {
+    this.setState({ renderKillZone: bool });
+  }
 
-      <Text
-        style={styles.userInfoText}>
-          Welcome {props.user.userName}
-      </Text>
-      <Text
-        style={styles.userInfoText}>
-          $$: {props.user.cash}
-      </Text>
-      <Text
-        style={styles.userInfoText}>
-          Score: {props.user.score}
-      </Text>
-      <Text
-        style={styles.enterKillzone}>
-          Mission: {props.nearKillzone ? 'Enter the Killzone and eliminate the target!' : 'Get to the Killzone!'}
-      </Text>
+  render() {
+    return !this.state.renderKillZone ? (
+      <View style={styles.container}>
+        <Text style={styles.bountyhuntar}>Welcome to BountyHuntAR</Text>
+        <Image
+          source={require('../../Images/cody.png')}
+          style={styles.profileImg}
+        />
+        <Text style={styles.userInfoText}>
+          Welcome {this.props.user.userName}
+        </Text>
+        <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
+        <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
+        <Text style={styles.enterKillzone}>
+          Mission:{' '}
+          {this.props.nearKillzone
+            ? 'Enter the Killzone and eliminate the target!'
+            : 'Get to the Killzone!'}
+        </Text>
 
-      <Button
-        title={props.nearKillzone ? 'Start' : 'You are not inside an active kill zone'}
-        onPress={props.nearKillzone ? () => props.start(props.locationId) : () => {}}
-        color={props.nearKillzone ? '#008000' : '#ff0000'}
-      />
-    </View>
-);
+        <Button
+          title={
+            this.props.nearKillzone
+              ? 'Start'
+              : 'You are not inside an active kill zone'
+          }
+          onPress={
+            this.props.nearKillzone
+              ? () => this.props.start(this.props.locationId)
+              : () => {}
+          }
+          color={this.props.nearKillzone ? '#008000' : '#ff0000'}
+        />
+        <Button title="KillZone Page" onPress={() => this.onChange(true)} />
+      </View>
+    ) : (
+      <KillZone onChange={this.onChange} />
+    );
+  }
+}
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -76,6 +97,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#f54242',
     textAlign: 'center'
-
   }
 });

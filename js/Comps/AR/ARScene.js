@@ -47,7 +47,7 @@ export default class ARScene extends Component {
       position,
       rotation
     } = await this.refs.scene.getCameraOrientationAsync();
-    this.velocity = forward.map(vector => 35 * vector);
+    this.velocity = forward.map(vector => 200 * vector);
     this.pos = position;
     this.rot = rotation;
     if (this.state.shoot) {

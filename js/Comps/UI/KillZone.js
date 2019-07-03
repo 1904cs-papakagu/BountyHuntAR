@@ -75,6 +75,20 @@ class KillZone extends React.Component {
           title="Update"
           color="#f54242"
         />
+
+        <Button
+          onPress={() => this.props.onChange(false)}
+          title="Profile"
+          color="#ffffff"
+        />
+
+        {/*
+      <Button
+        title={props.nearKillzone ? 'Start' : 'You are not inside an active kill zone'}
+        onPress={props.nearKillzone ? () => props.start(props.locationId) : () => {}}
+        color={props.nearKillzone ? '#008000' : '#ff0000'}
+      /> */}
+
       </View>
     );
   }
