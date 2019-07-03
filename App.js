@@ -4,7 +4,7 @@ import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
-import KillZone from './js/Comps/UI/KillZone';
+
 import store, {
   loginThunk,
   getActiveLocationThunk,
@@ -86,7 +86,6 @@ class DcApp extends Component {
               location={this.props.location}
             />
           )}
-          {/* <KillZone /> */}
         </View>
       );
     }

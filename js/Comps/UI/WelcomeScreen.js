@@ -13,17 +13,17 @@ export default class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      killzone: false
+      renderKillZone: false
     };
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(bool) {
-    this.setState({ killzone: bool });
+    this.setState({ renderKillZone: bool });
   }
 
   render() {
-    return !this.state.killzone ? (
+    return !this.state.renderKillZone ? (
       <View style={styles.container}>
         <Text style={styles.bountyhuntar}>Welcome to BountyHuntAR</Text>
         <Image
@@ -41,12 +41,20 @@ export default class WelcomePage extends React.Component {
             ? 'Enter the Killzone and eliminate the target!'
             : 'Get to the Killzone!'}
         </Text>
-        {/*
-      <Button
-        title={props.nearKillzone ? 'Start' : 'You are not inside an active kill zone'}
-        onPress={props.nearKillzone ? () => props.start(props.locationId) : () => {}}
-        color={props.nearKillzone ? '#008000' : '#ff0000'}
-      /> */}
+
+        <Button
+          title={
+            this.props.nearKillzone
+              ? 'Start'
+              : 'You are not inside an active kill zone'
+          }
+          onPress={
+            this.props.nearKillzone
+              ? () => this.props.start(this.props.locationId)
+              : () => {}
+          }
+          color={this.props.nearKillzone ? '#008000' : '#ff0000'}
+        />
         <Button title="KillZone Page" onPress={() => this.onChange(true)} />
       </View>
     ) : (
