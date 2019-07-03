@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllActiveLocationThunk } from '../../store/';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 class KillZone extends React.Component {
@@ -51,12 +51,17 @@ class KillZone extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {<Text style={styles.textStyle}>{this.state.currentCoordinates[0]}</Text>}
+        {<Text style={styles.activeKillzone}>ACTIVE KILLZONES</Text>}
+        {
+          <Text style={styles.currentCoords}>
+            Current Coordinates:
+            {this.state.currentCoordinates[0]},{' '}
+            {this.state.currentCoordinates[1]}
+          </Text>
+        }
         {this.props.locations ? (
           this.props.locations.map(location => (
-            <Text
-            style={styles.textStyle}
-            key={location.id}>
+            <Text style={styles.textStyle} key={location.id}>
               Distance:{' '}
               {Math.floor(this.calculateDisplacement(...location.GPS))}m away
             </Text>
@@ -64,6 +69,12 @@ class KillZone extends React.Component {
         ) : (
           <Text style={styles.textStyle}>{String(this.props.locations)}</Text>
         )}
+
+        <Button
+          onPress={this.getCurrentLocation}
+          title="Update"
+          color="#f54242"
+        />
       </View>
     );
   }
@@ -88,11 +99,23 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black'
+    justifyContent: 'center',
+    backgroundColor: '#000000'
+  },
+  activeKillzone: {
+    fontFamily: 'American Typewriter',
+    fontSize: 30,
+    color: '#f54242'
   },
   textStyle: {
-    color: 'white'
+    fontFamily: 'American Typewriter',
+    fontSize: 25,
+    color: '#ffffff'
+  },
+  currentCoords: {
+    fontFamily: 'American Typewriter',
+    fontSize: 12,
+    color: '#ffffff'
   }
-})
+});
