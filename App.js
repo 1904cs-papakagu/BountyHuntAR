@@ -4,8 +4,12 @@ import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
 
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
-
-import store, { loginThunk, getActiveLocationThunk, startGame } from './js/store';
+import KillZone from './js/Comps/UI/KillZone';
+import store, {
+  loginThunk,
+  getActiveLocationThunk,
+  startGame
+} from './js/store';
 
 import { ViroARSceneNavigator } from 'react-viro';
 import Geolocation from 'react-native-geolocation-service';
@@ -16,7 +20,7 @@ var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
 
-const Game = (props) => (
+const Game = props => (
   <View style={{ flex: 1 }}>
     <ViroARSceneNavigator
       {...sharedProps}
@@ -66,7 +70,6 @@ class DcApp extends Component {
     if (this.props.playing) {
       return <Game end={this.terminate} />;
     } else {
-
       return (
         <View style={styles.container}>
           {this.props.user.userName ? (
@@ -77,12 +80,13 @@ class DcApp extends Component {
               locationId={this.props.location.id}
             />
           ) : (
-              <SigninScreen
-                login={this.props.login}
-                error={this.props.user.error}
-                location={this.props.location}
-              />
-            )}
+            <SigninScreen
+              login={this.props.login}
+              error={this.props.user.error}
+              location={this.props.location}
+            />
+          )}
+          {/* <KillZone /> */}
         </View>
       );
     }
@@ -106,8 +110,8 @@ const mapDispatchToProps = dispatch => {
     getActiveLocation(location) {
       dispatch(getActiveLocationThunk(location));
     },
-    start(lid) {
-      dispatch(startGame())
+    start() {
+      dispatch(startGame());
     }
   };
 };

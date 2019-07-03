@@ -2,11 +2,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loggingMiddleware, thunkMiddleware, socketMiddleware } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { user, loginThunk } from './reducers/users';
-import game, {startGame, endGame} from './reducers/game'
+import game, { startGame, endGame } from './reducers/game';
 import {
   location,
   getActiveLocationThunk,
-  setInactiveThunk
+  setInactiveThunk,
+  getAllActiveLocationThunk
 } from './reducers/locations';
 
 import socket from './socket';
@@ -30,4 +31,11 @@ export default createStore(
   )
 );
 
-export { loginThunk, getActiveLocationThunk, setInactiveThunk, startGame, endGame };
+export {
+  loginThunk,
+  getActiveLocationThunk,
+  setInactiveThunk,
+  startGame,
+  endGame,
+  getAllActiveLocationThunk
+};
