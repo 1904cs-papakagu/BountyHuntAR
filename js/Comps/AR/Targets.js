@@ -29,7 +29,7 @@ const Targets = props => {
   return ([
 
     <ViroBox
-    key={0}
+      key={0}
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       height={2.0}
       width={0.4}
@@ -45,7 +45,7 @@ const Targets = props => {
     />,
     ...positions.map((target, i) => (
       <ViroBox
-      key={i+1}
+        key={i+1}
         position={target.position}
         height={2}
         width={.4}
@@ -57,7 +57,6 @@ const Targets = props => {
           useGravity: true
         }}
         onCollision={props.hitCiv}
-
       />
     ))
   ])

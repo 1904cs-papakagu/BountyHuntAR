@@ -41,7 +41,6 @@ export default class ARScene extends Component {
     this.getForce = this.getForce.bind(this);
   }
 
-  // NOTE: setState will cause a re-render!!!
   async getForce() {
     const {
       forward,
@@ -63,6 +62,7 @@ export default class ARScene extends Component {
   boxShoot() {
     return (
       <Bullet
+        key={this.bullets.length}
         position={this.pos}
         velocity={this.velocity}
         rotation={this.rot}
@@ -74,7 +74,7 @@ export default class ARScene extends Component {
     if (tag === 'boxBullet') {
       const score = this.state.score + 3;
       this.props.setInactive(this.props.uid, this.props.lid, score);
-      this.props.endGame();
+      setTimeout(() => this.props.endGame(), 1500);
     }
   }
 
@@ -188,7 +188,9 @@ const mapStateToProps = state => {
   };
 };
 
-module.exports = connect(
+const ConnectedARScene = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ARScene);
+
+module.exports = () => (<ConnectedARScene />);
