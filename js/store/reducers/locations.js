@@ -105,7 +105,7 @@ export function location(state = initState, action) {
     case SET_LOCATION_ON_STATE:
       return { ...state, ...action.location };
     case STOP_PLAYING:
-      return {...initState, state.locations};
+      return {...initState, locations: state.locations};
     case HANDLE_ERROR:
       return { error: action.error };
     case ACTIVE_LOCATIONS:
