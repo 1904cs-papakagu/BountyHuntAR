@@ -20,12 +20,6 @@ import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
 
-import socket, {killTarget} from '../../../socket';
-
-socket.on('kill', function () {
-  this.props.endGame();
-});
-
 export default class ARScene extends Component {
   constructor() {
     super();
@@ -81,7 +75,6 @@ export default class ARScene extends Component {
       const score = this.state.score + 3;
       this.props.setInactive(this.props.uid, this.props.lid, score);
       this.props.endGame();
-      killTarget();
     }
   }
 

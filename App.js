@@ -12,8 +12,6 @@ import Geolocation from 'react-native-geolocation-service';
 
 import { keyRing } from './secrets.js';
 
-import socket, { joinRoom } from './socket';
-
 var sharedProps = {
   apiKey: keyRing[Math.floor(Math.random() * 4)]
 };
@@ -109,7 +107,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(getActiveLocationThunk(location));
     },
     start(lid) {
-      joinRoom(lid)
       dispatch(startGame())
     }
   };

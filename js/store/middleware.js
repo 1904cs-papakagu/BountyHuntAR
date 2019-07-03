@@ -1,3 +1,5 @@
+import socket from './socket';
+import {endGame} from './reducers/game';
 
 const loggingMiddleware = ({dispatch, getState}) => {
   return next => action => {
@@ -17,4 +19,18 @@ const thunkMiddleware = ({dispatch, getState}) => {
   }
 }
 
-export {loggingMiddleware, thunkMiddleware}
+const socketMiddleware = ({dispatch}) => {
+  socket.on('targetKilled', () => {
+    console.log('SOCKET GOT TARGETKILLED');
+    dispatch(endGame());
+  });
+  return next => action => {
+    next(action);
+  }
+}
+
+export {
+  loggingMiddleware,
+  thunkMiddleware,
+  socketMiddleware,
+}
