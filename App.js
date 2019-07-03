@@ -72,7 +72,7 @@ class DcApp extends Component {
     } else {
       return (
         <View style={styles.container}>
-          {/* {this.props.user.userName ? (
+          {this.props.user.userName ? (
             <WelcomeScreen
               start={this.props.start}
               user={this.props.user}
@@ -84,8 +84,8 @@ class DcApp extends Component {
               error={this.props.user.error}
               location={this.props.location}
             />
-          )} */}
-          <KillZone />
+          )}
+          {/* <KillZone /> */}
         </View>
       );
     }
