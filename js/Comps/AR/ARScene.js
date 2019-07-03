@@ -74,7 +74,7 @@ export default class ARScene extends Component {
     if (tag === 'boxBullet') {
       const score = this.state.score + 3;
       this.props.setInactive(this.props.uid, this.props.lid, score);
-      setTimeout(() => this.props.endGame(), 1500);
+      setTimeout(this.props.endGame, 2000);
     }
   }
 

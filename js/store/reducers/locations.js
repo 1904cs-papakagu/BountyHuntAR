@@ -50,7 +50,6 @@ export const setInactiveThunk = (userId, killzoneId, userScore) => {
         data: { userId, killzoneId, userScore }
       });
       killTarget(killzoneId);
-      dispatch(setLocationOnState(initState));
     } catch (error) {
       console.error(error);
     }
