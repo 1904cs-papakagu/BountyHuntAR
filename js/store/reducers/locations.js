@@ -6,16 +6,22 @@ const initState = {
   targetLatitude: null,
   targetLongitude: null,
   radius: null,
-  id: null
+  id: null,
+  locations: []
 };
 
 // ACTION TYPES
 
 const SET_LOCATION_ON_STATE = 'SET_LOCATION_ON_STATE';
 const HANDLE_ERROR = 'HANDLE_ERROR';
-
+const ACTIVE_LOCATIONS = 'ACTIVE_LOCATIONS';
 // ACTION CREATORS
-
+const setActiveLocations = locations => {
+  return {
+    type: ACTIVE_LOCATIONS,
+    locations
+  };
+};
 const setLocationOnState = location => {
   return {
     type: SET_LOCATION_ON_STATE,
@@ -45,7 +51,19 @@ export const setInactiveThunk = (userId, killzoneId, userScore) => {
     }
   };
 };
-
+export const getAllActiveLocationThunk = () => {
+  return async dispatch => {
+    try {
+      const { data } = await axios({
+        url: 'http://bountyhuntar.herokuapp.com/api/locations/active',
+        method: 'GET'
+      });
+      dispatch(setActiveLocations(data));
+    } catch (error) {
+      dispatch(handleError(error));
+    }
+  };
+};
 export const getActiveLocationThunk = currentLocation => {
   return async dispatch => {
     try {
@@ -79,9 +97,11 @@ export const getActiveLocationThunk = currentLocation => {
 export function location(state = initState, action) {
   switch (action.type) {
     case SET_LOCATION_ON_STATE:
-      return action.location;
+      return { ...state, ...action.location };
     case HANDLE_ERROR:
       return { error: action.error };
+    case ACTIVE_LOCATIONS:
+      return { ...state, locations: action.locations };
     default:
       return state;
   }
