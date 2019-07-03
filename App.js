@@ -77,6 +77,7 @@ class DcApp extends Component {
               start={this.props.start}
               user={this.props.user}
               nearKillzone={this.props.nearKillzone}
+              locationId={this.props.location.id}
             />
           ) : (
             <SigninScreen

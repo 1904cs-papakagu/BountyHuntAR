@@ -36,7 +36,7 @@ export default props => (
 
       <Button
         title={props.nearKillzone ? 'Start' : 'You are not inside an active kill zone'}
-        onPress={props.nearKillzone ? props.start : () => {}}
+        onPress={props.nearKillzone ? () => props.start(props.locationId) : () => {}}
         color={props.nearKillzone ? '#008000' : '#ff0000'}
       />
     </View>

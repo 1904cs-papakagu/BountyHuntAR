@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { joinRoom, killTarget } from '../../store/socket';
+
 // DEFAULT STATE - tracks information re: your current kill zone, if any
 
 const initState = {
@@ -13,8 +15,10 @@ const initState = {
 // ACTION TYPES
 
 const SET_LOCATION_ON_STATE = 'SET_LOCATION_ON_STATE';
-const HANDLE_ERROR = 'HANDLE_ERROR';
+const STOP_PLAYING = "STOP_PLAYING"
 const ACTIVE_LOCATIONS = 'ACTIVE_LOCATIONS';
+const HANDLE_ERROR = 'HANDLE_ERROR';
+
 // ACTION CREATORS
 const setActiveLocations = locations => {
   return {
@@ -45,6 +49,7 @@ export const setInactiveThunk = (userId, killzoneId, userScore) => {
         method: 'POST',
         data: { userId, killzoneId, userScore }
       });
+      killTarget(killzoneId);
       dispatch(setLocationOnState(initState));
     } catch (error) {
       console.error(error);
@@ -75,6 +80,7 @@ export const getActiveLocationThunk = currentLocation => {
 
       if (data) {
         const [targetLatitude, targetLongitude] = data.GPS;
+        joinRoom(data.id);
         dispatch(
           setLocationOnState({
             id: data.id,
@@ -98,6 +104,8 @@ export function location(state = initState, action) {
   switch (action.type) {
     case SET_LOCATION_ON_STATE:
       return { ...state, ...action.location };
+    case STOP_PLAYING:
+      return {...initState, state.locations};
     case HANDLE_ERROR:
       return { error: action.error };
     case ACTIVE_LOCATIONS:

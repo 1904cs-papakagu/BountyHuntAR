@@ -9,7 +9,7 @@ const positions = [
     position: [10, 0, 8]
   },
   {
-    position: [0, 0, -2]
+    position: [5, 0, -2]
   },
   {
     position: [-20, 0, -18]
