@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllActiveLocationThunk, startGame } from '../../store/';
-import { View, Text, StyleSheet, Button, Platform } from 'react-native';
+import { View, Text, StyleSheet, Button, Platform, Dimensions } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 class KillZone extends React.Component {
@@ -120,6 +120,7 @@ export default connect(
   mapDispatchToProps
 )(KillZone);
 
+let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,

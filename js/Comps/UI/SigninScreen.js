@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
+  View,
+  Image,
   Button,
   TextInput,
   Dimensions,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from 'react-native';
 
 export default class SigninScreen extends Component {
@@ -20,41 +22,51 @@ export default class SigninScreen extends Component {
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <Text style={styles.welcomeText}>Bounty Hunt-AR</Text>
+        <Image
+          source={require('../../Images/bountyhuntarlogo.png')}
+          style={styles.logoImg}
+          resizeMethod="scale"
+        />
         <Text style={styles.coordinates}>
-          {this.props.location ? this.props.location.targetLatitude : 'NO LAT'}, {this.props.location ? this.props.location.targetLongitude : 'NO LONG'}
+          {this.props.location ? this.props.location.targetLatitude : 'NO LAT'},{' '}
+          {this.props.location
+            ? this.props.location.targetLongitude
+            : 'NO LONG'}
         </Text>
-        <TextInput
-          onChangeText={text => this.setState({ email: text })}
-          value={this.state.email}
-          placeholder="E-Mail"
-          placeholderTextColor="#ffffff"
-          style={this.props.error ? styles.errorField : styles.inputField}
-        />
-        <TextInput
-          secureTextEntry={true}
-          onChangeText={text => this.setState({ password: text })}
-          value={this.state.password}
-          placeholder="Password"
-          placeholderTextColor="#ffffff"
-          textContentType="password"
-          style={this.props.error ? styles.errorField : styles.inputField}
-        />
-        {this.props.error ? (
-          <Text style={styles.errorMessage}>
-            Invalid E-Mail and/or Password
-          </Text>
-        ) : (
-          <></>
-        )}
-        <Button
-          onPress={() => {
-            const { email, password } = this.state;
-            this.props.login(email, password);
-          }}
-          title="Sign In"
-          color="#ffffff"
-        />
+        <View style={styles.inputFieldContainer}>
+          <TextInput
+            onChangeText={text => this.setState({ email: text })}
+            value={this.state.email}
+            placeholder="E-Mail"
+            placeholderTextColor="#ffffff"
+            style={this.props.error ? styles.errorField : styles.inputField}
+          />
+          <TextInput
+            secureTextEntry={true}
+            onChangeText={text => this.setState({ password: text })}
+            value={this.state.password}
+            placeholder="Password"
+            placeholderTextColor="#ffffff"
+            textContentType="password"
+            style={this.props.error ? styles.errorField : styles.inputField}
+          />
+          <Button
+            onPress={() => {
+              const { email, password } = this.state;
+              this.props.login(email, password);
+            }}
+            title="Sign In"
+            color="#ffffff"
+            // style={styles.button}
+          />
+          {this.props.error ? (
+            <Text style={styles.errorMessage}>
+              Invalid E-Mail and/or Password
+            </Text>
+          ) : (
+            <></>
+          )}
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -63,16 +75,15 @@ export default class SigninScreen extends Component {
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     height: height,
     width: width,
     backgroundColor: '#000000'
   },
   coordinates: {
     color: '#f54242',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   welcomeText: {
     fontFamily: 'American Typewriter',
@@ -81,20 +92,38 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   errorMessage: {
+    flex: 1,
+    justifyContent: 'center',
     fontFamily: 'American Typewriter',
     color: '#f54242',
     textAlign: 'center'
   },
+  inputFieldContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
   errorField: {
+    textAlign: 'center',
     color: '#ffffff',
     borderColor: '#f54242',
     borderWidth: 1,
-    width: width - 60,
+    width: width,
     height: 60
   },
   inputField: {
+    textAlign: 'center',
     color: '#ffffff',
-    width: width - 60,
+    width: width,
     height: 60
+  },
+  logoImg: {
+    flex: 1,
+    width: width,
+    height: null,
+    resizeMode: 'contain'
   }
+  // button: {flex: 1,
+  //   justifyContent: 'flex-end',
+  //   marginBottom: 36  }
 });

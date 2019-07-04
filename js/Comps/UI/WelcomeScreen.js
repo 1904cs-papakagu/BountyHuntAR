@@ -25,11 +25,17 @@ export default class WelcomePage extends React.Component {
   render() {
     return !this.state.renderKillZone ? (
       <View style={styles.container}>
-        <Text style={styles.bountyhuntar}>Welcome to BountyHuntAR</Text>
+        <View style={styles.imageContainer}>
+          <Image
+          source={require('../../Images/profile.png')}
+          style={styles.logoImg}
+        />
         <Image
           source={require('../../Images/cody.png')}
           style={styles.profileImg}
         />
+        </View>
+
         <Text style={styles.userInfoText}>
           Welcome {this.props.user.userName}
         </Text>
@@ -73,12 +79,24 @@ const styles = StyleSheet.create({
     width: width,
     backgroundColor: '#000000'
   },
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    height: height / 2,
+    width: width,
+  },
   profileImg: {
     height: 250,
     width: 250,
     borderRadius: 250 / 2,
     borderWidth: 6,
     borderColor: '#f54242'
+  },
+  logoImg: {
+    // flex: 1,
+    width: width,
+    height: 100,
+    resizeMode: 'contain'
   },
   bountyhuntar: {
     fontFamily: 'American Typewriter',
