@@ -35,7 +35,7 @@ export default class WelcomePage extends React.Component {
         </Text>
         <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
-        <Text style={styles.enterKillzone}>
+        {/* <Text style={styles.enterKillzone}>
           Mission:{' '}
           {this.props.nearKillzone
             ? 'Enter the Killzone and eliminate the target!'
@@ -54,7 +54,7 @@ export default class WelcomePage extends React.Component {
               : () => {}
           }
           color={this.props.nearKillzone ? '#008000' : '#ff0000'}
-        />
+        /> */}
         <Button title="KillZone Page" onPress={() => this.onChange(true)} />
       </View>
     ) : (
