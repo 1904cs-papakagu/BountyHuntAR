@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAllActiveLocationThunk } from '../../store/';
+import { getAllActiveLocationThunk, startGame } from '../../store/';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
@@ -51,25 +51,33 @@ class KillZone extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {<Text style={styles.activeKillzone}>ACTIVE KILLZONES</Text>}
-        {
-          <Text style={styles.currentCoords}>
-            Current Coordinates:
-            {this.state.currentCoordinates[0]},{' '}
-            {this.state.currentCoordinates[1]}
-          </Text>
-        }
-        {this.props.locations ? (
-          this.props.locations.map(location => (
-            <Text style={styles.textStyle} key={location.id}>
-              Distance:{' '}
-              {Math.floor(this.calculateDisplacement(...location.GPS))}m away
-            </Text>
-          ))
-        ) : (
-          <Text style={styles.textStyle}>{String(this.props.locations)}</Text>
-        )}
+        <Text style={styles.activeKillzone}>ACTIVE KILLZONES</Text>
 
+        <Text style={styles.currentCoords}>
+          Current Coordinates:
+          {this.state.currentCoordinates[0]}, {this.state.currentCoordinates[1]}
+        </Text>
+
+        {this.props.locations.map(location => {
+          const distance = Math.floor(
+            this.calculateDisplacement(...location.GPS)
+          );
+          if (distance <= 15) {
+            return (
+              <Button
+                title="Accept Contract"
+                color="green"
+                onPress={() => this.props.start(location.id)}
+              />
+            );
+          } else {
+            return (
+              <Text style={styles.textStyle} key={location.id}>
+                Distance: {distance}m away
+              </Text>
+            );
+          }
+        })}
         <Button
           onPress={this.getCurrentLocation}
           title="Update"
@@ -81,27 +89,23 @@ class KillZone extends React.Component {
           title="Profile"
           color="#ffffff"
         />
-
-        {/*
-      <Button
-        title={props.nearKillzone ? 'Start' : 'You are not inside an active kill zone'}
-        onPress={props.nearKillzone ? () => props.start(props.locationId) : () => {}}
-        color={props.nearKillzone ? '#008000' : '#ff0000'}
-      /> */}
-
       </View>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-    locations: state.location.locations
+    locations: state.location.locations,
+    playing: state.game.playing
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     setActiveLocations() {
       dispatch(getAllActiveLocationThunk());
+    },
+    start() {
+      dispatch(startGame());
     }
   };
 };
