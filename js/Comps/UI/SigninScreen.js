@@ -75,7 +75,7 @@ export default class SigninScreen extends Component {
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     height: height,
     width: width,
