@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllActiveLocationThunk, startGame } from '../../store/';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Platform } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 class KillZone extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentCoordinates: [null, null]
+      currentCoordinates: [40.7050975, -74.00901303]
     };
     this.getCurrentLocation = this.getCurrentLocation.bind(this);
     this.calculateDisplacement = this.calculateDisplacement.bind(this);
@@ -19,24 +19,30 @@ class KillZone extends React.Component {
   }
 
   getCurrentLocation() {
-    Geolocation.getCurrentPosition(
-      position => {
-        const currentLatitude = position.coords.latitude;
-        const currentLongitude = position.coords.longitude;
-        this.setState({
-          currentCoordinates: [currentLatitude, currentLongitude]
-        });
-      },
+    if (Platform.OS === 'android') {
+      this.setState({
+        currentCoordinates: [40.7050975, -74.00901303]
+      });
+    } else {
+      Geolocation.getCurrentPosition(
+        position => {
+          const currentLatitude = position.coords.latitude;
+          const currentLongitude = position.coords.longitude;
+          this.setState({
+            currentCoordinates: [currentLatitude, currentLongitude]
+          });
+        },
 
-      error => {
-        console.error(error);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 25000,
-        maximumAge: 3600000
-      }
-    );
+        error => {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 25000,
+          maximumAge: 3600000
+        }
+      );
+    }
   }
   calculateDisplacement(targetLatitude, targetLongitude) {
     const displacement = [
