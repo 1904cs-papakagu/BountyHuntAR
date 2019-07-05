@@ -15,10 +15,10 @@ const initState = {
 // ACTION TYPES
 
 const SET_LOCATION_ON_STATE = 'SET_LOCATION_ON_STATE';
-const STOP_PLAYING = "STOP_PLAYING"
+const STOP_PLAYING = 'STOP_PLAYING';
 const ACTIVE_LOCATIONS = 'ACTIVE_LOCATIONS';
 const HANDLE_ERROR = 'HANDLE_ERROR';
-const START_PLAYING = "START_PLAYING"
+const START_PLAYING = 'START_PLAYING';
 // ACTION CREATORS
 const setActiveLocations = locations => {
   return {
@@ -68,49 +68,27 @@ export const getAllActiveLocationThunk = () => {
     }
   };
 };
-export const getActiveLocationThunk = currentLocation => {
-  return async dispatch => {
-    try {
-      const { data } = await axios({
-        url: 'http://bountyhuntar.herokuapp.com/api/locations/active',
-        method: 'PUT',
-        data: { userLocation: currentLocation }
-      });
-
-      if (data) {
-        const [targetLatitude, targetLongitude] = data.GPS;
-        joinRoom(data.id);
-        dispatch(
-          setLocationOnState({
-            id: data.id,
-            targetLatitude,
-            targetLongitude,
-            radius: data.radius
-          })
-        );
-      } else {
-        dispatch(setLocationOnState(initState));
-      }
-    } catch (error) {
-      dispatch(handleError(error));
-    }
-  };
-};
 
 // REDUCER
 
 export function location(state = initState, action) {
   switch (action.type) {
     case START_PLAYING:
-      const {id} = action
-      const data = state.locations.filter( loc => loc.id === id)[0]
+      const { id } = action;
+      const data = state.locations.filter(loc => loc.id === id)[0];
       const [targetLatitude, targetLongitude] = data.GPS;
       joinRoom(id);
-      return {...state, id: data.id, targetLatitude, targetLongitude, radius: data.radius}
+      return {
+        ...state,
+        id: data.id,
+        targetLatitude,
+        targetLongitude,
+        radius: data.radius
+      };
     case SET_LOCATION_ON_STATE:
       return { ...state, ...action.location };
     case STOP_PLAYING:
-      return {...initState, locations: state.locations};
+      return { ...initState, locations: state.locations };
     case HANDLE_ERROR:
       return { error: action.error };
     case ACTIVE_LOCATIONS:

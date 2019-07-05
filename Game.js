@@ -31,8 +31,7 @@ const Game = props => (
       worldAlignment="GravityAndHeading"
       debug={true}
     />
-    <Crosshair crosshair={Math.floor(Math.random() * numOfCrosshairs)} />
-
+    <Crosshair crosshair={props.crosshairId} />
   </View>
 );
 

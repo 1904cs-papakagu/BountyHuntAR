@@ -8,8 +8,9 @@ import {
   Image
 } from 'react-native';
 import KillZone from './KillZone';
-
-export default class WelcomePage extends React.Component {
+import { connect } from 'react-redux';
+import { setCrosshair } from '../../store';
+class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,13 +28,13 @@ export default class WelcomePage extends React.Component {
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
-          source={require('../../Images/profile.png')}
-          style={styles.logoImg}
-        />
-        <Image
-          source={require('../../Images/cody.png')}
-          style={styles.profileImg}
-        />
+            source={require('../../Images/profile.png')}
+            style={styles.logoImg}
+          />
+          <Image
+            source={require('../../Images/cody.png')}
+            style={styles.profileImg}
+          />
         </View>
 
         <Text style={styles.userInfoText}>
@@ -41,27 +42,21 @@ export default class WelcomePage extends React.Component {
         </Text>
         <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
-        {/* <Text style={styles.enterKillzone}>
-          Mission:{' '}
-          {this.props.nearKillzone
-            ? 'Enter the Killzone and eliminate the target!'
-            : 'Get to the Killzone!'}
-        </Text>
 
-        <Button
-          title={
-            this.props.nearKillzone
-              ? 'Start'
-              : 'You are not inside an active kill zone'
-          }
-          onPress={
-            this.props.nearKillzone
-              ? () => this.props.start(this.props.locationId)
-              : () => {}
-          }
-          color={this.props.nearKillzone ? '#008000' : '#ff0000'}
-        /> */}
         <Button title="KillZone Page" onPress={() => this.onChange(true)} />
+        <Text style={styles.userInfoText}>select crosshair</Text>
+        <Text
+          style={styles.userInfoText}
+          onPress={() => this.props.setCrosshair(1)}
+        >
+          crosshair 1
+        </Text>
+        <Text
+          style={styles.userInfoText}
+          onPress={() => this.props.setCrosshair(2)}
+        >
+          crosshair 2
+        </Text>
       </View>
     ) : (
       <KillZone onChange={this.onChange} />
@@ -83,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     height: height / 2,
-    width: width,
+    width: width
   },
   profileImg: {
     height: 250,
@@ -117,3 +112,14 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
+
+const mapDispatchToProp = dispatch => {
+  return {
+    setCrosshair: id => dispatch(setCrosshair(id))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProp
+)(WelcomePage);

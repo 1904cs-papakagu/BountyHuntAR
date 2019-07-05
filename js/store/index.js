@@ -1,7 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { loggingMiddleware, thunkMiddleware, socketMiddleware } from './middleware';
+import {
+  loggingMiddleware,
+  thunkMiddleware,
+  socketMiddleware
+} from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { user, loginThunk } from './reducers/users';
+import { user, loginThunk, setCrosshair } from './reducers/users';
 import game, { startGame, endGame, resetStatus } from './reducers/game';
 import {
   location,
@@ -23,11 +27,7 @@ const reducer = combineReducers({
 export default createStore(
   reducer,
   composeWithDevTools(
-    applyMiddleware(
-      loggingMiddleware,
-      thunkMiddleware,
-      socketMiddleware
-    )
+    applyMiddleware(loggingMiddleware, thunkMiddleware, socketMiddleware)
   )
 );
 
@@ -38,5 +38,6 @@ export {
   startGame,
   endGame,
   getAllActiveLocationThunk,
-  resetStatus
+  resetStatus,
+  setCrosshair
 };
