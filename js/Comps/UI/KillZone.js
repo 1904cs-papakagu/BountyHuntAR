@@ -65,10 +65,8 @@ class KillZone extends React.Component {
         </Text>
 
         {this.props.locations.map(location => {
-          const distance = Math.floor(
-            this.calculateDisplacement(...location.GPS)
-          );
-          if (distance <= 15) {
+          const distance = this.calculateDisplacement(...location.GPS)
+          if (distance < 15) {
             return (
               <Button
                 title="Accept Contract"
@@ -79,7 +77,7 @@ class KillZone extends React.Component {
           } else {
             return (
               <Text style={styles.textStyle} key={location.id}>
-                Distance: {distance}m away
+                Distance: {Math.floor(distance)}m away
               </Text>
             );
           }
@@ -110,8 +108,8 @@ const mapDispatchToProps = dispatch => {
     setActiveLocations() {
       dispatch(getAllActiveLocationThunk());
     },
-    start() {
-      dispatch(startGame());
+    start(id) {
+      dispatch(startGame(id));
     }
   };
 };
