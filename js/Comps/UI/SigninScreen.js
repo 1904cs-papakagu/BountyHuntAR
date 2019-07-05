@@ -117,7 +117,4 @@ const styles = StyleSheet.create({
     height: null,
     resizeMode: 'contain'
   }
-  // button: {flex: 1,
-  //   justifyContent: 'flex-end',
-  //   marginBottom: 36  }
 });
