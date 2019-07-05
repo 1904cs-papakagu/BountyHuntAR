@@ -27,12 +27,12 @@ export default class SigninScreen extends Component {
           style={styles.logoImg}
           resizeMethod="scale"
         />
-        <Text style={styles.coordinates}>
+        {/* <Text style={styles.coordinates}>
           {this.props.location ? this.props.location.targetLatitude : 'NO LAT'},{' '}
           {this.props.location
             ? this.props.location.targetLongitude
             : 'NO LONG'}
-        </Text>
+        </Text> */}
         <View style={styles.inputFieldContainer}>
           <TextInput
             onChangeText={text => this.setState({ email: text })}
