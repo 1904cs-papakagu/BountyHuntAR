@@ -5,7 +5,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   Platform,
   Dimensions,
@@ -13,7 +12,6 @@ import {
 } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
-import { Row } from 'native-base';
 class KillZone extends React.Component {
   constructor(props) {
     super(props);
@@ -83,8 +81,6 @@ class KillZone extends React.Component {
               return (
                 <TouchableOpacity
                   key={location.id}
-                  // title="Accept Contract"
-                  // color="green"
                   onPress={() => this.props.start(location.id)}
                 >
                   <Text style={styles.acceptButton}>Accept Contract</Text>
@@ -104,13 +100,7 @@ class KillZone extends React.Component {
           <TouchableOpacity onPress={this.getCurrentLocation}>
             <Text style={styles.updateButton}>Update</Text>
           </TouchableOpacity>
-          {/* <View
-            style={{
-              backgroundColor: "black",
-              flex: 2,
-              padding: "10"
-            }}
-          /> */}
+
           <TouchableOpacity onPress={() => this.props.onChange(false)}>
             <Text style={styles.profileButton}>Profile</Text>
           </TouchableOpacity>

@@ -41,28 +41,7 @@ export default class WelcomePage extends React.Component {
         </Text>
         <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
-        {/* <Text style={styles.enterKillzone}>
-          Mission:{' '}
-          {this.props.nearKillzone
-            ? 'Enter the Killzone and eliminate the target!'
-            : 'Get to the Killzone!'}
-        </Text>
-
-        <Button
-          title={
-            this.props.nearKillzone
-              ? 'Start'
-              : 'You are not inside an active kill zone'
-          }
-          onPress={
-            this.props.nearKillzone
-              ? () => this.props.start(this.props.locationId)
-              : () => {}
-          }
-          color={this.props.nearKillzone ? '#008000' : '#ff0000'}
-        /> */}
         <TouchableOpacity
-        // title="KillZone Page"
         onPress={() => this.onChange(true)} >
           <Text style={styles.killzoneButton}>Active Killzones</Text>
         </TouchableOpacity>
