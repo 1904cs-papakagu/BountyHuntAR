@@ -22,7 +22,7 @@ const thunkMiddleware = ({dispatch, getState}) => {
 const socketMiddleware = ({dispatch}) => {
   socket.on('targetKilled', () => {
     console.log('SOCKET GOT TARGETKILLED');
-    dispatch(endGame());
+    dispatch(endGame(false));
   });
   return next => action => {
     return next(action);

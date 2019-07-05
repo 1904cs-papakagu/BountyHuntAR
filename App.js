@@ -20,7 +20,8 @@ import SigninScreen from './js/Comps/UI/SigninScreen';
 import store, {
   loginThunk,
   getActiveLocationThunk,
-  startGame
+  startGame,
+  resetStatus
 } from './js/store';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -60,8 +61,12 @@ class DcApp extends Component {
   }
 
   render() {
-    if (this.props.playing) {
+    if (this.props.gameStatus) {
+      if(this.props.gameStatus === 'playing'){
       return <Game />;
+      }else{
+      return <EndScreen status={this.props.gameStatus} />
+      }
     } else {
       return (
         <View style={styles.container}>
@@ -90,7 +95,7 @@ const mapStateToProps = state => {
     user: state.user,
     nearKillzone: state.location.targetLatitude === null ? false : true,
     location: state.location,
-    playing: state.game.playing
+    gameStatus: state.game.status
   };
 };
 

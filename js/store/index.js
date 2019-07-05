@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { loggingMiddleware, thunkMiddleware, socketMiddleware } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { user, loginThunk } from './reducers/users';
-import game, { startGame, endGame } from './reducers/game';
+import game, { startGame, endGame, resetStatus } from './reducers/game';
 import {
   location,
   getActiveLocationThunk,
@@ -37,5 +37,6 @@ export {
   setInactiveThunk,
   startGame,
   endGame,
-  getAllActiveLocationThunk
+  getAllActiveLocationThunk,
+  resetStatus
 };
