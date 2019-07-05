@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: 250,
     borderRadius: 250 / 2,
     borderWidth: 6,
-    borderColor: '#f54242'
+    borderColor: 'white'
   },
   logoImg: {
     // flex: 1,

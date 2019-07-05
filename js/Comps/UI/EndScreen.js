@@ -10,7 +10,10 @@ const EndScreen = (props) => (
         <Text style={styles.banner}>
             {props.status === 'won' ?
                 "You Won!" :
-                "You Lost"}
+                ""}
+            {props.status === 'lost' ?
+                "You Lost!" :
+                ""}
         </Text>
 
 

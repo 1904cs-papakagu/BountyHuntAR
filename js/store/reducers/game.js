@@ -5,7 +5,7 @@ const START_PLAYING = "START_PLAYING"
 const STOP_PLAYING = "STOP_PLAYING"
 const RESET = "RESET"
 
-export const startGame = () => {return{type: START_PLAYING}}
+export const startGame = (id) => {return{type: START_PLAYING, id}}
 export const endGame = (won) => {return{type: STOP_PLAYING, won}}
 export const resetStatus = () => {return{type: RESET}}
 

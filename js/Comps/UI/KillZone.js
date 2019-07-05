@@ -1,7 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllActiveLocationThunk, startGame } from '../../store/';
-import { View, Text, StyleSheet, Button, Platform, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Platform,
+  Dimensions,
+  Image
+} from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 class KillZone extends React.Component {
@@ -57,7 +65,10 @@ class KillZone extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.activeKillzone}>ACTIVE KILLZONES</Text>
+        <Image
+          source={require('../../Images/killzone.png')}
+          style={styles.logoImg}
+        />
 
         <Text style={styles.currentCoords}>
           Current Coordinates:
@@ -65,10 +76,8 @@ class KillZone extends React.Component {
         </Text>
 
         {this.props.locations.map(location => {
-          const distance = Math.floor(
-            this.calculateDisplacement(...location.GPS)
-          );
-          if (distance <= 15) {
+          const distance = this.calculateDisplacement(...location.GPS)
+          if (distance < 15) {
             return (
               <Button
                 title="Accept Contract"
@@ -79,7 +88,7 @@ class KillZone extends React.Component {
           } else {
             return (
               <Text style={styles.textStyle} key={location.id}>
-                Distance: {distance}m away
+                Distance: {Math.floor(distance)}m away
               </Text>
             );
           }
@@ -110,8 +119,8 @@ const mapDispatchToProps = dispatch => {
     setActiveLocations() {
       dispatch(getAllActiveLocationThunk());
     },
-    start() {
-      dispatch(startGame());
+    start(id) {
+      dispatch(startGame(id));
     }
   };
 };
@@ -123,7 +132,8 @@ export default connect(
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
+    width: width,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#000000'
@@ -142,5 +152,10 @@ const styles = StyleSheet.create({
     fontFamily: 'American Typewriter',
     fontSize: 12,
     color: '#ffffff'
+  },
+  logoImg: {
+    width: width,
+    height: 100,
+    resizeMode: 'contain'
   }
 });
