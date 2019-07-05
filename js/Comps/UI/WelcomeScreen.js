@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Image
+  Image,
 } from 'react-native';
 import KillZone from './KillZone';
 import { connect } from 'react-redux';
@@ -43,7 +43,6 @@ class WelcomePage extends React.Component {
         <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
 
-        <Button title="KillZone Page" onPress={() => this.onChange(true)} />
         <Text style={styles.userInfoText}>select crosshair</Text>
         <Text
           style={styles.userInfoText}
