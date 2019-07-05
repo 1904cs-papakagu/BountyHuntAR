@@ -7,6 +7,6 @@ export function joinRoom (locationId) {
   socket.emit('join', `${locationId}`);
 };
 
-export function killTarget (locationId) {
-  socket.emit('killTarget', `${locationId}`);
+export function killTarget (locationId, uid) {
+  socket.emit('killTarget', `${locationId}`, `${uid}`);
 };

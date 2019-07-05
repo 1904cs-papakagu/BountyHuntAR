@@ -49,7 +49,7 @@ export const setInactiveThunk = (userId, killzoneId, userScore) => {
         method: 'POST',
         data: { userId, killzoneId, userScore }
       });
-      killTarget(killzoneId);
+      killTarget(killzoneId, userId);
     } catch (error) {
       console.error(error);
     }
@@ -105,6 +105,7 @@ export function location(state = initState, action) {
       const {id} = action
       const data = state.locations.filter( loc => loc.id === id)[0]
       const [targetLatitude, targetLongitude] = data.GPS;
+      joinRoom(id);
       return {...state, id: data.id, targetLatitude, targetLongitude, radius: data.radius}
     case SET_LOCATION_ON_STATE:
       return { ...state, ...action.location };
