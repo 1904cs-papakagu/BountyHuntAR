@@ -12,10 +12,7 @@ import {
 } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
-<<<<<<< HEAD
-=======
 
->>>>>>> a345485ddce9a1047ebcbc871736632e83b06013
 class KillZone extends React.Component {
   constructor(props) {
     super(props);
@@ -104,11 +101,6 @@ class KillZone extends React.Component {
           <TouchableOpacity onPress={this.getCurrentLocation}>
             <Text style={styles.updateButton}>Update</Text>
           </TouchableOpacity>
-<<<<<<< HEAD
-
-=======
-          
->>>>>>> a345485ddce9a1047ebcbc871736632e83b06013
           <TouchableOpacity onPress={() => this.props.onChange(false)}>
             <Text style={styles.profileButton}>Profile</Text>
           </TouchableOpacity>
