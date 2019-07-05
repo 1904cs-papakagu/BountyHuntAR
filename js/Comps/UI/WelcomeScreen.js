@@ -62,7 +62,6 @@ export default class WelcomePage extends React.Component {
           color={this.props.nearKillzone ? '#008000' : '#ff0000'}
         /> */}
         <TouchableOpacity
-        // title="KillZone Page"
         onPress={() => this.onChange(true)} >
           <Text style={styles.killzoneButton}>Active Killzones</Text>
         </TouchableOpacity>
