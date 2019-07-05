@@ -4,9 +4,9 @@ import {
   Text,
   View,
   Image,
-  Button,
   TextInput,
   Dimensions,
+  TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
 
@@ -44,15 +44,14 @@ export default class SigninScreen extends Component {
             textContentType="password"
             style={this.props.error ? styles.errorField : styles.inputField}
           />
-          <Button
+          <TouchableOpacity
             onPress={() => {
               const { email, password } = this.state;
               this.props.login(email, password);
             }}
-            title="Sign In"
-            color="#ffffff"
-            // style={styles.button}
-          />
+          >
+            <Text style={styles.button}>Sign In</Text>
+          </TouchableOpacity>
           {this.props.error ? (
             <Text style={styles.errorMessage}>
               Invalid E-Mail and/or Password
@@ -69,15 +68,20 @@ export default class SigninScreen extends Component {
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     alignItems: 'center',
     height: height,
     width: width,
     backgroundColor: '#000000'
   },
-  coordinates: {
-    color: '#f54242',
-    textAlign: 'center',
+  button: {
+    backgroundColor: 'black',
+    borderColor: 'red',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: 'white',
+    margin: 10,
+    padding: 12,
+    textAlign: 'center'
   },
   welcomeText: {
     fontFamily: 'American Typewriter',
@@ -114,7 +118,6 @@ const styles = StyleSheet.create({
   logoImg: {
     flex: 1,
     width: width,
-    height: null,
     resizeMode: 'contain'
   }
 });
