@@ -104,13 +104,7 @@ class KillZone extends React.Component {
           <TouchableOpacity onPress={this.getCurrentLocation}>
             <Text style={styles.updateButton}>Update</Text>
           </TouchableOpacity>
-          {/* <View
-            style={{
-              backgroundColor: "black",
-              flex: 2,
-              padding: "10"
-            }}
-          /> */}
+          
           <TouchableOpacity onPress={() => this.props.onChange(false)}>
             <Text style={styles.profileButton}>Profile</Text>
           </TouchableOpacity>
