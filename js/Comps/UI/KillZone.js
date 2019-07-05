@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
+import { Row } from 'native-base';
 class KillZone extends React.Component {
   constructor(props) {
     super(props);
@@ -66,48 +67,54 @@ class KillZone extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
-          source={require('../../Images/killzone.png')}
-          style={styles.logoImg}
-        />
+        <View style={styles.locationContainer}>
+          <Image
+            source={require('../../Images/killzone.png')}
+            style={styles.logoImg}
+          />
+          <Text style={styles.currentCoords}>
+            Current Coordinates:{' '}
+            {this.state.currentCoordinates[0]},{' '}
+            {this.state.currentCoordinates[1]}
+          </Text>
+          {this.props.locations.map(location => {
+            const distance = this.calculateDisplacement(...location.GPS);
+            if (distance < 15) {
+              return (
+                <TouchableOpacity
+                  key={location.id}
+                  // title="Accept Contract"
+                  // color="green"
+                  onPress={() => this.props.start(location.id)}
+                >
+                  <Text style={styles.acceptButton}>Accept Contract</Text>
+                </TouchableOpacity>
+              );
+            } else {
+              return (
+                <Text style={styles.textStyle} key={location.id}>
+                  Distance: {Math.floor(distance)}m away
+                </Text>
+              );
+            }
+          })}
+        </View>
 
-        <Text style={styles.currentCoords}>
-          Current Coordinates:
-          {this.state.currentCoordinates[0]}, {this.state.currentCoordinates[1]}
-        </Text>
-
-        {this.props.locations.map(location => {
-          const distance = this.calculateDisplacement(...location.GPS)
-          if (distance < 15) {
-            return (
-              <TouchableOpacity
-                key={location.id}
-                // title="Accept Contract"
-                // color="green"
-                onPress={() => this.props.start(location.id)}
-              >
-                <Text style={styles.acceptButton}>Accept Contract</Text>
-              </TouchableOpacity>
-            );
-          } else {
-            return (
-              <Text style={styles.textStyle} key={location.id}>
-                Distance: {Math.floor(distance)}m away
-              </Text>
-            );
-          }
-        })}
-        <TouchableOpacity
-          onPress={this.getCurrentLocation}
-        >
-          <Text style={styles.updateButton}>Update</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => this.props.onChange(false)}
-        >
-          <Text style={styles.profileButton}>Profile</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={this.getCurrentLocation}>
+            <Text style={styles.updateButton}>Update</Text>
+          </TouchableOpacity>
+          {/* <View
+            style={{
+              backgroundColor: "black",
+              flex: 2,
+              padding: "10"
+            }}
+          /> */}
+          <TouchableOpacity onPress={() => this.props.onChange(false)}>
+            <Text style={styles.profileButton}>Profile</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -136,8 +143,24 @@ export default connect(
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: height,
     width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000'
+  },
+  locationContainer: {
+    height: height / 2,
+    width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000'
+  },
+  buttonContainer: {
+    height: 100,
+    width: width,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#000000'
@@ -148,6 +171,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     color: 'white',
+    margin: 20,
     padding: 12,
     textAlign: 'center'
   },
@@ -157,6 +181,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     color: 'white',
+    margin: 20,
     padding: 12,
     textAlign: 'center'
   },
@@ -166,6 +191,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     color: 'white',
+    margin: 5,
     padding: 12,
     textAlign: 'center'
   },

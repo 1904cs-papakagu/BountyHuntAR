@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     color: 'white',
+    margin: 10,
     padding: 12,
     textAlign: 'center'
   },
