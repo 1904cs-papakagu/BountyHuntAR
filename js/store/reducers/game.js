@@ -4,7 +4,7 @@ const initState = {playing: false}
 const START_PLAYING = "START_PLAYING"
 const STOP_PLAYING = "STOP_PLAYING"
 
-export const startGame = () => {return{type: START_PLAYING}}
+export const startGame = (id) => {return{type: START_PLAYING, id}}
 
 export const endGame = () => {return{type: STOP_PLAYING}}
 

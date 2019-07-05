@@ -18,7 +18,7 @@ const SET_LOCATION_ON_STATE = 'SET_LOCATION_ON_STATE';
 const STOP_PLAYING = "STOP_PLAYING"
 const ACTIVE_LOCATIONS = 'ACTIVE_LOCATIONS';
 const HANDLE_ERROR = 'HANDLE_ERROR';
-
+const START_PLAYING = "START_PLAYING"
 // ACTION CREATORS
 const setActiveLocations = locations => {
   return {
@@ -101,6 +101,11 @@ export const getActiveLocationThunk = currentLocation => {
 
 export function location(state = initState, action) {
   switch (action.type) {
+    case START_PLAYING:
+      const {id} = action
+      const data = state.locations.filter( loc => loc.id === id)[0]
+      const [targetLatitude, targetLongitude] = data.GPS;
+      return {...state, id: data.id, targetLatitude, targetLongitude, radius: data.radius}
     case SET_LOCATION_ON_STATE:
       return { ...state, ...action.location };
     case STOP_PLAYING:
