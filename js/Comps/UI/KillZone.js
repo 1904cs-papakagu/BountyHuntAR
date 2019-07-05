@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
-import { Row } from 'native-base';
+
 class KillZone extends React.Component {
   constructor(props) {
     super(props);
