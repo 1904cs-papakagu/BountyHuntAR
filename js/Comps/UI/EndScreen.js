@@ -15,7 +15,7 @@ const EndScreen = (props) => (
 
 
         <Button
-            onPress={() => }
+            onPress={() => props.ok()}
             title="OK"
             color="#f54242"
         />
@@ -25,7 +25,7 @@ const EndScreen = (props) => (
 
 const mapDispatchToProps = dispatch => {
     return {
-        start() {
+        ok() {
             dispatch(resetStatus());
         }
     };

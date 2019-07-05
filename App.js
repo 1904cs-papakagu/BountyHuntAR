@@ -16,6 +16,8 @@ YellowBox.ignoreWarnings([
 import Game from './Game';
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
+import EndScreen from './js/Comps/UI/EndScreen';
+
 
 import store, {
   loginThunk,
