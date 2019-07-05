@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   Button,
+  TouchableOpacity,
   Platform,
   Dimensions,
   Image
@@ -80,10 +81,13 @@ class KillZone extends React.Component {
           if (distance < 15) {
             return (
               <Button
+                key={location.id}
                 title="Accept Contract"
                 color="green"
                 onPress={() => this.props.start(location.id)}
-              />
+              >
+                {/* <Text style={styles.acceptbutton}>Accept Contract</Text> */}
+              </Button>
             );
           } else {
             return (
@@ -93,17 +97,17 @@ class KillZone extends React.Component {
             );
           }
         })}
-        <Button
+        <TouchableOpacity
           onPress={this.getCurrentLocation}
-          title="Update"
-          color="#f54242"
-        />
+        >
+          <Text style={styles.updateButton}>Update</Text>
+        </TouchableOpacity>
 
-        <Button
+        <TouchableOpacity
           onPress={() => this.props.onChange(false)}
-          title="Profile"
-          color="#ffffff"
-        />
+        >
+          <Text style={styles.profileButton}>Profile</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -137,6 +141,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#000000'
+  },
+  updateButton: {
+    backgroundColor: 'black',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: 'white',
+    padding: 12,
+    textAlign: 'center'
+  },
+  profileButton: {
+    backgroundColor: 'black',
+    borderColor: 'red',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: 'white',
+    padding: 12,
+    textAlign: 'center'
+  },
+  acceptButton: {
+    backgroundColor: 'black',
+    borderColor: 'green',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: 'white',
+    padding: 12,
+    textAlign: 'center'
   },
   activeKillzone: {
     fontFamily: 'American Typewriter',

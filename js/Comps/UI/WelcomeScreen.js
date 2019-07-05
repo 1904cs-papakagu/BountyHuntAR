@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
+  TouchableOpacity,
   Dimensions,
   Image
 } from 'react-native';
@@ -61,7 +61,11 @@ export default class WelcomePage extends React.Component {
           }
           color={this.props.nearKillzone ? '#008000' : '#ff0000'}
         /> */}
-        <Button title="KillZone Page" onPress={() => this.onChange(true)} />
+        <TouchableOpacity
+        // title="KillZone Page"
+        onPress={() => this.onChange(true)} >
+          <Text style={styles.killzoneButton}>Active Killzones</Text>
+        </TouchableOpacity>
       </View>
     ) : (
       <KillZone onChange={this.onChange} />
@@ -79,6 +83,15 @@ const styles = StyleSheet.create({
     width: width,
     backgroundColor: '#000000'
   },
+  killzoneButton: {
+    backgroundColor: 'black',
+    borderColor: 'red',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: 'white',
+    padding: 12,
+    textAlign: 'center'
+  },
   imageContainer: {
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -93,7 +106,6 @@ const styles = StyleSheet.create({
     borderColor: 'white'
   },
   logoImg: {
-    // flex: 1,
     width: width,
     height: 100,
     resizeMode: 'contain'
