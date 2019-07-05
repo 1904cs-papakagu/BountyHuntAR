@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'black'
   },
+  crosshair3: {
+    position: 'absolute',
+    backgroundColor: 'black'
+  },
 });
 
 const crosshairs = [
@@ -87,9 +91,10 @@ const crosshairs = [
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 50,
         backgroundColor: '',
-        borderColor: '#a10d0d'
+        borderColor: styles.crosshair0.backgroundColor
       }}
     />
+
   ],
   
   // CROSSHAIR 1
@@ -153,7 +158,7 @@ const crosshairs = [
         top: SCREEN_HEIGHT / 2 - 40,
         left: SCREEN_WIDTH / 2 - 40,
         backgroundColor: '',
-        borderColor: 'black'
+        borderColor: styles.crosshair1.backgroundColor
       }}
     />,
     <View
@@ -226,7 +231,7 @@ const crosshairs = [
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 50,
         backgroundColor: '',
-        borderColor: 'black'
+        borderColor: styles.crosshair2.backgroundColor
       }}
     />,
     <View
@@ -239,7 +244,7 @@ const crosshairs = [
         top: SCREEN_HEIGHT / 2 - 45,
         left: SCREEN_WIDTH / 2 - 45,
         backgroundColor: '',
-        borderColor: 'black'
+        borderColor: styles.crosshair2.backgroundColor
       }}
     />,
     <View
@@ -255,6 +260,98 @@ const crosshairs = [
     />
   ],
 
+
+  // CROSSHAIR 3
+  [
+    <View
+      style={{
+        ...styles.crosshair3,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: 'green',
+        opacity: 0.5
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        height: 50,
+        width: 2,
+        top: SCREEN_HEIGHT / 2 - 25,
+        left: SCREEN_WIDTH / 2 - 1,
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        height: 2,
+        width: 50,
+        top: SCREEN_HEIGHT / 2 - 1,
+        left: SCREEN_WIDTH / 2 - 25
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        borderWidth: 1,
+        height: 25,
+        width: 4,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 2,
+        backgroundColor: '',
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        borderWidth: 1,
+        height: 25,
+        width: 4,
+        top: SCREEN_HEIGHT / 2 + 25,
+        left: SCREEN_WIDTH / 2 - 2,
+        backgroundColor: '',
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        borderWidth: 1,
+        height: 4,
+        width: 25,
+        top: SCREEN_HEIGHT / 2 - 2,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: '',
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        borderWidth: 1,
+        height: 4,
+        width: 25,
+        top: SCREEN_HEIGHT / 2 - 2,
+        left: SCREEN_WIDTH / 2 + 25,
+        backgroundColor: '',
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair3,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        borderWidth: 4,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: '',
+        borderColor: styles.crosshair3.backgroundColor
+      }}
+    />
+  ],
+
 ];
 
 const Crosshair = props => {
@@ -265,3 +362,5 @@ const Crosshair = props => {
 };
 
 export default Crosshair;
+
+export const numOfCrosshairs = crosshairs.length;
