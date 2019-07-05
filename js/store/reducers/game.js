@@ -1,19 +1,25 @@
 
-const initState = {playing: false}
+const initState = {status: ''}
 
 const START_PLAYING = "START_PLAYING"
 const STOP_PLAYING = "STOP_PLAYING"
+const RESET = "RESET"
 
 export const startGame = (id) => {return{type: START_PLAYING, id}}
-
-export const endGame = () => {return{type: STOP_PLAYING}}
+export const endGame = (won) => {return{type: STOP_PLAYING, won}}
+export const resetStatus = () => {return{type: RESET}}
 
 export default function(state = initState, action){
     switch(action.type){
         case START_PLAYING:
-            return {playing: true}
+            return {status: 'playing'}
         case STOP_PLAYING:
-            return {playing: false}
+            if(action.won){
+            return {status: 'won'}
+            }
+            return {status: 'lost'}
+        case RESET:
+            return {status: ''}
         default:
             break;
     }

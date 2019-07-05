@@ -10,7 +10,7 @@ import {
 
 import { ViroARSceneNavigator } from 'react-viro';
 
-import Crosshair from './js/Comps/AR/Crosshair';
+import Crosshair, { numOfCrosshairs } from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
@@ -31,8 +31,8 @@ const Game = props => (
       worldAlignment="GravityAndHeading"
       debug={true}
     />
-    {/* crosshair is its own view, following a stylesheet */}
-    <Crosshair crosshair={Math.floor(Math.random() * 3)} />
+    <Crosshair crosshair={Math.floor(Math.random() * numOfCrosshairs)} />
+
   </View>
 );
 
