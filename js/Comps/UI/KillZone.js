@@ -1,7 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAllActiveLocationThunk, startGame } from '../../store/';
-import { View, Text, StyleSheet, Button, Platform, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Platform,
+  Dimensions,
+  Image
+} from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
 class KillZone extends React.Component {
@@ -57,7 +65,10 @@ class KillZone extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.activeKillzone}>ACTIVE KILLZONES</Text>
+        <Image
+          source={require('../../Images/killzone.png')}
+          style={styles.logoImg}
+        />
 
         <Text style={styles.currentCoords}>
           Current Coordinates:
@@ -123,7 +134,9 @@ export default connect(
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height: height,
+    width: width,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#000000'
@@ -142,5 +155,10 @@ const styles = StyleSheet.create({
     fontFamily: 'American Typewriter',
     fontSize: 12,
     color: '#ffffff'
+  },
+  logoImg: {
+    width: width,
+    height: 100,
+    resizeMode: 'contain'
   }
 });
