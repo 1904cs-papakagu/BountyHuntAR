@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { ViroBox } from 'react-viro';
+import { ViroSphere } from 'react-viro';
 
 export default props => {
   return (
-    <ViroBox
+    <ViroSphere
       position={props.position}
       rotation={props.rotation}
-      height={0.5}
-      width={0.5}
-      length={0.8}
-      materials={['dummy']}
+      radius={0.05}
+      materials={['black']}
       physicsBody={{
         type: 'Dynamic',
         mass: 15,
+        shape: { type: 'Sphere', params: [0.25] },
         velocity: props.velocity,
-        useGravity: true
+        useGravity: false
       }}
       viroTag={'boxBullet'}
     />

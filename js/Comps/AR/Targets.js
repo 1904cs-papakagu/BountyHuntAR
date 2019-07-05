@@ -3,31 +3,39 @@ import { ViroBox, Viro3DObject } from 'react-viro';
 
 const guardPositions = [
   {
-    position: [-1.0, 1.0]
+    position: [-1.0, 1.0],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [0.9, -0.1]
+    position: [0.9, -0.1],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
 ];
 
 const civPositions = [
   {
-    position: [-2.4, -4.2]
+    position: [-2.4, -4.2],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [5.2, -3.6]
+    position: [5.2, -3.6],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [-3.1, 2.1]
+    position: [-3.1, 2.1],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [4.2, 2.7]
+    position: [4.2, 2.7],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [1.2, 4.3]
+    position: [1.2, 4.3],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [0.0, 5.0]
+    position: [0.0, 5.0],
+    rotationAngle: Math.floor(Math.random() * 360)
   },
 ];
 
@@ -43,10 +51,11 @@ const Targets = props => {
       type='OBJ'
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={[0.0075, 0.0075, 0.0075]}
+      rotationPivot={[0.5, 1, 0.5]}
       physicsBody={{
         type: 'Dynamic',
         mass: 1,
-        shape: { type: 'Box', params: [0.5, 2.0, 0.5] },
+        shape: { type: 'Box', params: [1, 2, 1] },
         useGravity: true
       }}
       onCollision={props.hitTarget}
@@ -59,10 +68,12 @@ const Targets = props => {
         type='VRX'
         scale={[0.009, 0.009, 0.009]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
+        rotation={[0, guard.rotationAngle, 0]}
+        rotationPivot={[0.5, 1, 0.5]}
         physicsBody={{
           type: 'Dynamic',
           mass: 1,
-          shape: {type: 'Box', params: [3, 3, 3]},
+          shape: { type: 'Box', params: [1, 2, 1]},
           useGravity: true
         }}
         onCollision={props.hitCiv}
@@ -71,14 +82,17 @@ const Targets = props => {
     ...civPositions.map((civ, i) => (
       <Viro3DObject
         key={i + 3}
-        source={require('./res/human_man_1.2/human_man_1.2.obj')}
+        source={require('./res/Finn/Finn.obj')}
         type='OBJ'
-        scale={[0.25, 0.25, 0.25]}
+        materials={['finn']}
+        scale={[0.02, 0.02, 0.02]}
         position={[civ.position[0] - x, 0, civ.position[1] + z]}
+        rotation={[0, civ.rotationAngle, 0]}
+        rotationPivot={[0.5, 1, 0.5]}
         physicsBody={{
           type: 'Dynamic',
           mass: 1,
-          shape: { type: 'Box', params: [3, 3, 3] },
+          shape: { type: 'Box', params: [1, 2, 1] },
           useGravity: true
         }}
         onCollision={props.hitCiv}

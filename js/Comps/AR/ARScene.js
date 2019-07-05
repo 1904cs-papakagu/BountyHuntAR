@@ -26,7 +26,7 @@ export default class ARScene extends Component {
     this.state = {
       shoot: true,
       score: 0,
-      displacement: [0, -7]
+      displacement: [0, -10]
     };
     this.velocity = [0, 0, 0];
     this.pos = [0, 0, 0];
@@ -47,7 +47,7 @@ export default class ARScene extends Component {
       position,
       rotation
     } = await this.refs.scene.getCameraOrientationAsync();
-    this.velocity = forward.map(vector => 200 * vector);
+    this.velocity = forward.map(vector => 30 * vector);
     this.pos = position;
     this.rot = rotation;
     if (this.state.shoot) {
@@ -152,6 +152,12 @@ export default class ARScene extends Component {
 ViroMaterials.createMaterials({
   dummy: {
     diffuseTexture: require('./res/dummy.png')
+  },
+  black: {
+    diffuseTexture: require('./res/black.png')
+  },
+  finn: {
+    diffuseTexture: require('./res/Finn/Finn.png')
   },
   target: {
     diffuseTexture: require('./res/target.png')
