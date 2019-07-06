@@ -51,7 +51,7 @@ const Targets = props => {
       type='OBJ'
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={[0.0075, 0.0075, 0.0075]}
-      rotationPivot={[0.5, 1, 0.5]}
+      rotationPivot={[-0.5, 1, -0.5]}
       physicsBody={{
         type: 'Dynamic',
         mass: 1,
@@ -69,7 +69,7 @@ const Targets = props => {
         scale={[0.009, 0.009, 0.009]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
-        rotationPivot={[0.5, 1, 0.5]}
+        rotationPivot={[-0.5, 1, -0.5]}
         physicsBody={{
           type: 'Dynamic',
           mass: 1,
@@ -88,7 +88,7 @@ const Targets = props => {
         scale={[0.02, 0.02, 0.02]}
         position={[civ.position[0] - x, 0, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}
-        rotationPivot={[0.5, 1, 0.5]}
+        rotationPivot={[-0.5, 1, -0.5]}
         physicsBody={{
           type: 'Dynamic',
           mass: 1,

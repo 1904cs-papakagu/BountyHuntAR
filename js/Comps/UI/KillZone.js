@@ -60,14 +60,14 @@ class KillZone extends React.Component {
   }
 
   calculateDisplacement(targetLatitude, targetLongitude) {
-
     const displacement = [
       (targetLatitude - this.state.currentCoordinates[0]) * 111111,
+      0,
       (targetLongitude - this.state.currentCoordinates[1]) *
       111111 *
       Math.cos((Math.PI * targetLatitude) / 180)
     ];
-    const distance = Math.sqrt(displacement[0] ** 2 + displacement[1] ** 2);
+    const distance = Math.sqrt(displacement[0] ** 2 + displacement[2] ** 2);
     return { distance, displacement }
   }
 

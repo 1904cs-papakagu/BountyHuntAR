@@ -28,7 +28,8 @@ export default class ARScene extends Component {
     this.state = {
       shoot: true,
       score: 0,
-      displacement: [0, -10]
+      displacement: [0, -10],
+      update: true,
     };
 
     this.velocity = [0, 0, 0];
@@ -99,10 +100,13 @@ export default class ARScene extends Component {
 
   async agentUpdate() {
 
-    const { position } = await this.refs.scene.getCameraOrientationAsync()
-    const { locationId, userId } = this.props
-
-    sendPosition(locationId, userId, position)
+    if (this.state.update) {
+      const { position } = await this.refs.scene.getCameraOrientationAsync();
+      const { locationId, userId } = this.props;
+      sendPosition(locationId, userId, position);
+      this.setState({ update: false });
+      setTimeout(() => this.setState({ update: true }), 500);
+    }
   }
 
   render() {
@@ -116,14 +120,16 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.bullets}
-        {Object.values(this.props.agents).map(agent => {
+        {Object.values(this.props.agents).map( (agent, index) => (
           <ViroBox
-            height={1}
+            key={index}
+            height={2}
             width={.5}
             length={.5}
             position={agent}
+            materials={['target']}
           />
-        })}
+        ))}
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
