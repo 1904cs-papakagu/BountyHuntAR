@@ -4,7 +4,6 @@ import { resetStatus } from '../../store/';
 import { connect } from 'react-redux';
 
 
-
 const EndScreen = (props) => (
     <View style={styles.container}>
         <Text style={styles.banner}>
@@ -15,8 +14,6 @@ const EndScreen = (props) => (
                 "You Lost!" :
                 ""}
         </Text>
-
-
         <Button
             onPress={() => props.ok()}
             title="OK"

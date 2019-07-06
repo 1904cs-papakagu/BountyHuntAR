@@ -15,24 +15,27 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-import { setInactiveThunk, endGame, myTransformThunk } from '../../store/';
+import { setInactiveThunk, endGame, sendPosition } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
 
 export default class ARScene extends Component {
+
   constructor() {
     super();
+
     this.state = {
       shoot: true,
       score: 0,
       displacement: [0, -10]
     };
+
     this.velocity = [0, 0, 0];
     this.pos = [0, 0, 0];
     this.rot = [0, 0, 0];
     this.bullets = [];
-    // method binds
+
     this._onInitialized = this._onInitialized.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
     this.boxShoot = this.boxShoot.bind(this);
@@ -42,14 +45,17 @@ export default class ARScene extends Component {
   }
 
   async getForce() {
+
     const {
       forward,
       position,
       rotation
     } = await this.refs.scene.getCameraOrientationAsync();
+
     this.velocity = forward.map(vector => 30 * vector);
     this.pos = position;
     this.rot = rotation;
+
     if (this.state.shoot) {
       this.bullets.push(this.boxShoot());
       this.setState({ shoot: false });
@@ -60,6 +66,7 @@ export default class ARScene extends Component {
   }
 
   boxShoot() {
+
     return (
       <Bullet
         key={this.bullets.length}
@@ -71,26 +78,34 @@ export default class ARScene extends Component {
   }
 
   hitTarget(tag) {
+
     if (tag === 'boxBullet') {
       const score = this.state.score + 3;
-      this.props.setInactive(this.props.uid, this.props.lid, score);
+      const { userId, locationId } = this.props
+
+      this.props.setInactive(userId, locationId, score);
       setTimeout(this.props.winGame, 2000);
     }
   }
 
   hitCiv(tag) {
+
     if (tag === 'boxBullet') {
       const score = this.state.score - 1;
       this.setState({ score });
     }
   }
 
-  agentUpdate(){
-    const {position} =  await this.refs.scene.getCameraOrientationAsync()
-    this.props.myTransform(position)
+  async agentUpdate() {
+
+    const { position } = await this.refs.scene.getCameraOrientationAsync()
+    const { locationId, userId } = this.props
+
+    sendPosition(locationId, userId, position)
   }
 
   render() {
+
     return (
       <ViroARScene
         ref="scene"
@@ -106,10 +121,8 @@ export default class ARScene extends Component {
             width={.5}
             length={.5}
             position={agent.position}
-            />
-
-        })
-        }
+          />
+        })}
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
@@ -130,6 +143,7 @@ export default class ARScene extends Component {
   }
 
   _onInitialized(state, reason) {
+
     if (state === ViroConstants.TRACKING_NORMAL) {
       this._updateLocation();
     } else if (state === ViroConstants.TRACKING_NONE) {
@@ -138,6 +152,7 @@ export default class ARScene extends Component {
   }
 
   _updateLocation() {
+
     Geolocation.getCurrentPosition(
       position => {
         const currentLatitude = position.coords.latitude;
@@ -146,8 +161,8 @@ export default class ARScene extends Component {
         const displacement = [
           (targetLatitude - currentLatitude) * 111111,
           (targetLongitude - currentLongitude) *
-            111111 *
-            Math.cos((Math.PI * targetLatitude) / 180)
+          111111 *
+          Math.cos((Math.PI * targetLatitude) / 180)
         ];
         this.setState({ displacement });
       },
@@ -162,6 +177,35 @@ export default class ARScene extends Component {
     );
   }
 }
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setInactive: (userId, locationId, score) => {
+      dispatch(setInactiveThunk(userId, locationId, score));
+    },
+    winGame() {
+      dispatch(endGame(true));
+    }
+  };
+};
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    location: state.location,
+    userId: state.user.id,
+    locationId: state.location.id,
+    agents: state.game.agents
+  };
+};
+
+const ConnectedARScene = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ARScene);
+
+module.exports = () => (<ConnectedARScene />);
+
 
 ViroMaterials.createMaterials({
   dummy: {
@@ -178,8 +222,6 @@ ViroMaterials.createMaterials({
   }
 });
 
-// STYLESHEETS
-
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Roboto',
@@ -189,32 +231,3 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-const mapDispatchToProps = dispatch => {
-  return {
-    setInactive: (uid, lid, score) => {
-      dispatch(setInactiveThunk(uid, lid, score));
-    },
-    winGame() {
-      dispatch(endGame(true));
-    },
-    myTransform(transform){
-      dispatch(myTransformThunk(transform))
-    }
-  };
-};
-const mapStateToProps = state => {
-  return {
-    user: state.user,
-    location: state.location,
-    uid: state.user.id,
-    lid: state.location.id,
-    agents: state.game.agents
-  };
-};
-
-const ConnectedARScene = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ARScene);
-
-module.exports = () => (<ConnectedARScene />);

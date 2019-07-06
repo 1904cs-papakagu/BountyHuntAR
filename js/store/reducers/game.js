@@ -1,18 +1,14 @@
-import {sendTransform} from "../socket";
-
 const initState = {state: 'not playing', agents: {}}
 
 const START_PLAYING = "START_PLAYING"
 const STOP_PLAYING = "STOP_PLAYING"
 const UPDATE_AGENT = 'UPDATE_AGENT'
 
-export const updateAgent = (agentId,agentTransform) => {return{type:UPDATE_AGENT, agentId, agentTransform}}
-export const startGame = () => {return{type: START_PLAYING}}
+export const updateAgent = (agentId,agentPosition) => {return{type:UPDATE_AGENT, agentId, agentPosition}}
+export const startGame = (locationId,userId,displacement) => {return{type: START_PLAYING, locationId, userId ,displacement}}
 export const endGame = (won) => {return{type: STOP_PLAYING, won}}
+export const spookTarget = () => {}
 
-export const myTransformThunk = (locationId, userId, transform) => {
-    sendTransform( locationId, userId, transform)
-}
 
 export default function(state = initState, action){
     switch(action.type){
@@ -25,7 +21,7 @@ export default function(state = initState, action){
              return {state: 'lost'}
             }
         case UPDATE_AGENT:
-            state.agents[action.agentId] = action.agentTransform
+            state.agents[action.agentId] = action.agentPosition
             return state
         default:
             break;

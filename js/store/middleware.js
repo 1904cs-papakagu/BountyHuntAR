@@ -1,7 +1,7 @@
 import socket from './socket';
-import {endGame} from './reducers/game';
+import { endGame, updateAgent, spookTarget } from './reducers/game';
 
-const loggingMiddleware = ({dispatch, getState}) => {
+const loggingMiddleware = ({ dispatch, getState }) => {
   return next => action => {
     console.log(getState())
     console.log(next(action))
@@ -9,7 +9,7 @@ const loggingMiddleware = ({dispatch, getState}) => {
   }
 }
 
-const thunkMiddleware = ({dispatch, getState}) => {
+const thunkMiddleware = ({ dispatch, getState }) => {
   return next => action => {
     if (typeof action === 'function') {
       console.log('thunk in progress')
@@ -19,17 +19,14 @@ const thunkMiddleware = ({dispatch, getState}) => {
   }
 }
 
-const socketMiddleware = ({dispatch, getState}) => {
+const socketMiddleware = ({ dispatch, getState }) => {
   socket.on('targetKilled', uid => {
     if (`${getState().user.id}` !== uid) {
       dispatch(endGame(false));
     }
   })
   socket.on('agentUpdate', (agentId, agentPosition) => {
-    dispatch(updateAgent(agentId,agentPosition))
-  })
-  socket.on('targetSpooked',() => {
-    dispatch(spookTarget())
+    dispatch(updateAgent(agentId, agentPosition))
   })
   return next => action => {
     return next(action);
