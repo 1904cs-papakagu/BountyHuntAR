@@ -120,16 +120,18 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.bullets}
-        {Object.values(this.props.agents).map( (agent, index) => (
-          <ViroBox
-            key={index}
-            height={2}
-            width={.5}
-            length={.5}
-            position={agent}
-            materials={['target']}
-          />
-        ))}
+        {Object.values(this.props.agents).map( (agent, index) => {
+          const {displacement} = this.state;
+          return (
+            <ViroBox
+              key={index}
+              height={2}
+              width={.5}
+              length={.5}
+              position={[agent[0] + displacement[0], agent[1], agent[2] + displacement[1]]}
+              materials={['target']}
+            />
+        )})}
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}

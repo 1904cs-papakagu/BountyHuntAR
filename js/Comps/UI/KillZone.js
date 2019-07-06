@@ -67,6 +67,12 @@ class KillZone extends React.Component {
       111111 *
       Math.cos((Math.PI * targetLatitude) / 180)
     ];
+
+    if (Platform.OS === 'android') {
+      displacement[0] = 0;
+      displacement[2] = -10;
+    }
+
     const distance = Math.sqrt(displacement[0] ** 2 + displacement[2] ** 2);
     return { distance, displacement }
   }
