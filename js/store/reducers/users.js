@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const initState = {
   username: null,
-  crosshairId: 1
+  crosshairId: 0
 };
 
 

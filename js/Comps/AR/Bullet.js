@@ -12,7 +12,7 @@ export default props => {
       physicsBody={{
         type: 'Dynamic',
         mass: 15,
-        shape: { type: 'Sphere', params: [0.25] },
+        shape: { type: 'Sphere', params: [0.05] },
         velocity: props.velocity,
         useGravity: false
       }}
