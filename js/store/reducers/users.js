@@ -1,19 +1,17 @@
 import axios from 'axios';
-import { classBody } from '@babel/types';
 
-// DEFAULT STATE
 
 const initState = {
   username: null,
   crosshairId: 1
 };
 
-// ACTION TYPES
 
 const SET_USER_ON_STATE = 'SET_USER_ON_STATE';
 const HANDLE_ERROR = 'HANDLE_ERROR';
 const SET_CROSSHAIR = 'SET_CROSSHAIR';
-// ACTION CREATORS
+
+
 export const setCrosshair = crosshairId => {
   return {
     type: SET_CROSSHAIR,
@@ -26,7 +24,6 @@ const setUserOnState = user => {
     user
   };
 };
-
 const handleError = error => {
   return {
     type: HANDLE_ERROR,
@@ -34,7 +31,6 @@ const handleError = error => {
   };
 };
 
-// THUNKS
 
 export const loginThunk = (email, password) => {
   return async dispatch => {
@@ -52,7 +48,6 @@ export const loginThunk = (email, password) => {
   };
 };
 
-// REDUCER
 
 export function user(state = initState, action) {
   switch (action.type) {

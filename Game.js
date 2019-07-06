@@ -37,6 +37,7 @@ const Game = props => (
 
 export default Game;
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

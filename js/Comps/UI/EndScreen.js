@@ -22,8 +22,6 @@ const EndScreen = (props) => (
               /> :
                 ''}
         </Text>
-
-
         <TouchableOpacity
             onPress={() => props.ok()}
         >

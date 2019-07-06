@@ -10,6 +10,8 @@ import {
 import KillZone from './KillZone';
 import { connect } from 'react-redux';
 import { setCrosshair } from '../../store';
+
+
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
@@ -67,6 +69,24 @@ class WelcomePage extends React.Component {
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    crosshairId: state.user.crosshairId
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setCrosshair: id => dispatch(setCrosshair(id))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WelcomePage);
+
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -131,18 +151,3 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProp = dispatch => {
-  return {
-    setCrosshair: id => dispatch(setCrosshair(id))
-  };
-};
-const mapStateToProps = state => {
-  return {
-    crosshairId: state.user.crosshairId
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProp
-)(WelcomePage);
