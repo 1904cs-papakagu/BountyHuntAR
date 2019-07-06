@@ -156,39 +156,34 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000'
   },
   updateButton: {
-    backgroundColor: 'black',
-    borderColor: 'white',
+    backgroundColor: '#000000',
+    borderColor: '#ffffff',
     borderWidth: 1,
     borderRadius: 12,
-    color: 'white',
+    color: '#ffffff',
     margin: 20,
     padding: 12,
     textAlign: 'center'
   },
   profileButton: {
-    backgroundColor: 'black',
-    borderColor: 'red',
+    backgroundColor: '#000000',
+    borderColor: '#ff0000',
     borderWidth: 1,
     borderRadius: 12,
-    color: 'white',
+    color: '#ffffff',
     margin: 20,
     padding: 12,
     textAlign: 'center'
   },
   acceptButton: {
-    backgroundColor: 'black',
-    borderColor: 'green',
+    backgroundColor: '#000000',
+    borderColor: '#00ff00',
     borderWidth: 1,
     borderRadius: 12,
-    color: 'white',
+    color: '#ffffff',
     margin: 5,
     padding: 12,
     textAlign: 'center'
-  },
-  activeKillzone: {
-    fontFamily: 'American Typewriter',
-    fontSize: 30,
-    color: '#f54242'
   },
   textStyle: {
     fontFamily: 'American Typewriter',
