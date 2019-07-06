@@ -1,3 +1,4 @@
+import socket from "../socket";
 
 const initState = {state: 'not playing', agents: {}}
 
@@ -8,6 +9,10 @@ const UPDATE_AGENT = 'UPDATE_AGENT'
 export const updateAgent = (agentId,agentTransform) => {return{type:UPDATE_AGENT, agentId, agentTransform}}
 export const startGame = () => {return{type: START_PLAYING}}
 export const endGame = (won) => {return{type: STOP_PLAYING, won}}
+
+export const myTransformThunk = (transform, uid, lid) => {
+   socket.emit('updateTransform',`${uid}`, `${lid}`, JSON.stringify(transform))
+}
 
 export default function(state = initState, action){
     switch(action.type){

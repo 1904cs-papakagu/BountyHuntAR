@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-import { setInactiveThunk, endGame } from '../../store/';
+import { setInactiveThunk, endGame, myTransformThunk } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
@@ -85,17 +85,31 @@ export default class ARScene extends Component {
     }
   }
 
+  agentUpdate(){
+    const {position} =  await this.refs.scene.getCameraOrientationAsync()
+    this.props.myTransform(position)
+  }
+
   render() {
     return (
       <ViroARScene
         ref="scene"
         onTrackingUpdated={this._onInitialized}
         postProcessEffects={['']}
-        onCameraTransformUpdate={this.boxFollow}
+        onCameraTransformUpdate={this.agentUpdate}
         onClick={this.getForce}
       >
         {this.bullets}
+        {Object.values(this.props.agents).map(agent => {
+          <ViroBox
+            height={1}
+            width={.5}
+            length={.5}
+            position={agent.position}
+            />
 
+        })
+        }
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
@@ -182,6 +196,9 @@ const mapDispatchToProps = dispatch => {
     },
     winGame() {
       dispatch(endGame(true));
+    },
+    myTransform(transform){
+      dispatch(myTransformThunk(transform))
     }
   };
 };
@@ -190,7 +207,8 @@ const mapStateToProps = state => {
     user: state.user,
     location: state.location,
     uid: state.user.id,
-    lid: state.location.id
+    lid: state.location.id,
+    agents: state.game.agents
   };
 };
 
