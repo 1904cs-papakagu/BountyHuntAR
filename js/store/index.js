@@ -14,7 +14,7 @@ import {
   getAllActiveLocationThunk
 } from './reducers/locations';
 
-import socket from './socket';
+import socket, { sendPosition } from './socket';
 
 socket.connect();
 
@@ -39,5 +39,6 @@ export {
   endGame,
   getAllActiveLocationThunk,
   resetStatus,
-  setCrosshair
+  setCrosshair,
+  sendPosition
 };

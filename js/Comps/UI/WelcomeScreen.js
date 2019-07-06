@@ -5,16 +5,19 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Image,
+  Image
 } from 'react-native';
 import KillZone from './KillZone';
 import { connect } from 'react-redux';
 import { setCrosshair } from '../../store';
+
+
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      renderKillZone: false
+      renderKillZone: false,
+      crosshairs: [0, 1, 2, 3]
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -44,30 +47,46 @@ class WelcomePage extends React.Component {
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
 
         <Text style={styles.userInfoText}>select crosshair</Text>
-        <Text
-          style={styles.userInfoText}
-          onPress={() => this.props.setCrosshair(1)}
-        >
-          crosshair 1
-        </Text>
-        <Text
-          style={styles.userInfoText}
-          onPress={() => this.props.setCrosshair(2)}
-        >
-          crosshair 2
-        </Text>
+        {this.state.crosshairs.map(crosshair => (
+          <Text
+            style={
+              this.props.crosshairId !== crosshair
+                ? styles.userInfoText
+                : styles.selectedInfoText
+            }
+            onPress={() => this.props.setCrosshair(crosshair)}
+          >
+            crosshair {crosshair}
+          </Text>
+        ))}
 
-        <TouchableOpacity
-        onPress={() => this.onChange(true)} >
+        <TouchableOpacity onPress={() => this.onChange(true)}>
           <Text style={styles.killzoneButton}>Active Killzones</Text>
         </TouchableOpacity>
-
       </View>
     ) : (
       <KillZone onChange={this.onChange} />
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  return {
+    crosshairId: state.user.crosshairId
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    setCrosshair: id => dispatch(setCrosshair(id))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WelcomePage);
+
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -118,6 +137,12 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center'
   },
+  selectedInfoText: {
+    fontFamily: 'American Typewriter',
+    fontSize: 23,
+    color: 'red',
+    textAlign: 'center'
+  },
   enterKillzone: {
     fontFamily: 'American Typewriter',
     fontSize: 20,
@@ -126,13 +151,3 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProp = dispatch => {
-  return {
-    setCrosshair: id => dispatch(setCrosshair(id))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProp
-)(WelcomePage);

@@ -21,6 +21,7 @@ import EndScreen from './js/Comps/UI/EndScreen';
 import store, { loginThunk, startGame, resetStatus } from './js/store';
 
 class DcApp extends Component {
+ 
   constructor(props) {
     super(props);
   }
@@ -56,7 +57,6 @@ const mapStateToProps = state => {
     gameStatus: state.game.status
   };
 };
-
 const mapDispatchToProps = dispatch => {
   return {
     login(email, password) {
@@ -75,6 +75,7 @@ export default () => (
     <App />
   </Provider>
 );
+
 
 const styles = StyleSheet.create({
   container: {
