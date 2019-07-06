@@ -1,6 +1,5 @@
 import socket from './socket';
 import {endGame} from './reducers/game';
-import { Socket } from 'dgram';
 
 const loggingMiddleware = ({dispatch, getState}) => {
   return next => action => {
@@ -26,8 +25,8 @@ const socketMiddleware = ({dispatch, getState}) => {
       dispatch(endGame(false));
     }
   })
-  socket.on('agentUpdate' (agentId, agentTransform) => {
-    dispatch(updateAgent(agentId,agentTransform))
+  socket.on('agentUpdate', (agentId, agentPosition) => {
+    dispatch(updateAgent(agentId,agentPosition))
   })
   socket.on('targetSpooked',() => {
     dispatch(spookTarget())

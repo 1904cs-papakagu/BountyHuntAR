@@ -3,10 +3,14 @@ const socket = io('http://bountyhuntar.herokuapp.com');
 
 export default socket;
 
-export function joinRoom (locationId) {
-  socket.emit('join', `${locationId}`);
+export function joinRoom (locationId, userId, displacement) {
+  socket.emit('join', `${locationId}`, `${userId}`, `${displacement}`);
 };
 
-export function killTarget (locationId, uid) {
-  socket.emit('killTarget', `${locationId}`, `${uid}`);
+export function killTarget (locationId, userId) {
+  socket.emit('killTarget', `${locationId}`, `${userId}`);
 };
+
+export function sendTransform (locationId, userId,transform) {
+  socket.emit('updateAgent',`${locationId}`, `${userId}`, JSON.stringify(transform))
+}
