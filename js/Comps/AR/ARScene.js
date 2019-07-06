@@ -85,7 +85,7 @@ export default class ARScene extends Component {
       const score = this.state.score + 3;
       const { userId, locationId } = this.props
 
-      this.props.setInactive(userId, locationId, score);
+      this.props.setInactive(locationId, userId, score);
       setTimeout(this.props.winGame, 2000);
     }
   }
@@ -188,8 +188,8 @@ export default class ARScene extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setInactive: (userId, locationId, score) => {
-      dispatch(setInactiveThunk(userId, locationId, score));
+    setInactive: (locationId, userId, score) => {
+      dispatch(setInactiveThunk(locationId, userId, score));
     },
     winGame() {
       dispatch(endGame(true));
