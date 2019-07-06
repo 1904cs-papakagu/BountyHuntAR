@@ -46,19 +46,23 @@ class WelcomePage extends React.Component {
         <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
 
-        <Text style={styles.userInfoText}>select crosshair</Text>
-        {this.state.crosshairs.map(crosshair => (
-          <Text
-            style={
-              this.props.crosshairId !== crosshair
-                ? styles.userInfoText
-                : styles.selectedInfoText
-            }
-            onPress={() => this.props.setCrosshair(crosshair)}
-          >
-            crosshair {crosshair}
-          </Text>
-        ))}
+        <Text style={styles.userInfoText}>Select crosshair:</Text>
+        <View style={styles.crosshairContainer}>
+          {this.state.crosshairs.map(crosshair => (
+            <TouchableOpacity
+              style={
+                this.props.crosshairId !== crosshair
+                  ? styles.crosshairButtonUnselected
+                  : styles.crosshairButtonSelected
+              }
+              onPress={() => this.props.setCrosshair(crosshair)}
+            >
+              <Text style={styles.userInfoText}>
+                  #{crosshair + 1}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
         <TouchableOpacity onPress={() => this.onChange(true)}>
           <Text style={styles.killzoneButton}>Active Killzones</Text>
@@ -129,6 +133,30 @@ const styles = StyleSheet.create({
     fontFamily: 'American Typewriter',
     fontSize: 23,
     color: '#ffffff',
+    textAlign: 'center'
+  },
+  crosshairContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  crosshairButtonUnselected: {
+    backgroundColor: '#000000',
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: '#ffffff',
+    margin: 20,
+    padding: 12,
+    textAlign: 'center'
+  },
+  crosshairButtonSelected: {
+    backgroundColor: '#000000',
+    borderColor: '#ff0000',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: '#ffffff',
+    margin: 20,
+    padding: 12,
     textAlign: 'center'
   },
 });

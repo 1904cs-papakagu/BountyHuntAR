@@ -105,7 +105,7 @@ export default class ARScene extends Component {
       const { locationId, userId } = this.props;
       sendPosition(locationId, userId, position);
       this.setState({ update: false });
-      setTimeout(() => this.setState({ update: true }), 500);
+      setTimeout(() => this.setState({ update: true }), 50);
     }
   }
 
