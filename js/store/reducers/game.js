@@ -1,4 +1,4 @@
-const initState = {state: 'not playing', agents: {}}
+const initState = {status: '', agents: {}}
 
 const START_PLAYING = "START_PLAYING"
 const STOP_PLAYING = "STOP_PLAYING"
@@ -13,15 +13,18 @@ export const spookTarget = () => {}
 export default function(state = initState, action){
     switch(action.type){
         case START_PLAYING:
-            return {state: 'playing'}
+            return {...state, status: 'playing'}
         case STOP_PLAYING:
             if(action.won){
-            return {state: 'won'}
+            return {...state, status: 'won'}
             } else {
-             return {state: 'lost'}
+             return {...state, status: 'lost'}
             }
         case UPDATE_AGENT:
-            state.agents[action.agentId] = action.agentPosition
+            const {agentId, agentPosition} = action
+            state.agents[agentId] = agentPosition
+            console.log(state)
+
             return state
         default:
             break;

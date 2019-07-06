@@ -42,6 +42,7 @@ export default class ARScene extends Component {
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
     this.getForce = this.getForce.bind(this);
+    this.agentUpdate = this.agentUpdate.bind(this)
   }
 
   async getForce() {
@@ -120,7 +121,7 @@ export default class ARScene extends Component {
             height={1}
             width={.5}
             length={.5}
-            position={agent.position}
+            position={agent}
           />
         })}
         <ViroAmbientLight color={'#aaaaaa'} />
