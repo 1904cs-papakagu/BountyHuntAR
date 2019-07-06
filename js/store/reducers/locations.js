@@ -2,8 +2,6 @@ import axios from 'axios';
 
 import { joinRoom, killTarget } from '../../store/socket';
 
-// DEFAULT STATE - tracks information re: your current kill zone, if any
-
 const initState = {
   targetLatitude: null,
   targetLongitude: null,
@@ -12,27 +10,19 @@ const initState = {
   locations: []
 };
 
-// ACTION TYPES
-
 const SET_LOCATION_ON_STATE = 'SET_LOCATION_ON_STATE';
 const STOP_PLAYING = 'STOP_PLAYING';
 const ACTIVE_LOCATIONS = 'ACTIVE_LOCATIONS';
 const HANDLE_ERROR = 'HANDLE_ERROR';
 const START_PLAYING = 'START_PLAYING';
-// ACTION CREATORS
+
+
 const setActiveLocations = locations => {
   return {
     type: ACTIVE_LOCATIONS,
     locations
   };
 };
-const setLocationOnState = location => {
-  return {
-    type: SET_LOCATION_ON_STATE,
-    location
-  };
-};
-
 const handleError = error => {
   return {
     type: HANDLE_ERROR,
@@ -40,16 +30,16 @@ const handleError = error => {
   };
 };
 
-// THUNKS
-export const setInactiveThunk = (userId, killzoneId, userScore) => {
-  return async dispatch => {
+
+export const setInactiveThunk = ( locationId, userId, userScore) => {
+  return async () => {
     try {
       await axios({
         url: 'http://bountyhuntar.herokuapp.com/api/locations/active',
         method: 'POST',
-        data: { userId, killzoneId, userScore }
+        data: { locationId, userId, userScore }
       });
-      killTarget(killzoneId, userId);
+      killTarget(locationId, userId);
     } catch (error) {
       console.error(error);
     }
@@ -69,15 +59,14 @@ export const getAllActiveLocationThunk = () => {
   };
 };
 
-// REDUCER
 
 export function location(state = initState, action) {
   switch (action.type) {
     case START_PLAYING:
-      const { id } = action;
-      const data = state.locations.filter(loc => loc.id === id)[0];
+      const { locationId, userId, displacement } = action;
+      const data = state.locations.filter(loc => loc.id === locationId)[0];
       const [targetLatitude, targetLongitude] = data.GPS;
-      joinRoom(id);
+      joinRoom(locationId, userId, displacement);
       return {
         ...state,
         id: data.id,
@@ -87,8 +76,6 @@ export function location(state = initState, action) {
       };
     case SET_LOCATION_ON_STATE:
       return { ...state, ...action.location };
-    case STOP_PLAYING:
-      return { ...initState, locations: state.locations };
     case HANDLE_ERROR:
       return { error: action.error };
     case ACTIVE_LOCATIONS:

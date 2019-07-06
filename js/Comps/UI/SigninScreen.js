@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
+
 export default class SigninScreen extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +65,7 @@ export default class SigninScreen extends Component {
     );
   }
 }
+
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
