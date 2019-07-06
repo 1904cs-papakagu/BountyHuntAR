@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { resetStatus } from '../../store/';
 import { connect } from 'react-redux';
 
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
         textAlign: 'center'
       },
     logoImg: {
-        // flex: 1,
         width: width,
         resizeMode: 'contain'
       }
