@@ -7,7 +7,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   crosshair0: {
     position: 'absolute',
-    backgroundColor: '#a10d0d'
+    backgroundColor: 'black'
   },
   crosshair1: {
     position: 'absolute',
@@ -34,6 +34,7 @@ const crosshairs = [
         width: 2,
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 1,
+        backgroundColor: "#00ff00"
       }}
     />,
     <View
@@ -42,7 +43,8 @@ const crosshairs = [
         height: 2,
         width: 100,
         top: SCREEN_HEIGHT / 2 - 1,
-        left: SCREEN_WIDTH / 2 - 50
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: "#00ff00"
       }}
     />,
     <View
@@ -51,7 +53,8 @@ const crosshairs = [
         height: 25,
         width: 4,
         top: SCREEN_HEIGHT / 2 - 50,
-        left: SCREEN_WIDTH / 2 - 2
+        left: SCREEN_WIDTH / 2 - 2,
+        backgroundColor: "#00ff00"
       }}
     />,
     <View
@@ -60,7 +63,8 @@ const crosshairs = [
         height: 25,
         width: 4,
         top: SCREEN_HEIGHT / 2 + 25,
-        left: SCREEN_WIDTH / 2 - 2
+        left: SCREEN_WIDTH / 2 - 2,
+        backgroundColor: "#00ff00"
       }}
     />,
     <View
@@ -69,7 +73,8 @@ const crosshairs = [
         height: 4,
         width: 25,
         top: SCREEN_HEIGHT / 2 - 2,
-        left: SCREEN_WIDTH / 2 - 50
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: "#00ff00"
       }}
     />,
     <View
@@ -78,7 +83,8 @@ const crosshairs = [
         height: 4,
         width: 25,
         top: SCREEN_HEIGHT / 2 - 2,
-        left: SCREEN_WIDTH / 2 + 25
+        left: SCREEN_WIDTH / 2 + 25,
+        backgroundColor: "#00ff00"
       }}
     />,
     <View
@@ -99,6 +105,18 @@ const crosshairs = [
   
   // CROSSHAIR 1
   [
+    <View
+      style={{
+        ...styles.crosshair1,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: 'red',
+        opacity: 0.4
+      }}
+    />,
     <View
       style={{
         ...styles.crosshair1,
@@ -176,6 +194,17 @@ const crosshairs = [
 
   // CROSSHAIR 2
   [
+    <View
+      style={{
+        ...styles.crosshair2,
+        height: 90,
+        width: 90,
+        borderRadius: 1000,
+        top: SCREEN_HEIGHT / 2 - 45,
+        left: SCREEN_WIDTH / 2 - 45,
+        opacity: 0.3
+      }}
+    />,
     <View
       style={{
         ...styles.crosshair2,
