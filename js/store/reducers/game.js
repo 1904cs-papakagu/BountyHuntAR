@@ -1,25 +1,27 @@
 
-const initState = {status: ''}
+const initState = {state: 'not playing', agents: {}}
 
 const START_PLAYING = "START_PLAYING"
 const STOP_PLAYING = "STOP_PLAYING"
-const RESET = "RESET"
+const UPDATE_AGENT = 'UPDATE_AGENT'
 
-export const startGame = (id) => {return{type: START_PLAYING, id}}
+export const updateAgent = (agentId,agentTransform) => {return{type:UPDATE_AGENT, agentId, agentTransform}}
+export const startGame = () => {return{type: START_PLAYING}}
 export const endGame = (won) => {return{type: STOP_PLAYING, won}}
-export const resetStatus = () => {return{type: RESET}}
 
 export default function(state = initState, action){
     switch(action.type){
         case START_PLAYING:
-            return {status: 'playing'}
+            return {state: 'playing'}
         case STOP_PLAYING:
-            if(action.won){
-            return {status: 'won'}
+            if(won){
+            return {state: 'won'}
+            } else {
+             return {state: 'lost'}
             }
-            return {status: 'lost'}
-        case RESET:
-            return {status: ''}
+        case UPDATE_AGENT:
+            state.agents[agentId] = agentTransform
+            return state
         default:
             break;
     }
