@@ -76,26 +76,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000'
   },
   button: {
-    backgroundColor: 'black',
-    borderColor: 'red',
+    backgroundColor: '#000000',
+    borderColor: '#ff0000',
     borderWidth: 1,
     borderRadius: 12,
-    color: 'white',
+    color: '#ffffff',
     margin: 10,
     padding: 12,
-    textAlign: 'center'
-  },
-  welcomeText: {
-    fontFamily: 'American Typewriter',
-    fontSize: 50,
-    color: '#f54242',
     textAlign: 'center'
   },
   errorMessage: {
     flex: 1,
     justifyContent: 'center',
-    fontFamily: 'American Typewriter',
-    color: '#f54242',
+    color: '#ff0000',
     textAlign: 'center'
   },
   inputFieldContainer: {
@@ -106,16 +99,18 @@ const styles = StyleSheet.create({
   errorField: {
     textAlign: 'center',
     color: '#ffffff',
-    borderColor: '#f54242',
+    borderColor: '#ff0000',
     borderWidth: 1,
-    width: width,
-    height: 60
+    borderRadius: 5,
+    width: width - 60,
+    height: 60,
+    margin: 5,
   },
   inputField: {
     textAlign: 'center',
     color: '#ffffff',
     width: width,
-    height: 60
+    height: 60,
   },
   logoImg: {
     flex: 1,

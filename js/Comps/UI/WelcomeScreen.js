@@ -99,11 +99,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000'
   },
   killzoneButton: {
-    backgroundColor: 'black',
-    borderColor: 'red',
+    backgroundColor: '#000000',
+    borderColor: '#ff0000',
     borderWidth: 1,
     borderRadius: 12,
-    color: 'white',
+    color: '#ffffff',
     padding: 12,
     textAlign: 'center'
   },
@@ -117,19 +117,13 @@ const styles = StyleSheet.create({
     height: 250,
     width: 250,
     borderRadius: 250 / 2,
-    borderWidth: 6,
-    borderColor: 'white'
+    borderWidth: 3,
+    borderColor: '#ff0000'
   },
   logoImg: {
     width: width,
     height: 100,
     resizeMode: 'contain'
-  },
-  bountyhuntar: {
-    fontFamily: 'American Typewriter',
-    fontSize: 25,
-    color: '#f54242',
-    textAlign: 'center'
   },
   userInfoText: {
     fontFamily: 'American Typewriter',
@@ -137,17 +131,5 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center'
   },
-  selectedInfoText: {
-    fontFamily: 'American Typewriter',
-    fontSize: 23,
-    color: 'red',
-    textAlign: 'center'
-  },
-  enterKillzone: {
-    fontFamily: 'American Typewriter',
-    fontSize: 20,
-    color: '#f54242',
-    textAlign: 'center'
-  }
 });
 
