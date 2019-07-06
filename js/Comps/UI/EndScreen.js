@@ -1,27 +1,34 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Platform, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform, Dimensions, Image } from 'react-native';
 import { resetStatus } from '../../store/';
 import { connect } from 'react-redux';
-
 
 
 const EndScreen = (props) => (
     <View style={styles.container}>
         <Text style={styles.banner}>
             {props.status === 'won' ?
-                "You Won!" :
-                ""}
+                <Image
+                source={require('../../Images/winner.png')}
+                style={styles.logoImg}
+                resizeMethod="scale"
+              /> :
+                ''}
             {props.status === 'lost' ?
-                "You Lost!" :
-                ""}
+                <Image
+                source={require('../../Images/loser.png')}
+                style={styles.logoImg}
+                resizeMethod="scale"
+              /> :
+                ''}
         </Text>
 
 
-        <Button
+        <TouchableOpacity
             onPress={() => props.ok()}
-            title="OK"
-            color="#f54242"
-        />
+        >
+        <Text style={styles.button}>Back to profile</Text>
+        </TouchableOpacity>
     </View>
 )
 
@@ -40,7 +47,7 @@ export default connect(null, mapDispatchToProps)(EndScreen)
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: height,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#000000'
@@ -50,5 +57,19 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#f54242'
     },
-
+    button: {
+        backgroundColor: 'black',
+        borderColor: 'red',
+        borderWidth: 1,
+        borderRadius: 12,
+        color: 'white',
+        margin: 10,
+        padding: 12,
+        textAlign: 'center'
+      },
+    logoImg: {
+        // flex: 1,
+        width: width,
+        resizeMode: 'contain'
+      }
 });
