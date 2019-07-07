@@ -231,6 +231,67 @@ ViroMaterials.createMaterials({
   }
 });
 
+ViroAnimations. registerAnimations({
+  rMove1X1: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove1Z1: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+
+  rMove1X2: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove1Z2: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+
+  rMove1X3: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove1Z3: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+
+  wander1: [
+   ["rMove1X1","rMove1Z1","rMove1X2","rMove1Z2","rMove1X3","rMove1Z3"]
+  ],
+
+  rMove2X1: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove2Z1: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+
+  rMove2X2: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove2Z2: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+
+  rMove2X3: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove2Z3: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+
+
+  wander2: [
+    ["rMove2X1","rMove2Z1","rMove2X2","rMove2Z2","rMove2X3","rMove2Z3"]
+   ],
+
+   rMove3X1: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+   rMove3Z1: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+ 
+   rMove3X2: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+   rMove3Z2: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+ 
+   rMove3X3: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
+   rMove3Z3: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+ 
+ 
+   wander3: [
+     ["rMove3X1","rMove3Z1","rMove3X2","rMove3Z2","rMove3X3","rMove3Z3"]
+    ],
+   
+   pMoveTX1: {properties: {positionX: '+=10'}, duration: 10000},
+   pMoveTZ1: {properties: {positionZ: '+=10'}, duration: 10000},
+   pMoveTX2: {properties: {positionX: '-=10'}, duration: 10000},
+   pMoveTZ2: {properties: {positionZ: '-=10'}, duration: 10000},
+
+   patrolT: [
+    ["pMoveTX1","pMoveTZ1","pMoveTX2","pMoveTZ2"]
+   ],
+
+   pMoveGX1:{properties: {positionX: '+=10'}, duration: 10000},
+   pMoveGZ1: {properties: {positionZ: '+=10'}, duration: 10000},
+   pMoveGX2:{properties: {positionX: '-=10'}, duration: 10000},
+   pMoveGZ2: {properties: {positionZ: '-=10'}, duration: 10000},
+
+   patrolG: [
+    ["pMoveGX1","pMoveGZ1","pMoveGX2","pMoveGZ2"]
+   ],
+});
+
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Roboto',

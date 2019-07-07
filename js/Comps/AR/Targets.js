@@ -59,6 +59,11 @@ const Targets = props => {
         useGravity: true
       }}
       onCollision={props.hitTarget}
+      animation={{
+        name: 'patrolT',
+        run: true,
+        loop: true
+      }}
       viroTag="target"
     />,
     ...guardPositions.map((guard, i) => (
@@ -77,6 +82,11 @@ const Targets = props => {
           useGravity: true
         }}
         onCollision={props.hitCiv}
+        animation={{
+          name: 'patrolG',
+          run: true,
+          loop: true
+        }}
       />
     )),
     ...civPositions.map((civ, i) => (
@@ -94,6 +104,11 @@ const Targets = props => {
           mass: 1,
           shape: { type: 'Box', params: [1, 2, 1] },
           useGravity: true
+        }}
+        animation={{
+          name: `wander${Math.ceil(Math.random()*3)}`,
+          run: true,
+          loop: true
         }}
         onCollision={props.hitCiv}
       />
