@@ -18,10 +18,14 @@ import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
 import EndScreen from './js/Comps/UI/EndScreen';
 
-import store, { loginThunk, startGame, resetStatus } from './js/store';
+import store, {
+  loginThunk,
+  startGame,
+  resetStatus,
+  signUpThunk
+} from './js/store';
 
 class DcApp extends Component {
- 
   constructor(props) {
     super(props);
   }
@@ -41,6 +45,7 @@ class DcApp extends Component {
           ) : (
             <SigninScreen
               login={this.props.login}
+              signUp={this.props.signUp}
               error={this.props.user.error}
             />
           )}
@@ -61,6 +66,9 @@ const mapDispatchToProps = dispatch => {
   return {
     login(email, password) {
       dispatch(loginThunk(email, password));
+    },
+    signUp(email, password) {
+      dispatch(signUpThunk(email, password));
     }
   };
 };
@@ -75,7 +83,6 @@ export default () => (
     <App />
   </Provider>
 );
-
 
 const styles = StyleSheet.create({
   container: {

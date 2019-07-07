@@ -10,7 +10,6 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
-
 export default class SigninScreen extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +52,14 @@ export default class SigninScreen extends Component {
           >
             <Text style={styles.button}>Sign In</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              const { email, password } = this.state;
+              this.props.signUp(email, password);
+            }}
+          >
+            <Text style={styles.button}>Sign Up</Text>
+          </TouchableOpacity>
           {this.props.error ? (
             <Text style={styles.errorMessage}>
               Invalid E-Mail and/or Password
@@ -65,7 +72,6 @@ export default class SigninScreen extends Component {
     );
   }
 }
-
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -104,13 +110,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: width - 60,
     height: 60,
-    margin: 5,
+    margin: 5
   },
   inputField: {
     textAlign: 'center',
     color: '#ffffff',
     width: width,
-    height: 60,
+    height: 60
   },
   logoImg: {
     flex: 1,
