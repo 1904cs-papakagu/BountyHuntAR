@@ -34,7 +34,8 @@ const crosshairs = [
         width: 2,
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 1,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
+        opacity: 0.4
       }}
     />,
     <View
@@ -44,7 +45,8 @@ const crosshairs = [
         width: 100,
         top: SCREEN_HEIGHT / 2 - 1,
         left: SCREEN_WIDTH / 2 - 50,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
+        opacity: 0.4
       }}
     />,
     <View
@@ -54,7 +56,7 @@ const crosshairs = [
         width: 4,
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 2,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
@@ -64,7 +66,7 @@ const crosshairs = [
         width: 4,
         top: SCREEN_HEIGHT / 2 + 25,
         left: SCREEN_WIDTH / 2 - 2,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
@@ -74,7 +76,7 @@ const crosshairs = [
         width: 25,
         top: SCREEN_HEIGHT / 2 - 2,
         left: SCREEN_WIDTH / 2 - 50,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
@@ -84,7 +86,7 @@ const crosshairs = [
         width: 25,
         top: SCREEN_HEIGHT / 2 - 2,
         left: SCREEN_WIDTH / 2 + 25,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
