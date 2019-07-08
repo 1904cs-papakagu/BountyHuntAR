@@ -23,7 +23,9 @@ import store, {
   startGame,
   resetStatus,
   signUpThunk,
-  exitGame
+  exitGame,
+  setBullets,
+  reloading,
 } from './js/store';
 
 class DcApp extends Component {
@@ -38,6 +40,9 @@ class DcApp extends Component {
           <Game
             crosshairId={this.props.crosshairId}
             exitGame={this.props.exitGame}
+            bullets={this.props.bullets}
+            setBullets={this.props.setBullets}
+            reloading={this.props.reloading}
           />
         );
       } else {
@@ -65,7 +70,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     crosshairId: state.user.crosshairId,
-    gameStatus: state.game.status
+    gameStatus: state.game.status,
+    bullets: state.game.bullets,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -78,6 +84,12 @@ const mapDispatchToProps = dispatch => {
     },
     exitGame() {
       dispatch(exitGame());
+    },
+    setBullets(bullets) {
+      dispatch(setBullets(bullets));
+    },
+    reloading(status) {
+      dispatch(reloading(status))
     }
   };
 };

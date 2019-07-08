@@ -48,7 +48,7 @@ const Targets = props => {
     <Viro3DObject
       key={0}
       source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
-      type='OBJ'
+      type="OBJ"
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={[0.0075, 0.0075, 0.0075]}
       rotationPivot={[-0.5, 1, -0.5]}
@@ -70,7 +70,7 @@ const Targets = props => {
       <Viro3DObject
         key={i + 1}
         source={require('./res/bodyguard/MyCharacter.vrx')}
-        type='VRX'
+        type="VRX"
         scale={[0.009, 0.009, 0.009]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
@@ -93,7 +93,7 @@ const Targets = props => {
       <Viro3DObject
         key={i + 3}
         source={require('./res/Finn/Finn.obj')}
-        type='OBJ'
+        type="OBJ"
         materials={['finn']}
         scale={[0.02, 0.02, 0.02]}
         position={[civ.position[0] - x, 0, civ.position[1] + z]}
@@ -106,7 +106,7 @@ const Targets = props => {
           useGravity: true
         }}
         animation={{
-          name: `wander${Math.ceil(Math.random()*3)}`,
+          name: `wander${Math.ceil(Math.random() * 3)}`,
           run: true,
           loop: true
         }}

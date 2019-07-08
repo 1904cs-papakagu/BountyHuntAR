@@ -16,14 +16,14 @@ import {
 import { connect } from 'react-redux';
 
 import Geolocation from 'react-native-geolocation-service';
-import { setInactiveThunk, endGame, sendPosition } from '../../store/';
+import { setInactiveThunk, endGame, sendPosition, setBullets } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
 
 export default class ARScene extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       shoot: true,
@@ -50,7 +50,7 @@ export default class ARScene extends Component {
   }
 
   async getForce() {
-    if (this.state.magazine) {
+    if (this.props.bullets) {
       const {
         forward,
         position,
@@ -62,9 +62,10 @@ export default class ARScene extends Component {
       this.rot = rotation;
 
       if (this.state.shoot) {
-        const newCount = this.state.magazine - 1;
+        const newCount = this.props.bullets - 1;
         this.bullets.push(this.boxShoot());
         this.setState({ shoot: false, magazine: newCount });
+        this.props.setBullets(newCount)
       }
 
       setTimeout(() => this.setState({ shoot: true }), 1500);
@@ -164,7 +165,7 @@ export default class ARScene extends Component {
             position={[-0.5, 0.8, -5]}
           />
         </ViroCamera>
-        <ViroAmbientLight color={'#aaaaaa'} />
+        <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}
           outerAngle={90}
@@ -224,6 +225,9 @@ const mapDispatchToProps = dispatch => {
     },
     winGame() {
       dispatch(endGame(true));
+    },
+    setBullets(bullets) {
+      dispatch(setBullets(bullets));
     }
   };
 };
@@ -233,7 +237,8 @@ const mapStateToProps = state => {
     location: state.location,
     userId: state.user.id,
     locationId: state.location.id,
-    agents: state.game.agents
+    agents: state.game.agents,
+    bullets: state.game.bullets
   };
 };
 
@@ -259,64 +264,64 @@ ViroMaterials.createMaterials({
   }
 });
 
-ViroAnimations. registerAnimations({
-  rMove1X1: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-  rMove1Z1: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+ViroAnimations.registerAnimations({
+  rMove1X1: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+  rMove1Z1: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
 
-  rMove1X2: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-  rMove1Z2: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove1X2: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+  rMove1Z2: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
 
-  rMove1X3: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-  rMove1Z3: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove1X3: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+  rMove1Z3: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
 
   wander1: [
-   ["rMove1X1","rMove1Z1","rMove1X2","rMove1Z2","rMove1X3","rMove1Z3"]
+   ['rMove1X1', 'rMove1Z1', 'rMove1X2', 'rMove1Z2', 'rMove1X3', 'rMove1Z3']
   ],
 
-  rMove2X1: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-  rMove2Z1: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove2X1: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+  rMove2Z1: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
 
-  rMove2X2: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-  rMove2Z2: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove2X2: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+  rMove2Z2: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
 
-  rMove2X3: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-  rMove2Z3: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
+  rMove2X3: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+  rMove2Z3: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
 
 
   wander2: [
-    ["rMove2X1","rMove2Z1","rMove2X2","rMove2Z2","rMove2X3","rMove2Z3"]
+    ['rMove2X1', 'rMove2Z1', 'rMove2X2', 'rMove2Z2', 'rMove2X3', 'rMove2Z3']
    ],
 
-   rMove3X1: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-   rMove3Z1: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
- 
-   rMove3X2: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-   rMove3Z2: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
- 
-   rMove3X3: {properties: {positionX: `+=${Math.random()*2-1}`}, duration: 1000},
-   rMove3Z3: {properties: {positionZ: `+=${Math.random()*2-1}`}, duration: 1000},
- 
- 
+   rMove3X1: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+   rMove3Z1: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+
+   rMove3X2: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+   rMove3Z2: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+
+   rMove3X3: {properties: {positionX: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+   rMove3Z3: {properties: {positionZ: `+=${Math.random() * 2 - 1}`}, duration: 1000},
+
+
    wander3: [
-     ["rMove3X1","rMove3Z1","rMove3X2","rMove3Z2","rMove3X3","rMove3Z3"]
+     ['rMove3X1', 'rMove3Z1', 'rMove3X2', 'rMove3Z2', 'rMove3X3', 'rMove3Z3']
     ],
-   
+
    pMoveTX1: {properties: {positionX: '+=10'}, duration: 10000},
    pMoveTZ1: {properties: {positionZ: '+=10'}, duration: 10000},
    pMoveTX2: {properties: {positionX: '-=10'}, duration: 10000},
    pMoveTZ2: {properties: {positionZ: '-=10'}, duration: 10000},
 
    patrolT: [
-    ["pMoveTX1","pMoveTZ1","pMoveTX2","pMoveTZ2"]
+    ['pMoveTX1', 'pMoveTZ1', 'pMoveTX2', 'pMoveTZ2']
    ],
 
-   pMoveGX1:{properties: {positionX: '+=10'}, duration: 10000},
+   pMoveGX1: {properties: {positionX: '+=10'}, duration: 10000},
    pMoveGZ1: {properties: {positionZ: '+=10'}, duration: 10000},
-   pMoveGX2:{properties: {positionX: '-=10'}, duration: 10000},
+   pMoveGX2: {properties: {positionX: '-=10'}, duration: 10000},
    pMoveGZ2: {properties: {positionZ: '-=10'}, duration: 10000},
 
    patrolG: [
-    ["pMoveGX1","pMoveGZ1","pMoveGX2","pMoveGZ2"]
+    ['pMoveGX1', 'pMoveGZ1', 'pMoveGX2', 'pMoveGZ2']
    ],
 });
 
