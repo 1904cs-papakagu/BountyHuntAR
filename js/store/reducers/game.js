@@ -4,6 +4,7 @@ const START_PLAYING = 'START_PLAYING';
 const STOP_PLAYING = 'STOP_PLAYING';
 const UPDATE_AGENT = 'UPDATE_AGENT';
 const EXIT_GAME = 'EXIT_GAME';
+
 export const exitGame = () => {
   return { type: EXIT_GAME };
 };
@@ -16,6 +17,7 @@ export const startGame = (locationId, userId, displacement) => {
 export const endGame = won => {
   return { type: STOP_PLAYING, won };
 };
+export const resetStatus = () => {return {type: EXIT_GAME}}
 export const spookTarget = () => {};
 
 export default function(state = initState, action) {
@@ -29,12 +31,11 @@ export default function(state = initState, action) {
         return { ...state, status: 'lost' };
       }
     case EXIT_GAME:
-      return { ...state, status: '' };
+      return initState;
     case UPDATE_AGENT:
       const { agentId, agentPosition } = action;
       state.agents[agentId] = agentPosition;
       console.log(state);
-
       return state;
     default:
       break;
