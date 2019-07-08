@@ -10,7 +10,9 @@ import game, {
   startGame,
   endGame,
   resetStatus,
-  exitGame
+  exitGame,
+  setBullets,
+  reloading
 } from './reducers/game';
 import {
   location,
@@ -47,5 +49,7 @@ export {
   setCrosshair,
   sendPosition,
   signUpThunk,
-  exitGame
+  exitGame,
+  setBullets,
+  reloading
 };
