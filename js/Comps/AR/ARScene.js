@@ -325,29 +325,3 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
-
-// {
-//   Object.values(this.props.agents).map((agent, index) => {
-//     const { displacement } = this.state;
-//     const pos = [
-//       agent[0] + displacement[0],
-//       agent[1],
-//       agent[2] + displacement[1]
-//     ];
-//     console.log('POS:', pos);
-//     return (
-//       <ViroBox
-//         key={index}
-//         height={2}
-//         width={0.5}
-//         length={0.5}
-//         position={[
-//           agent[0] + displacement[0],
-//           agent[1],
-//           agent[2] + displacement[1]
-//         ]}
-//         materials={['target']}
-//       />
-//     );
-//   })
-// }
