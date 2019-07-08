@@ -106,10 +106,8 @@ export default class ARScene extends Component {
   }
 
   async agentUpdate() {
-    console.log('agentUpdate HAS FIRED');
     if (this.state.update) {
       const { position } = await this.refs.scene.getCameraOrientationAsync();
-      console.log('POSITION:', position)
       const { locationId, userId } = this.props;
       sendPosition(locationId, userId, position);
       this.setState({ update: false });
@@ -167,7 +165,6 @@ export default class ARScene extends Component {
         />
 
         {Object.values(this.props.agents).map((agent, index) => {
-          console.log('AGENT:', agent)
           return (
             <Agents
               key={index}
