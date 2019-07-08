@@ -34,7 +34,8 @@ const Game = props => (
           setTimeout(() => props.setBullets(7), 3000);
         }}
       >
-        <Text style={styles.buttonText}>{props.bullets}/7</Text>
+        <Text style={styles.textStyle}>Reload</Text>
+        <Text style={styles.textStyle}>{props.bullets}/7</Text>
       </TouchableOpacity>
     </View>
 
@@ -46,8 +47,12 @@ const Game = props => (
     />
 
     <Crosshair crosshair={props.crosshairId} />
-    {/* <Button  title="Shoot" color="#00ff00" /> */}
-    <Button onPress={props.exitGame} title="Abandon Contract" color="#841584" />
+
+    <View style={styles.abandonContainer}>
+      <TouchableOpacity onPress={props.exitGame} style={styles.abandonButton}>
+        <Text style={styles.textStyle}>Abandon Contract</Text>
+      </TouchableOpacity>
+    </View>
   </View>
 );
 
@@ -63,19 +68,40 @@ const styles = StyleSheet.create({
   },
   reloadContainer: {
     width: width,
-    height: 50,
-    justifyContent: 'flex-end',
+    height: 150,
+    justifyContent: 'flex-start',
     backgroundColor: '#000000'
   },
   reloadButton: {
-    width: 150,
-    height: 50,
+    height: 100,
+    backgroundColor: '#000000',
     borderColor: '#ff0000',
-    backgroundColor: '#ff0000',
-    alignItems: 'center',
-    justifyContent: 'center'
+    borderWidth: 1,
+    borderRadius: 12,
+    margin: 20,
+    padding: 12,
+    textAlign: 'center'
   },
-  buttonText: {
-    fontSize: 20
+  textStyle: {
+    fontFamily: 'American Typewriter',
+    fontSize: 25,
+    color: 'white'
+  },
+  abandonContainer: {
+    width: width,
+    height: 0,
+    justifyContent: 'flex-end',
+    backgroundColor: '#000000'
+  },
+  abandonButton: {
+    height: 100,
+    backgroundColor: '#000000',
+    borderColor: '#841584',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: 'white',
+    margin: 20,
+    padding: 12,
+    textAlign: 'center'
   }
 });
