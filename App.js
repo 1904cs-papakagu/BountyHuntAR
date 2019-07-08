@@ -22,7 +22,8 @@ import store, {
   loginThunk,
   startGame,
   resetStatus,
-  signUpThunk
+  signUpThunk,
+  exitGame
 } from './js/store';
 
 class DcApp extends Component {
@@ -33,7 +34,12 @@ class DcApp extends Component {
   render() {
     if (this.props.gameStatus) {
       if (this.props.gameStatus === 'playing') {
-        return <Game crosshairId={this.props.crosshairId} />;
+        return (
+          <Game
+            crosshairId={this.props.crosshairId}
+            exitGame={this.props.exitGame}
+          />
+        );
       } else {
         return <EndScreen status={this.props.gameStatus} />;
       }
@@ -69,6 +75,9 @@ const mapDispatchToProps = dispatch => {
     },
     signUp(email, password) {
       dispatch(signUpThunk(email, password));
+    },
+    exitGame() {
+      dispatch(exitGame());
     }
   };
 };

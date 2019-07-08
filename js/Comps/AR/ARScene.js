@@ -8,6 +8,7 @@ import {
   ViroBox,
   ViroMaterials,
   ViroAnimations,
+  ViroCamera,
   ViroSpotLight,
   ViroAmbientLight
 } from 'react-viro';
@@ -21,7 +22,6 @@ import Walls from './Walls';
 import Bullet from './Bullet';
 
 export default class ARScene extends Component {
-
   constructor() {
     super();
 
@@ -30,6 +30,8 @@ export default class ARScene extends Component {
       score: 0,
       displacement: [0, -10],
       update: true,
+      reloading: false,
+      magazine: 7
     };
 
     this.velocity = [0, 0, 0];
@@ -43,32 +45,34 @@ export default class ARScene extends Component {
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
     this.getForce = this.getForce.bind(this);
-    this.agentUpdate = this.agentUpdate.bind(this)
+    this.agentUpdate = this.agentUpdate.bind(this);
+    this.reload = this.reload.bind(this);
   }
 
   async getForce() {
+    if (this.state.magazine) {
+      const {
+        forward,
+        position,
+        rotation
+      } = await this.refs.scene.getCameraOrientationAsync();
 
-    const {
-      forward,
-      position,
-      rotation
-    } = await this.refs.scene.getCameraOrientationAsync();
+      this.velocity = forward.map(vector => 30 * vector);
+      this.pos = position;
+      this.rot = rotation;
 
-    this.velocity = forward.map(vector => 30 * vector);
-    this.pos = position;
-    this.rot = rotation;
+      if (this.state.shoot) {
+        const newCount = this.state.magazine - 1;
+        this.bullets.push(this.boxShoot());
+        this.setState({ shoot: false, magazine: newCount });
+      }
 
-    if (this.state.shoot) {
-      this.bullets.push(this.boxShoot());
-      this.setState({ shoot: false });
+      setTimeout(() => this.setState({ shoot: true }), 1500);
+      setTimeout(() => this.bullets.unshift(), 1500);
     }
-
-    setTimeout(() => this.setState({ shoot: true }), 1500);
-    setTimeout(() => this.bullets.unshift(), 1500);
   }
 
   boxShoot() {
-
     return (
       <Bullet
         key={this.bullets.length}
@@ -78,12 +82,15 @@ export default class ARScene extends Component {
       />
     );
   }
+  reload() {
+    this.setState({ reloading: true });
+    setTimeout(() => this.setState({ magazine: 7, reloading: false }), 3000);
+  }
 
   hitTarget(tag) {
-
     if (tag === 'boxBullet') {
       const score = this.state.score + 3;
-      const { userId, locationId } = this.props
+      const { userId, locationId } = this.props;
 
       this.props.setInactive(locationId, userId, score);
       setTimeout(this.props.winGame, 2000);
@@ -91,7 +98,6 @@ export default class ARScene extends Component {
   }
 
   hitCiv(tag) {
-
     if (tag === 'boxBullet') {
       const score = this.state.score - 1;
       this.setState({ score });
@@ -99,7 +105,6 @@ export default class ARScene extends Component {
   }
 
   async agentUpdate() {
-
     if (this.state.update) {
       const { position } = await this.refs.scene.getCameraOrientationAsync();
       const { locationId, userId } = this.props;
@@ -110,7 +115,6 @@ export default class ARScene extends Component {
   }
 
   render() {
-
     return (
       <ViroARScene
         ref="scene"
@@ -120,18 +124,46 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.bullets}
-        {Object.values(this.props.agents).map( (agent, index) => {
-          const {displacement} = this.state;
+        {Object.values(this.props.agents).map((agent, index) => {
+          const { displacement } = this.state;
           return (
             <ViroBox
               key={index}
               height={2}
-              width={.5}
-              length={.5}
-              position={[agent[0] + displacement[0], agent[1], agent[2] + displacement[1]]}
+              width={0.5}
+              length={0.5}
+              position={[
+                agent[0] + displacement[0],
+                agent[1],
+                agent[2] + displacement[1]
+              ]}
               materials={['target']}
             />
-        )})}
+          );
+        })}
+        <ViroCamera position={[0, 0, 0]} active={true}>
+          <ViroText
+            text={
+              this.state.reloading ? 'reloading' : String(this.state.magazine)
+            }
+            textAlign="left"
+            textAlignVertical="top"
+            textLineBreakMode="justify"
+            textClipMode="clipToBounds"
+            color="#ff0000"
+            width={2}
+            height={2}
+            onClick={this.reload}
+            style={{
+              fontFamily: 'Arial',
+              fontSize: 20,
+              fontWeight: '400',
+              fontStyle: 'italic',
+              color: '#0000FF'
+            }}
+            position={[-0.5, 0.8, -5]}
+          />
+        </ViroCamera>
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
@@ -152,7 +184,6 @@ export default class ARScene extends Component {
   }
 
   _onInitialized(state, reason) {
-
     if (state === ViroConstants.TRACKING_NORMAL) {
       this._updateLocation();
     } else if (state === ViroConstants.TRACKING_NONE) {
@@ -161,7 +192,6 @@ export default class ARScene extends Component {
   }
 
   _updateLocation() {
-
     Geolocation.getCurrentPosition(
       position => {
         const currentLatitude = position.coords.latitude;
@@ -170,8 +200,8 @@ export default class ARScene extends Component {
         const displacement = [
           (targetLatitude - currentLatitude) * 111111,
           (targetLongitude - currentLongitude) *
-          111111 *
-          Math.cos((Math.PI * targetLatitude) / 180)
+            111111 *
+            Math.cos((Math.PI * targetLatitude) / 180)
         ];
         this.setState({ displacement });
       },
@@ -186,7 +216,6 @@ export default class ARScene extends Component {
     );
   }
 }
-
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -213,8 +242,7 @@ const ConnectedARScene = connect(
   mapDispatchToProps
 )(ARScene);
 
-module.exports = () => (<ConnectedARScene />);
-
+module.exports = () => <ConnectedARScene />;
 
 ViroMaterials.createMaterials({
   dummy: {

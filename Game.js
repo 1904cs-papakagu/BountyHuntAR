@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Dimensions,
-  YellowBox
+  YellowBox,
+  Button
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -32,11 +33,11 @@ const Game = props => (
       debug={true}
     />
     <Crosshair crosshair={props.crosshairId} />
+    <Button onPress={props.exitGame} title="Abandon Contract" color="#841584" />
   </View>
 );
 
 export default Game;
-
 
 const styles = StyleSheet.create({
   container: {
