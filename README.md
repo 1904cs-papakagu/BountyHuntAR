@@ -2,6 +2,6 @@
 
 # HOW TO PLAY
 
-![Target](/js/Images/Readme/Target.png)
-![Guard](/js/Images/Readme/Guard.png)
-![Finn](/js/Images/Readme/Finn.png)
+![Target](/js/Images/Readme/Target.jpg)
+![Guard](/js/Images/Readme/Guard.jpg)
+![Civilian](/js/Images/Readme/Civilian.jpg)
