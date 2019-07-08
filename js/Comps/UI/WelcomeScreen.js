@@ -8,26 +8,34 @@ import {
   Image
 } from 'react-native';
 import KillZone from './KillZone';
+import Instructions from './Instructions';
 import { connect } from 'react-redux';
 import { setCrosshair } from '../../store';
-
 
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       renderKillZone: false,
+      renderRules: false,
       crosshairs: [0, 1, 2, 3]
     };
-    this.onChange = this.onChange.bind(this);
+    this.onChangeKZ = this.onChangeKZ.bind(this);
+    this.onChangeRules = this.onChangeRules.bind(this);
   }
 
-  onChange(bool) {
+  onChangeKZ(bool) {
     this.setState({ renderKillZone: bool });
   }
 
+  onChangeRules(bool) {
+    this.setState({ renderRules: bool });
+  }
+
   render() {
-    return !this.state.renderKillZone ? (
+    if (this.state.renderKillZone) return <KillZone onChange={this.onChangeKZ} />
+    if (this.state.renderRules) return <Instructions onChange={this.onChangeRules} signedIn={true} />
+    return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
@@ -64,13 +72,14 @@ class WelcomePage extends React.Component {
           ))}
         </View>
 
-        <TouchableOpacity onPress={() => this.onChange(true)}>
+        <TouchableOpacity onPress={() => this.onChangeKZ(true)}>
           <Text style={styles.killzoneButton}>See Active Killzones</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.onChangeRules(true)}>
+          <Text style={styles.killzoneButton}>Mission briefing (rules)</Text>
+        </TouchableOpacity>
       </View>
-    ) : (
-      <KillZone onChange={this.onChange} />
-    );
+    )
   }
 }
 
