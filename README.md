@@ -1,21 +1,21 @@
-# BountyHuntAR
-An AR assassination App
+![Logo](/js/Images/bountyhuntarlogo.png)
 
-# MVP
-- virtual targets appear randomly
-- nearby players are notified
-- when a player enters the vicinity, the target "appears"
-- you want to shoot the target with your phone by aiming the camera and pressing a button
-- first player to shoot target gets "cash"
-- companion website with leaderboard data and other stats displayed with d3
+## ABOUT
 
-# TIER 1
-- hard-coded target locations
-- generic 3D models
+This is a cross-platform mobile multiplayer game, featuring AR and GPS technology. The “aim” is for players to find and eliminate a target by going to a “hot” location in real life and shooting the target in AR.
 
-# Wish List
-- website with leaderboard data
-- moving target
-- buy items with cash (e.g. better weapons allow killing from greater range)
-- shooting other assassins
-- bullet physics
+## RULES
+
+Players earn points and virtual cash which can be spent on ammunition or upgrades. Points are deducted for harming civilians and other bystanders. Extra points are awarded for neutralizing other competing players in the same killzone.
+
+Eliminate the target before any other player can to earn $$$ and 3 points:
+
+![Target](/js/Images/Readme/Target.jpg)
+
+Do not shoot the target's bodyguards (-1 point):
+
+![Guard](/js/Images/Readme/Guard.jpg)
+
+Do not shoot civilians (-3 points):
+
+![Civilian](/js/Images/Readme/Civilian.jpg)
