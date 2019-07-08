@@ -1,16 +1,13 @@
 import axios from 'axios';
 
-
 const initState = {
   username: null,
-  crosshairId: 1
+  crosshairId: 0
 };
-
 
 const SET_USER_ON_STATE = 'SET_USER_ON_STATE';
 const HANDLE_ERROR = 'HANDLE_ERROR';
 const SET_CROSSHAIR = 'SET_CROSSHAIR';
-
 
 export const setCrosshair = crosshairId => {
   return {
@@ -31,16 +28,16 @@ const handleError = error => {
   };
 };
 
-
 export const loginThunk = (email, password) => {
   return async dispatch => {
     try {
+      email = email.toLowerCase();
       const { data } = await axios({
         url: 'http://bountyhuntar.herokuapp.com/auth/login',
         method: 'POST',
         data: { email, password }
       });
-      // const data = {name: 'Cody'}
+
       dispatch(setUserOnState(data));
     } catch (error) {
       dispatch(handleError(error));
@@ -48,6 +45,22 @@ export const loginThunk = (email, password) => {
   };
 };
 
+export const signUpThunk = (email, password) => {
+  return async dispatch => {
+    try {
+      email = email.toLowerCase();
+      const { data } = await axios({
+        url: 'http://bountyhuntar.herokuapp.com/auth/signup',
+        method: 'POST',
+        data: { email, password }
+      });
+
+      dispatch(setUserOnState(data));
+    } catch (error) {
+      dispatch(handleError(error));
+    }
+  };
+};
 
 export function user(state = initState, action) {
   switch (action.type) {
