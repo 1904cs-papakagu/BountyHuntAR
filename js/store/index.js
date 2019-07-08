@@ -6,7 +6,12 @@ import {
 } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { user, loginThunk, setCrosshair, signUpThunk } from './reducers/users';
-import game, { startGame, endGame, resetStatus } from './reducers/game';
+import game, {
+  startGame,
+  endGame,
+  resetStatus,
+  exitGame
+} from './reducers/game';
 import {
   location,
   getActiveLocationThunk,
@@ -41,5 +46,6 @@ export {
   resetStatus,
   setCrosshair,
   sendPosition,
-  signUpThunk
+  signUpThunk,
+  exitGame
 };
