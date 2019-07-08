@@ -21,12 +21,12 @@ const thunkMiddleware = ({ dispatch, getState }) => {
 
 const socketMiddleware = ({ dispatch, getState }) => {
   socket.on('targetKilled', userId => {
-    if (`${getState().user.id}` != userId) {
+    if (`${getState().user.id}` !== `${userId}`) {
       dispatch(endGame(false));
     }
   })
   socket.on('agentUpdate', (agentId, agentPosition) => {
-    if (`${getState().user.id}` != agentId) {
+    if (`${getState().user.id}` !== `${agentId}`) {
       dispatch(updateAgent(agentId, agentPosition))
     }
   })

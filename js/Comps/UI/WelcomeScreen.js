@@ -65,7 +65,7 @@ class WelcomePage extends React.Component {
         </View>
 
         <TouchableOpacity onPress={() => this.onChange(true)}>
-          <Text style={styles.killzoneButton}>Active Killzones</Text>
+          <Text style={styles.killzoneButton}>See Active Killzones</Text>
         </TouchableOpacity>
       </View>
     ) : (
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   crosshairButtonSelected: {
     backgroundColor: '#000000',
-    borderColor: '#ff0000',
+    borderColor: '#00ff00',
     borderWidth: 1,
     borderRadius: 12,
     color: '#ffffff',
