@@ -13,6 +13,7 @@ import KillZone from './KillZone';
 import Instructions from './Instructions';
 import { connect } from 'react-redux';
 import { setCrosshair } from '../../store';
+import { crosshairs } from '../AR/Crosshair';
 
 class WelcomePage extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class WelcomePage extends React.Component {
     this.state = {
       renderKillZone: false,
       renderRules: false,
-      crosshairs: [0, 1, 2, 3, 4]
+      crosshairs: crosshairs.map((crosshair, index) => index),
     };
     this.onChangeKZ = this.onChangeKZ.bind(this);
     this.onChangeRules = this.onChangeRules.bind(this);
