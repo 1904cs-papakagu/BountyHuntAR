@@ -8,14 +8,14 @@ This is a cross-platform mobile multiplayer game, featuring AR and GPS technolog
 
 Players earn points and virtual cash which can be spent on ammunition or upgrades. Points are deducted for harming civilians and other bystanders. Extra points are awarded for neutralizing other competing players in the same killzone.
 
-Eliminate your target:
+Eliminate the target before any other player can to earn $$$ and 3 points:
 
 ![Target](/js/Images/Readme/Target.jpg)
 
-He is guarded by these:
+Do not shoot the target's bodyguards (-1 point):
 
 ![Guard](/js/Images/Readme/Guard.jpg)
 
-Do not shoot civilians:
+Do not shoot civilians (-3 points):
 
 ![Civilian](/js/Images/Readme/Civilian.jpg)
