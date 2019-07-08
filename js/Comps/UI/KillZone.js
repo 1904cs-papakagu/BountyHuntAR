@@ -98,14 +98,20 @@ class KillZone extends React.Component {
                   key={location.id}
                   onPress={() => this.props.start(location.id, this.props.userId ,displacement)}
                 >
-                  <Text style={styles.acceptButton}>Accept Contract</Text>
+                  <Text style={styles.acceptButton}>
+                    {location.name}: Accept Contract
+                  </Text>
                 </TouchableOpacity>
               );
             } else {
               return (
-                <Text style={styles.textStyle} key={location.id}>
-                  Distance: {Math.floor(distance)}m away
-                </Text>
+                <TouchableOpacity
+                  key={location.id}
+                >
+                  <Text style={styles.invalidButton}>
+                    {location.name}: {Math.floor(distance)}m away
+                  </Text>
+                </TouchableOpacity>
               );
             }
           })}
@@ -197,6 +203,16 @@ const styles = StyleSheet.create({
   acceptButton: {
     backgroundColor: '#000000',
     borderColor: '#00ff00',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: '#ffffff',
+    margin: 5,
+    padding: 12,
+    textAlign: 'center'
+  },
+  invalidButton: {
+    backgroundColor: '#000000',
+    borderColor: '#ff0000',
     borderWidth: 1,
     borderRadius: 12,
     color: '#ffffff',
