@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import Geolocation from 'react-native-geolocation-service';
 import { setInactiveThunk, endGame, sendPosition } from '../../store/';
 import Targets from './Targets';
+import Agents from './Agents';
 import Walls from './Walls';
 import Bullet from './Bullet';
 
@@ -105,12 +106,14 @@ export default class ARScene extends Component {
   }
 
   async agentUpdate() {
+    console.log('agentUpdate HAS FIRED');
     if (this.state.update) {
       const { position } = await this.refs.scene.getCameraOrientationAsync();
+      console.log('POSITION:', position)
       const { locationId, userId } = this.props;
       sendPosition(locationId, userId, position);
       this.setState({ update: false });
-      setTimeout(() => this.setState({ update: true }), 500);
+      setTimeout(() => this.setState({ update: true }), 50);
     }
   }
 
@@ -124,26 +127,8 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.bullets}
-        
-        {Object.values(this.props.agents).map((agent, index) => {
-          const { displacement } = this.state;
-          return (
-            <ViroBox
-              key={index}
-              height={2}
-              width={0.5}
-              length={0.5}
-              position={[
-                agent[0] + displacement[0],
-                agent[1],
-                agent[2] + displacement[1]
-              ]}
-              materials={['target']}
-            />
-          );
-        })}
     
-        <ViroCamera position={[0, 0, 0]} active={true}>
+        {/* <ViroCamera position={[0, 0, 0]} active={true}>
           <ViroText
             text={
               this.state.reloading ? 'reloading' : String(this.state.magazine)
@@ -165,7 +150,7 @@ export default class ARScene extends Component {
             }}
             position={[-0.5, 0.8, -5]}
           />
-        </ViroCamera>
+        </ViroCamera> */}
         <ViroAmbientLight color={'#aaaaaa'} />
         <ViroSpotLight
           innerAngle={5}
@@ -180,6 +165,18 @@ export default class ARScene extends Component {
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
         />
+
+        {Object.values(this.props.agents).map((agent, index) => {
+          console.log('AGENT:', agent)
+          return (
+            <Agents
+              key={index}
+              agent={agent}
+              displacement={this.state.displacement}
+            />
+          )
+        })}
+
         <Walls />
       </ViroARScene>
     );
@@ -331,3 +328,29 @@ var styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
+
+// {
+//   Object.values(this.props.agents).map((agent, index) => {
+//     const { displacement } = this.state;
+//     const pos = [
+//       agent[0] + displacement[0],
+//       agent[1],
+//       agent[2] + displacement[1]
+//     ];
+//     console.log('POS:', pos);
+//     return (
+//       <ViroBox
+//         key={index}
+//         height={2}
+//         width={0.5}
+//         length={0.5}
+//         position={[
+//           agent[0] + displacement[0],
+//           agent[1],
+//           agent[2] + displacement[1]
+//         ]}
+//         materials={['target']}
+//       />
+//     );
+//   })
+// }
