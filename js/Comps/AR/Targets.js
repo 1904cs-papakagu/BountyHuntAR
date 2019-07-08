@@ -117,4 +117,3 @@ const Targets = props => {
 };
 
 export default Targets;
-

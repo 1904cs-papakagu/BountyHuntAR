@@ -124,7 +124,25 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.bullets}
-
+        
+        {Object.values(this.props.agents).map((agent, index) => {
+          const { displacement } = this.state;
+          return (
+            <ViroBox
+              key={index}
+              height={2}
+              width={0.5}
+              length={0.5}
+              position={[
+                agent[0] + displacement[0],
+                agent[1],
+                agent[2] + displacement[1]
+              ]}
+              materials={['target']}
+            />
+          );
+        })}
+    
         <ViroCamera position={[0, 0, 0]} active={true}>
           <ViroText
             text={
@@ -162,23 +180,6 @@ export default class ARScene extends Component {
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
         />
-        {Object.values(this.props.agents).map((agent, index) => {
-          const { displacement } = this.state;
-          return (
-            <ViroBox
-              key={index}
-              height={2}
-              width={0.5}
-              length={0.5}
-              position={[
-                agent[0] + displacement[0],
-                agent[1],
-                agent[2] + displacement[1]
-              ]}
-              materials={['target']}
-            />
-          );
-        })}
         <Walls />
       </ViroARScene>
     );
