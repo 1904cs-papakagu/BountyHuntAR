@@ -75,20 +75,6 @@ class WelcomePage extends React.Component {
               </TouchableOpacity>
             ))}
           </ScrollView>
-          {/* <Picker
-            selectedValue={this.props.crosshairId}
-            onValueChange={itemValue => this.props.setCrosshair(itemValue)}
-            style={{ height: 50, width: 250 }}
-            itemStyle={{ color: 'red' }}
-          >
-            {this.state.crosshairs.map(crosshair => (
-              <Picker.Item
-                key={crosshair}
-                label={`crosshair # ${crosshair + 1}`}
-                value={crosshair}
-              />
-            ))}
-          </Picker> */}
         </View>
 
         <TouchableOpacity onPress={() => this.onChangeKZ(true)}>
