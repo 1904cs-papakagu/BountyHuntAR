@@ -21,9 +21,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'black'
   },
+  crosshair4: {
+    position: 'absolute',
+    backgroundColor: 'black'
+  },
 });
 
-const crosshairs = [
+export const crosshairs = [
 
   // CROSSHAIR 0
   [
@@ -379,6 +383,98 @@ const crosshairs = [
         left: SCREEN_WIDTH / 2 - 50,
         backgroundColor: '',
         borderColor: styles.crosshair3.backgroundColor
+      }}
+    />
+  ],
+
+  // CROSSHAIR 4
+  [
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: 'yellow',
+        opacity: 0.5
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 100,
+        width: 2,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 1,
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 100,
+        top: SCREEN_HEIGHT / 2 - 1,
+        left: SCREEN_WIDTH / 2 - 50
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 30,
+        top: SCREEN_HEIGHT / 2 - 1 + 5,
+        left: SCREEN_WIDTH / 2 - 15
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 24,
+        top: SCREEN_HEIGHT / 2 - 1 + 10,
+        left: SCREEN_WIDTH / 2 - 12
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 18,
+        top: SCREEN_HEIGHT / 2 - 1 + 15,
+        left: SCREEN_WIDTH / 2 - 9
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 12,
+        top: SCREEN_HEIGHT / 2 - 1 + 20,
+        left: SCREEN_WIDTH / 2 - 6
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 6,
+        top: SCREEN_HEIGHT / 2 - 1 + 25,
+        left: SCREEN_WIDTH / 2 - 3
+      }}
+    />,
+    <View
+      style={{
+        ...styles.crosshair4,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        borderWidth: 4,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: '',
+        borderColor: styles.crosshair4.backgroundColor
       }}
     />
   ],

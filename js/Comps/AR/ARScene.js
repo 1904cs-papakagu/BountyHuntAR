@@ -99,9 +99,16 @@ export default class ARScene extends Component {
     }
   }
 
-  hitCiv(tag) {
+  hitGuard(tag) {
     if (tag === 'boxBullet') {
       const score = this.state.score - 1;
+      this.setState({ score });
+    }
+  }
+
+  hitCiv(tag) {
+    if (tag === 'boxBullet') {
+      const score = this.state.score - 3;
       this.setState({ score });
     }
   }
@@ -137,6 +144,7 @@ export default class ARScene extends Component {
         />
         <Targets
           hitTarget={this.hitTarget}
+          hitGuard={this.hitGuard}
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
         />
