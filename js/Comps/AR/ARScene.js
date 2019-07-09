@@ -32,9 +32,7 @@ export default class ARScene extends Component {
     this.state = {
       score: 0,
       displacement: [0, -10],
-      update: true,
       report: false,
-      reloadSound: false,
       deathSound: false,
     };
 
@@ -42,7 +40,7 @@ export default class ARScene extends Component {
 
     this._onInitialized = this._onInitialized.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
-    this.boxShoot = this.boxShoot.bind(this);
+    this.generateBullet = this.generateBullet.bind(this);
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
     this.hitGuard = this.hitGuard.bind(this);
