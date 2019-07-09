@@ -29,7 +29,7 @@ export default class ARScene extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {,
+    this.state = {
       score: 0,
       displacement: [0, -10],
       update: true,
