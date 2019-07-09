@@ -73,8 +73,6 @@ const styles = StyleSheet.create({
   reloadButton: {
     height: 75,
     width: 125,
-    // backgroundColor: '#000000',
-    // borderColor: '#ff0000',
     borderWidth: 1,
     borderRadius: 12,
     margin: 20,
