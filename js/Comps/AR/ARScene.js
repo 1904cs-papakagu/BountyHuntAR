@@ -111,7 +111,6 @@ export default class ARScene extends Component {
         position={position}
         velocity={velocity}
         rotation={rotation}
-        viroTag="bullet"
       />
     );
   }
