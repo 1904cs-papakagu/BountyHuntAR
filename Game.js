@@ -7,7 +7,8 @@ import {
   Dimensions,
   YellowBox,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -18,8 +19,8 @@ import Crosshair, { numOfCrosshairs } from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
-import { setShooting } from './js/store';
-
+import { setShooting, setLoading } from './js/store';
+import Loading from './Loading';
 console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
@@ -70,7 +71,13 @@ const Game = props => (
     </View>
 
     <View style={styles.abandonContainer}>
-      <TouchableOpacity onPress={props.exitGame} style={styles.abandonButton}>
+      <TouchableOpacity
+        onPress={() => {
+          props.exitGame();
+          props.setLoading(true);
+        }}
+        style={styles.abandonButton}
+      >
         <Text style={styles.textStyle}>Abandon Contract</Text>
       </TouchableOpacity>
     </View>
@@ -87,12 +94,19 @@ const mapDispatchToProps = dispatch => {
   return {
     fire() {
       dispatch(setShooting());
+    },
+    setLoading(bool) {
+      dispatch(setLoading(bool));
     }
   };
 };
-
+const mapStateToProps = state => {
+  return {
+    loading: state.game.loading
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Game);
 

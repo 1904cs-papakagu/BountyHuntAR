@@ -22,13 +22,14 @@ import {
   endGame,
   sendPosition,
   setBullets,
-  resetShooting
+  resetShooting,
+  setLoading
 } from '../../store/';
 import Targets from './Targets';
 import Agents from './Agents';
 import Walls from './Walls';
 import Bullet from './Bullet';
-
+import Loading from '../../../Loading';
 export default class ARScene extends Component {
   constructor(props) {
     super(props);
@@ -38,8 +39,7 @@ export default class ARScene extends Component {
       score: 0,
       displacement: [0, -10],
       update: true,
-      reloading: false,
-      magazine: 7
+      reloading: false
     };
 
     this.velocity = [0, 0, 0];
@@ -137,16 +137,9 @@ export default class ARScene extends Component {
           hitGuard={this.hitGuard}
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
+          setLoading={this.props.setLoading}
         />
-        {Object.values(this.props.agents).map((agent, index) => {
-          return (
-            <Agents
-              key={index}
-              agent={agent}
-              displacement={this.state.displacement}
-            />
-          );
-        })}
+
         <Walls />
       </ViroARScene>
     );
@@ -199,8 +192,11 @@ const mapDispatchToProps = dispatch => {
     setBullets(bullets) {
       dispatch(setBullets(bullets));
     },
-    reset(){
-      dispatch(resetShooting())
+    reset() {
+      dispatch(resetShooting());
+    },
+    setLoading(bool) {
+      dispatch(setLoading(bool));
     }
   };
 };
@@ -213,8 +209,7 @@ const mapStateToProps = state => {
     agents: state.game.agents,
     bullets: state.game.bullets,
     reloading: state.game.reloading,
-    shooting: state.game.shooting,
-
+    shooting: state.game.shooting
   };
 };
 

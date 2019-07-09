@@ -6,7 +6,8 @@ import {
   Text,
   View,
   Dimensions,
-  YellowBox
+  YellowBox,
+  Modal
 } from 'react-native';
 
 console.ignoredYellowBox = ['Remote debugger'];
@@ -17,7 +18,7 @@ import Game from './Game';
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
 import EndScreen from './js/Comps/UI/EndScreen';
-
+import Loading from './Loading';
 import store, {
   loginThunk,
   startGame,
@@ -40,25 +41,30 @@ class DcApp extends Component {
           {this.props.user.userName ? (
             <WelcomeScreen user={this.props.user} />
           ) : (
-              <SigninScreen
-                login={this.props.login}
-                signUp={this.props.signUp}
-                error={this.props.user.error}
-              />
-            )}
+            <SigninScreen
+              login={this.props.login}
+              signUp={this.props.signUp}
+              error={this.props.user.error}
+            />
+          )}
         </View>
       );
     } else {
       if (this.props.gameStatus === 'playing') {
         return (
-          <Game
-            crosshairId={this.props.crosshairId}
-            exitGame={this.props.exitGame}
-            bullets={this.props.bullets}
-            setBullets={this.props.setBullets}
-            reloading={this.props.reloading}
-            setReload={this.props.setReload}
-          />
+          <View style={styles.container}>
+            <Modal visible={this.props.loading}>
+              <Loading loading={this.props.loading} />
+            </Modal>
+            <Game
+              crosshairId={this.props.crosshairId}
+              exitGame={this.props.exitGame}
+              bullets={this.props.bullets}
+              setBullets={this.props.setBullets}
+              reloading={this.props.reloading}
+              setReload={this.props.setReload}
+            />
+          </View>
         );
       } else {
         return <EndScreen status={this.props.gameStatus} />;
@@ -73,7 +79,8 @@ const mapStateToProps = state => {
     crosshairId: state.user.crosshairId,
     gameStatus: state.game.status,
     bullets: state.game.bullets,
-    reloading: state.game.reloading
+    reloading: state.game.reloading,
+    loading: state.game.loading
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -109,9 +116,6 @@ export default () => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    flex: 1
   }
 });

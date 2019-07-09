@@ -9,7 +9,7 @@ const guardPositions = [
   {
     position: [0.9, -0.1],
     rotationAngle: Math.floor(Math.random() * 360)
-  },
+  }
 ];
 
 const civPositions = [
@@ -36,15 +36,13 @@ const civPositions = [
   {
     position: [0.0, 5.0],
     rotationAngle: Math.floor(Math.random() * 360)
-  },
+  }
 ];
 
 const Targets = props => {
-
   const [x, z] = props.displacement;
 
-  return ([
-
+  return [
     <Viro3DObject
       key={0}
       source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
@@ -52,6 +50,7 @@ const Targets = props => {
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={[0.0075, 0.0075, 0.0075]}
       rotationPivot={[-0.5, 1, -0.5]}
+      onLoadEnd={() => props.setLoading(false)}
       physicsBody={{
         type: 'Dynamic',
         mass: 1,
@@ -78,7 +77,7 @@ const Targets = props => {
         physicsBody={{
           type: 'Dynamic',
           mass: 1,
-          shape: { type: 'Box', params: [1, 2, 1]},
+          shape: { type: 'Box', params: [1, 2, 1] },
           useGravity: true
         }}
         onCollision={props.hitGuard}
@@ -112,8 +111,8 @@ const Targets = props => {
         }}
         onCollision={props.hitCiv}
       />
-    )),
-  ])
+    ))
+  ];
 };
 
 export default Targets;
