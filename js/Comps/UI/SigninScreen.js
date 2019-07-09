@@ -10,16 +10,26 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
+import Instructions from './Instructions';
+
 export default class SigninScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      renderRules: false,
+      signingUp: false,
     };
+    this.onChangeRules = this.onChangeRules.bind(this);
   }
 
+  onChangeRules(bool) {
+    this.setState({ renderRules: bool });
+  }
+  
   render() {
+    if (this.state.renderRules) return <Instructions onChange={this.onChangeRules} signedIn={false} /> 
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image
@@ -44,19 +54,28 @@ export default class SigninScreen extends Component {
             textContentType="password"
             style={this.props.error ? styles.errorField : styles.inputField}
           />
+
+          {this.state.signingUp
+          ? <></>
+          : <TouchableOpacity
+              onPress={() => {
+                const { email, password } = this.state;
+                this.props.login(email, password);
+              }}
+            >
+              <Text style={styles.button}>Sign In</Text>
+            </TouchableOpacity>
+          }
+
           <TouchableOpacity
-            onPress={() => {
-              const { email, password } = this.state;
-              this.props.login(email, password);
-            }}
-          >
-            <Text style={styles.button}>Sign In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              const { email, password } = this.state;
-              this.props.signUp(email, password);
-            }}
+            onPress={this.state.signingUp
+              ? () => {
+                const { email, password } = this.state;
+                this.props.signUp(email, password);
+                this.setState({signingUp: false});
+              }
+              : () => this.setState({signingUp: true})
+            }
           >
             <Text style={styles.button}>Sign Up</Text>
           </TouchableOpacity>
@@ -68,6 +87,9 @@ export default class SigninScreen extends Component {
             <></>
           )}
         </View>
+        <TouchableOpacity onPress={() => this.onChangeRules(true)}>
+          <Text style={styles.button}>Mission briefing (rules)</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }

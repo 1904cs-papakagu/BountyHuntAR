@@ -81,7 +81,7 @@ const Targets = props => {
           shape: { type: 'Box', params: [1, 2, 1]},
           useGravity: true
         }}
-        onCollision={props.hitCiv}
+        onCollision={props.hitGuard}
         animation={{
           name: 'patrolG',
           run: true,
@@ -117,4 +117,3 @@ const Targets = props => {
 };
 
 export default Targets;
-

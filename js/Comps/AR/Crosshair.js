@@ -21,73 +21,86 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'black'
   },
+  crosshair4: {
+    position: 'absolute',
+    backgroundColor: 'black'
+  },
 });
 
-const crosshairs = [
+export const crosshairs = [
 
   // CROSSHAIR 0
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair0,
         height: 100,
         width: 2,
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 1,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
+        opacity: 0.4
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair0,
         height: 2,
         width: 100,
         top: SCREEN_HEIGHT / 2 - 1,
         left: SCREEN_WIDTH / 2 - 50,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
+        opacity: 0.4
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair0,
         height: 25,
         width: 4,
         top: SCREEN_HEIGHT / 2 - 50,
         left: SCREEN_WIDTH / 2 - 2,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair0,
         height: 25,
         width: 4,
         top: SCREEN_HEIGHT / 2 + 25,
         left: SCREEN_WIDTH / 2 - 2,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair0,
         height: 4,
         width: 25,
         top: SCREEN_HEIGHT / 2 - 2,
         left: SCREEN_WIDTH / 2 - 50,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair0,
         height: 4,
         width: 25,
         top: SCREEN_HEIGHT / 2 - 2,
         left: SCREEN_WIDTH / 2 + 25,
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00f9ff",
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair0,
         height: 100,
@@ -106,6 +119,7 @@ const crosshairs = [
   // CROSSHAIR 1
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair1,
         height: 100,
@@ -118,6 +132,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair1,
         height: 35,
@@ -127,6 +142,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair1,
         height: 35,
@@ -136,6 +152,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair1,
         height: 2,
@@ -145,6 +162,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair1,
         height: 2,
@@ -154,6 +172,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair1,
         height: 100,
@@ -167,6 +186,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair1,
         height: 80,
@@ -180,6 +200,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair1,
         height: 4,
@@ -195,6 +216,7 @@ const crosshairs = [
   // CROSSHAIR 2
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair2,
         height: 90,
@@ -206,6 +228,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair2,
         height: 60,
@@ -215,6 +238,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair2,
         height: 2,
@@ -224,6 +248,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -233,6 +258,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -242,6 +268,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair2,
         height: 25,
@@ -251,6 +278,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair2,
         height: 100,
@@ -264,6 +292,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair2,
         height: 90,
@@ -277,6 +306,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={8}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -293,6 +323,7 @@ const crosshairs = [
   // CROSSHAIR 3
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair3,
         height: 100,
@@ -305,6 +336,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair3,
         height: 50,
@@ -314,6 +346,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair3,
         height: 2,
@@ -323,6 +356,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -334,6 +368,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -345,6 +380,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -356,6 +392,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -367,6 +404,7 @@ const crosshairs = [
       }}
     />,
     <View
+    key={8}
       style={{
         ...styles.crosshair3,
         height: 100,
@@ -377,6 +415,107 @@ const crosshairs = [
         left: SCREEN_WIDTH / 2 - 50,
         backgroundColor: '',
         borderColor: styles.crosshair3.backgroundColor
+      }}
+    />
+  ],
+
+  // CROSSHAIR 4
+  [
+    <View
+    key={0}
+      style={{
+        ...styles.crosshair4,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: 'yellow',
+        opacity: 0.5
+      }}
+    />,
+    <View
+    key={1}
+      style={{
+        ...styles.crosshair4,
+        height: 100,
+        width: 2,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 1,
+      }}
+    />,
+    <View
+    key={2}
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 100,
+        top: SCREEN_HEIGHT / 2 - 1,
+        left: SCREEN_WIDTH / 2 - 50
+      }}
+    />,
+    <View
+    key={3}
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 30,
+        top: SCREEN_HEIGHT / 2 - 1 + 5,
+        left: SCREEN_WIDTH / 2 - 15
+      }}
+    />,
+    <View
+    key={4}
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 24,
+        top: SCREEN_HEIGHT / 2 - 1 + 10,
+        left: SCREEN_WIDTH / 2 - 12
+      }}
+    />,
+    <View
+    key={5}
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 18,
+        top: SCREEN_HEIGHT / 2 - 1 + 15,
+        left: SCREEN_WIDTH / 2 - 9
+      }}
+    />,
+    <View
+    key={6}
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 12,
+        top: SCREEN_HEIGHT / 2 - 1 + 20,
+        left: SCREEN_WIDTH / 2 - 6
+      }}
+    />,
+    <View
+    key={7}
+      style={{
+        ...styles.crosshair4,
+        height: 2,
+        width: 6,
+        top: SCREEN_HEIGHT / 2 - 1 + 25,
+        left: SCREEN_WIDTH / 2 - 3
+      }}
+    />,
+    <View
+    key={8}
+      style={{
+        ...styles.crosshair4,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        borderWidth: 4,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: '',
+        borderColor: styles.crosshair4.backgroundColor
       }}
     />
   ],

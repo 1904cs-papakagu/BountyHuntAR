@@ -5,29 +5,42 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Image
+  Image,
+  Picker,
+  ScrollView
 } from 'react-native';
 import KillZone from './KillZone';
+import Instructions from './Instructions';
 import { connect } from 'react-redux';
 import { setCrosshair } from '../../store';
-
+import { crosshairs } from '../AR/Crosshair';
 
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       renderKillZone: false,
-      crosshairs: [0, 1, 2, 3]
+      renderRules: false,
+      crosshairs: crosshairs.map((crosshair, index) => index),
     };
-    this.onChange = this.onChange.bind(this);
+    this.onChangeKZ = this.onChangeKZ.bind(this);
+    this.onChangeRules = this.onChangeRules.bind(this);
   }
 
-  onChange(bool) {
+  onChangeKZ(bool) {
     this.setState({ renderKillZone: bool });
   }
 
+  onChangeRules(bool) {
+    this.setState({ renderRules: bool });
+  }
+
   render() {
-    return !this.state.renderKillZone ? (
+    if (this.state.renderKillZone)
+      return <KillZone onChange={this.onChangeKZ} />;
+    if (this.state.renderRules)
+      return <Instructions onChange={this.onChangeRules} signedIn={true} />;
+    return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image
@@ -48,32 +61,33 @@ class WelcomePage extends React.Component {
 
         <Text style={styles.userInfoText}>Select crosshair:</Text>
         <View style={styles.crosshairContainer}>
-          {this.state.crosshairs.map(crosshair => (
-            <TouchableOpacity
-              style={
-                this.props.crosshairId !== crosshair
-                  ? styles.crosshairButtonUnselected
-                  : styles.crosshairButtonSelected
-              }
-              onPress={() => this.props.setCrosshair(crosshair)}
-            >
-              <Text style={styles.userInfoText}>
-                  #{crosshair + 1}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          <ScrollView horizontal={true}>
+            {this.state.crosshairs.map((crosshair,index) => (
+              <TouchableOpacity
+               key={index}
+                style={
+                  this.props.crosshairId !== crosshair
+                    ? styles.crosshairButtonUnselected
+                    : styles.crosshairButtonSelected
+                }
+                onPress={() => this.props.setCrosshair(crosshair)}
+              >
+                <Text style={styles.userInfoText}>#{crosshair + 1}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
 
-        <TouchableOpacity onPress={() => this.onChange(true)}>
-          <Text style={styles.killzoneButton}>Active Killzones</Text>
+        <TouchableOpacity onPress={() => this.onChangeKZ(true)}>
+          <Text style={styles.killzoneButton}>See Active Killzones</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.onChangeRules(true)}>
+          <Text style={styles.killzoneButton}>Mission briefing (rules)</Text>
         </TouchableOpacity>
       </View>
-    ) : (
-      <KillZone onChange={this.onChange} />
     );
   }
 }
-
 
 const mapStateToProps = state => {
   return {
@@ -90,7 +104,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(WelcomePage);
-
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -151,13 +164,12 @@ const styles = StyleSheet.create({
   },
   crosshairButtonSelected: {
     backgroundColor: '#000000',
-    borderColor: '#ff0000',
+    borderColor: '#00ff00',
     borderWidth: 1,
     borderRadius: 12,
     color: '#ffffff',
     margin: 20,
     padding: 12,
     textAlign: 'center'
-  },
+  }
 });
-

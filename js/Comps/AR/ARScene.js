@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import {
   ViroARScene,
   ViroText,
@@ -23,6 +23,7 @@ import {
   setBullets
 } from '../../store/';
 import Targets from './Targets';
+import Agents from './Agents';
 import Walls from './Walls';
 import Bullet from './Bullet';
 
@@ -49,12 +50,13 @@ export default class ARScene extends Component {
     this.boxShoot = this.boxShoot.bind(this);
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
+    this.hitGuard = this.hitGuard.bind(this);
     this.getForce = this.getForce.bind(this);
     this.agentUpdate = this.agentUpdate.bind(this);
   }
 
   async getForce() {
-    if (this.props.bullets) {
+    if (this.props.bullets && !this.props.reloading) {
       const {
         forward,
         position,
@@ -98,9 +100,16 @@ export default class ARScene extends Component {
     }
   }
 
-  hitCiv(tag) {
+  hitGuard(tag) {
     if (tag === 'boxBullet') {
       const score = this.state.score - 1;
+      this.setState({ score });
+    }
+  }
+
+  hitCiv(tag) {
+    if (tag === 'boxBullet') {
+      const score = this.state.score - 3;
       this.setState({ score });
     }
   }
@@ -111,7 +120,7 @@ export default class ARScene extends Component {
       const { locationId, userId } = this.props;
       sendPosition(locationId, userId, position);
       this.setState({ update: false });
-      setTimeout(() => this.setState({ update: true }), 500);
+      setTimeout(() => this.setState({ update: true }), 50);
     }
   }
 
@@ -125,24 +134,6 @@ export default class ARScene extends Component {
         onClick={this.getForce}
       >
         {this.bullets}
-        {Object.values(this.props.agents).map((agent, index) => {
-          const { displacement } = this.state;
-          return (
-            <ViroBox
-              key={index}
-              height={2}
-              width={0.5}
-              length={0.5}
-              position={[
-                agent[0] + displacement[0],
-                agent[1],
-                agent[2] + displacement[1]
-              ]}
-              materials={['target']}
-            />
-          );
-        })}
-
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}
@@ -154,9 +145,19 @@ export default class ARScene extends Component {
         />
         <Targets
           hitTarget={this.hitTarget}
+          hitGuard={this.hitGuard}
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
         />
+        {Object.values(this.props.agents).map((agent, index) => {
+          return (
+            <Agents
+              key={index}
+              agent={agent}
+              displacement={this.state.displacement}
+            />
+          );
+        })}
         <Walls />
       </ViroARScene>
     );
@@ -171,28 +172,30 @@ export default class ARScene extends Component {
   }
 
   _updateLocation() {
-    Geolocation.getCurrentPosition(
-      position => {
-        const currentLatitude = position.coords.latitude;
-        const currentLongitude = position.coords.longitude;
-        const { targetLatitude, targetLongitude } = this.props.location;
-        const displacement = [
-          (targetLatitude - currentLatitude) * 111111,
-          (targetLongitude - currentLongitude) *
-            111111 *
-            Math.cos((Math.PI * targetLatitude) / 180)
-        ];
-        this.setState({ displacement });
-      },
-      error => {
-        console.error(error);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 25000,
-        maximumAge: 3600000
-      }
-    );
+    if (Platform.OS !== 'android') {
+      Geolocation.getCurrentPosition(
+        position => {
+          const currentLatitude = position.coords.latitude;
+          const currentLongitude = position.coords.longitude;
+          const { targetLatitude, targetLongitude } = this.props.location;
+          const displacement = [
+            (targetLatitude - currentLatitude) * 111111,
+            (targetLongitude - currentLongitude) *
+              111111 *
+              Math.cos((Math.PI * targetLatitude) / 180)
+          ];
+          this.setState({ displacement });
+        },
+        error => {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 25000,
+          maximumAge: 3600000
+        }
+      );
+    }
   }
 }
 
@@ -216,7 +219,8 @@ const mapStateToProps = state => {
     userId: state.user.id,
     locationId: state.location.id,
     agents: state.game.agents,
-    bullets: state.game.bullets
+    bullets: state.game.bullets,
+    reloading: state.game.reloading
   };
 };
 
