@@ -55,7 +55,7 @@ const Targets = props => {
       physicsBody={{
         type: 'Dynamic',
         mass: 1,
-        shape: { type: 'Box', params: [1, 2, 1] },
+        shape: { type: 'Box', params: [0.5, 2, 0.5] },
         useGravity: true
       }}
       onCollision={props.hitTarget}
