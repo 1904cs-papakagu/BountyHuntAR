@@ -25,7 +25,7 @@ import store, {
   signUpThunk,
   exitGame,
   setBullets,
-  reloading,
+  reloading
 } from './js/store';
 
 class DcApp extends Component {
@@ -43,6 +43,7 @@ class DcApp extends Component {
             bullets={this.props.bullets}
             setBullets={this.props.setBullets}
             reloading={this.props.reloading}
+            setReload={this.props.setReload}
           />
         );
       } else {
@@ -72,6 +73,7 @@ const mapStateToProps = state => {
     crosshairId: state.user.crosshairId,
     gameStatus: state.game.status,
     bullets: state.game.bullets,
+    reloading: state.game.reloading
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -88,8 +90,8 @@ const mapDispatchToProps = dispatch => {
     setBullets(bullets) {
       dispatch(setBullets(bullets));
     },
-    reloading(status) {
-      dispatch(reloading(status))
+    setReload(status) {
+      dispatch(reloading(status));
     }
   };
 };
