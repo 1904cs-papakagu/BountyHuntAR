@@ -32,6 +32,7 @@ export const crosshairs = [
   // CROSSHAIR 0
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair0,
         height: 100,
@@ -43,6 +44,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair0,
         height: 2,
@@ -54,6 +56,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair0,
         height: 25,
@@ -64,6 +67,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair0,
         height: 25,
@@ -74,6 +78,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair0,
         height: 4,
@@ -84,6 +89,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair0,
         height: 4,
@@ -94,6 +100,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair0,
         height: 100,
@@ -112,6 +119,7 @@ export const crosshairs = [
   // CROSSHAIR 1
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair1,
         height: 100,
@@ -124,6 +132,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair1,
         height: 35,
@@ -133,6 +142,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair1,
         height: 35,
@@ -142,6 +152,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair1,
         height: 2,
@@ -151,6 +162,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair1,
         height: 2,
@@ -160,6 +172,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair1,
         height: 100,
@@ -173,6 +186,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair1,
         height: 80,
@@ -186,6 +200,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair1,
         height: 4,
@@ -201,6 +216,7 @@ export const crosshairs = [
   // CROSSHAIR 2
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair2,
         height: 90,
@@ -212,6 +228,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair2,
         height: 60,
@@ -221,6 +238,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair2,
         height: 2,
@@ -230,6 +248,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -239,6 +258,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -248,6 +268,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair2,
         height: 25,
@@ -257,6 +278,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair2,
         height: 100,
@@ -270,6 +292,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair2,
         height: 90,
@@ -283,6 +306,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={8}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -299,6 +323,7 @@ export const crosshairs = [
   // CROSSHAIR 3
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair3,
         height: 100,
@@ -311,6 +336,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair3,
         height: 50,
@@ -320,6 +346,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair3,
         height: 2,
@@ -329,6 +356,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -340,6 +368,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -351,6 +380,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -362,6 +392,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -373,6 +404,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={8}
       style={{
         ...styles.crosshair3,
         height: 100,
@@ -390,6 +422,7 @@ export const crosshairs = [
   // CROSSHAIR 4
   [
     <View
+    key={0}
       style={{
         ...styles.crosshair4,
         height: 100,
@@ -402,6 +435,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={1}
       style={{
         ...styles.crosshair4,
         height: 100,
@@ -411,6 +445,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={2}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -420,6 +455,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={3}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -429,6 +465,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={4}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -438,6 +475,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={5}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -447,6 +485,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={6}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -456,6 +495,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={7}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -465,6 +505,7 @@ export const crosshairs = [
       }}
     />,
     <View
+    key={8}
       style={{
         ...styles.crosshair4,
         height: 100,

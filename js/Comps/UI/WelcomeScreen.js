@@ -62,8 +62,9 @@ class WelcomePage extends React.Component {
         <Text style={styles.userInfoText}>Select crosshair:</Text>
         <View style={styles.crosshairContainer}>
           <ScrollView horizontal={true}>
-            {this.state.crosshairs.map(crosshair => (
+            {this.state.crosshairs.map((crosshair,index) => (
               <TouchableOpacity
+               key={index}
                 style={
                   this.props.crosshairId !== crosshair
                     ? styles.crosshairButtonUnselected

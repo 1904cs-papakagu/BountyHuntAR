@@ -50,6 +50,7 @@ export default class ARScene extends Component {
     this.boxShoot = this.boxShoot.bind(this);
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
+    this.hitGuard = this.hitGuard.bind(this)
     this.getForce = this.getForce.bind(this);
     this.agentUpdate = this.agentUpdate.bind(this);
   }
