@@ -29,21 +29,15 @@ export default class ARScene extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      shoot: true,
+    this.state = {,
       score: 0,
       displacement: [0, -10],
       update: true,
-      reloading: false,
-      magazine: 7,
       report: false,
       reloadSound: false,
       deathSound: false,
     };
 
-    this.velocity = [0, 0, 0];
-    this.pos = [0, 0, 0];
-    this.rot = [0, 0, 0];
     this.bullets = [];
 
     this._onInitialized = this._onInitialized.bind(this);
@@ -58,19 +52,8 @@ export default class ARScene extends Component {
     this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
   }
 
-  boxShoot() {
-    return (
-      <Bullet
-        key={this.bullets.length}
-        position={this.pos}
-        velocity={this.velocity}
-        rotation={this.rot}
-      />
-    );
-  }
-
   hitTarget(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === 'bullet') {
       this.setState({ targetDeathSound: true });
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
@@ -80,7 +63,7 @@ export default class ARScene extends Component {
   }
 
   hitGuard(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === 'bullet') {
       this.setState({ deathSound: true });
       const score = this.state.score - 1;
       this.setState({ score });
@@ -88,33 +71,16 @@ export default class ARScene extends Component {
   }
 
   hitCiv(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === 'bullet') {
       this.setState({ deathSound: true });
       const score = this.state.score - 3;
       this.setState({ score });
     }
   }
 
-  fire({ position, rotation, forward }) {
-    if (this.props.shooting && this.props.bullets > 0) {
-      this.velocity = forward.map(vector => 30 * vector);
-      this.pos = position;
-      this.rot = rotation;
-      if (this.state.shoot && !this.props.reloading) {
-        Vibration.vibrate(250);
-        const newCount = this.props.bullets - 1;
-        this.bullets.push(this.boxShoot());
-        this.setState({ shoot: false, report: true });
-        this.props.setBullets(newCount);
-        setTimeout(() => this.setState({ shoot: true }), 3500);
-        setTimeout(() => this.bullets.unshift(), 1500);
-      }
-      this.props.reset();
-    }
-  }
 
-  stopShotSound () {
-    this.setState({report: false});
+  stopShotSound() {
+    this.setState({ report: false });
   }
 
   stopDeathSound() {
@@ -124,6 +90,34 @@ export default class ARScene extends Component {
   stopTargetDeathSound() {
     this.setState({ targetDeathSound: false });
   }
+
+
+  fire({ position, rotation, forward }) {
+    if (this.props.shooting && this.props.bullets > 0) {
+      const velocity = forward.map(vector => 30 * vector);
+      Vibration.vibrate(250);
+      const newCount = this.props.bullets - 1;
+      this.bullets.push(this.generateBullet(position, rotation, velocity));
+      this.setState({ report: true });
+      this.props.setBullets(newCount);
+      setTimeout(() => this.setState({ shoot: true }), 3500);
+      setTimeout(() => this.bullets.unshift(), 1500);
+    }
+    this.props.reset();
+  }
+
+  generateBullet(position, rotation, velocity) {
+    return (
+      <Bullet
+        key={this.bullets.length}
+        position={position}
+        velocity={velocity}
+        rotation={rotation}
+        viroTag="bullet"
+      />
+    );
+  }
+
 
   render() {
     return (
@@ -204,8 +198,8 @@ export default class ARScene extends Component {
           const displacement = [
             (targetLatitude - currentLatitude) * 111111,
             (targetLongitude - currentLongitude) *
-              111111 *
-              Math.cos((Math.PI * targetLatitude) / 180)
+            111111 *
+            Math.cos((Math.PI * targetLatitude) / 180)
           ];
           this.setState({ displacement });
         },
@@ -233,7 +227,7 @@ const mapDispatchToProps = dispatch => {
     setBullets(bullets) {
       dispatch(setBullets(bullets));
     },
-    reset(){
+    reset() {
       dispatch(resetShooting())
     }
   };
