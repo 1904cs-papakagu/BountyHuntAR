@@ -1,6 +1,7 @@
 'use strict';
+
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, Platform, Vibration } from 'react-native';
+import { StyleSheet, Platform, Vibration } from 'react-native';
 import {
   ViroARScene,
   ViroText,
@@ -39,7 +40,10 @@ export default class ARScene extends Component {
       displacement: [0, -10],
       update: true,
       reloading: false,
-      magazine: 7
+      magazine: 7,
+      report: false,
+      reloadSound: false,
+      deathSound: false,
     };
 
     this.velocity = [0, 0, 0];
@@ -54,6 +58,8 @@ export default class ARScene extends Component {
     this.hitCiv = this.hitCiv.bind(this);
     this.hitGuard = this.hitGuard.bind(this);
     this.agentUpdate = this.agentUpdate.bind(this);
+    this.stopShotSound = this.stopShotSound.bind(this);
+    this.stopDeathSound = this.stopDeathSound.bind(this);
   }
 
   boxShoot() {
@@ -69,6 +75,7 @@ export default class ARScene extends Component {
 
   hitTarget(tag) {
     if (tag === 'boxBullet') {
+      this.setState({ deathSound: true });
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
 
@@ -79,6 +86,7 @@ export default class ARScene extends Component {
 
   hitGuard(tag) {
     if (tag === 'boxBullet') {
+      this.setState({ deathSound: true });
       const score = this.state.score - 1;
       this.setState({ score });
     }
@@ -86,6 +94,7 @@ export default class ARScene extends Component {
 
   hitCiv(tag) {
     if (tag === 'boxBullet') {
+      this.setState({ deathSound: true });
       const score = this.state.score - 3;
       this.setState({ score });
     }
@@ -96,18 +105,25 @@ export default class ARScene extends Component {
       this.velocity = forward.map(vector => 30 * vector);
       this.pos = position;
       this.rot = rotation;
-
       if (this.state.shoot && !this.props.reloading) {
         Vibration.vibrate(250);
         const newCount = this.props.bullets - 1;
         this.bullets.push(this.boxShoot());
-        this.setState({ shoot: false, magazine: newCount });
+        this.setState({ shoot: false, report: true });
         this.props.setBullets(newCount);
+        setTimeout(() => this.setState({ shoot: true }), 3500);
+        setTimeout(() => this.bullets.unshift(), 1500);
       }
-      setTimeout(() => this.setState({ shoot: true }), 1500);
-      setTimeout(() => this.bullets.unshift(), 1500);
       this.props.reset();
     }
+  }
+
+  stopShotSound () {
+    this.setState({report: false});
+  }
+
+  stopDeathSound() {
+    this.setState({ deathSound: false });
   }
 
   render() {
@@ -122,6 +138,26 @@ export default class ARScene extends Component {
           source={require('./rising-tide-by-kevin-macleod.mp3')}
           loop={true}
           volume={0.5}
+        />
+        <ViroSound
+          source={require('./audio/shot.mp3')}
+          loop={true}
+          paused={!this.state.report}
+          volume={0.5}
+          onFinish={this.stopShotSound}
+        />
+        <ViroSound
+          source={require('./audio/death.mp3')}
+          loop={true}
+          paused={!this.state.deathSound}
+          volume={0.5}
+          onFinish={this.stopDeathSound}
+        />
+        <ViroSound
+          source={require('./audio/reload.mp3')}
+          loop={true}
+          paused={!this.props.reloading}
+          volume={1.0}
         />
         {this.bullets}
         <ViroAmbientLight color="#aaaaaa" />
