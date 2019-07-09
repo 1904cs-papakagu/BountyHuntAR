@@ -1,6 +1,5 @@
 const initState = {
   status: '',
-  agents: {},
   bullets: 7,
   reloading: false,
   shooting: false
@@ -8,7 +7,6 @@ const initState = {
 
 const START_PLAYING = 'START_PLAYING';
 const STOP_PLAYING = 'STOP_PLAYING';
-const UPDATE_AGENT = 'UPDATE_AGENT';
 const EXIT_GAME = 'EXIT_GAME';
 const SET_BULLETS = 'SET_BULLETS';
 const RELOADING = 'RELOADING';
@@ -17,9 +15,6 @@ const RESET_SHOOTING = 'RESET_SHOOTING';
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
-};
-export const updateAgent = (agentId, agentPosition) => {
-  return { type: UPDATE_AGENT, agentId, agentPosition };
 };
 export const startGame = (locationId, userId, displacement) => {
   return { type: START_PLAYING, locationId, userId, displacement };
@@ -52,9 +47,9 @@ export const resetShooting = () => {
     type: RESET_SHOOTING
   };
 };
-export const spookTarget = () => {};
+export const spookTarget = () => { };
 
-export default function(state = initState, action) {
+export default function (state = initState, action) {
   switch (action.type) {
     case START_PLAYING:
       return { ...state, status: 'playing' };
@@ -66,11 +61,6 @@ export default function(state = initState, action) {
       }
     case EXIT_GAME:
       return initState;
-    case UPDATE_AGENT:
-      const { agentId, agentPosition } = action;
-      state.agents[agentId] = agentPosition;
-      console.log(state);
-      return state;
     case SET_BULLETS:
       return { ...state, bullets: action.bullets };
     case RELOADING:

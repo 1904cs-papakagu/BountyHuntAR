@@ -25,11 +25,6 @@ const socketMiddleware = ({ dispatch, getState }) => {
       dispatch(endGame(false));
     }
   })
-  socket.on('agentUpdate', (agentId, agentPosition) => {
-    if (`${getState().user.id}` !== `${agentId}`) {
-      dispatch(updateAgent(agentId, agentPosition))
-    }
-  })
   return next => action => {
     return next(action);
   }
