@@ -88,9 +88,12 @@ const styles = StyleSheet.create({
   },
   abandonContainer: {
     width: width,
-    height: 0,
-    justifyContent: 'flex-end',
-    position: 'absolute'
+    // height: 0,
+    // justifyContent: 'flex-end',
+    height: 50,
+    justifyContent: 'space-around',
+    position: 'absolute',
+    bottom: 55,
   },
   abandonButton: {
     height: 50,
