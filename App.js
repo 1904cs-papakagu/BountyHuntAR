@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Provider, connect } from 'react-redux';
 import {
-  Platform,
   StyleSheet,
-  Text,
   View,
   Dimensions,
   YellowBox,
@@ -29,6 +27,7 @@ import store, {
   reloading
 } from './js/store';
 
+
 class DcApp extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +38,7 @@ class DcApp extends Component {
       return (
         <View style={styles.container}>
           {this.props.user.userName ? (
-            <WelcomeScreen user={this.props.user} />
+            <WelcomeScreen />
           ) : (
             <SigninScreen
               login={this.props.login}
@@ -67,7 +66,7 @@ class DcApp extends Component {
           </View>
         );
       } else {
-        return <EndScreen status={this.props.gameStatus} />;
+        return <EndScreen />;
       }
     }
   }

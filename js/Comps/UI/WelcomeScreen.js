@@ -92,7 +92,8 @@ class WelcomePage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    crosshairId: state.user.crosshairId
+    crosshairId: state.user.crosshairId,
+    user: state.user
   };
 };
 const mapDispatchToProps = dispatch => {

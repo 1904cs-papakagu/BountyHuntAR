@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
@@ -15,12 +14,13 @@ import { connect } from 'react-redux';
 
 import { ViroARSceneNavigator } from 'react-viro';
 
-import Crosshair, { numOfCrosshairs } from './js/Comps/AR/Crosshair';
+import Crosshair from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
-import { setShooting, setLoading } from './js/store';
 import Loading from './Loading';
+import { setShooting, resetStatus, setBullets, reloading, setLoading } from './js/store';
+
 console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
@@ -90,6 +90,15 @@ const Game = props => (
   </View>
 );
 
+const mapStateToProps = state => {
+  return {
+    crosshairId: state.user.crosshairId,
+    bullets: state.game.bullets,
+    reloading: state.game.reloading,
+    loading: state.game.loading
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     fire() {
@@ -97,14 +106,19 @@ const mapDispatchToProps = dispatch => {
     },
     setLoading(bool) {
       dispatch(setLoading(bool));
+    },
+    exitGame(){
+      dispatch(resetStatus())
+    },
+    setBullets(n){
+      dispatch(setBullets(n))
+    },
+    setReload(isReloading){ 
+      dispatch(reloading(isReloading))
     }
   };
 };
-const mapStateToProps = state => {
-  return {
-    loading: state.game.loading
-  };
-};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
@@ -166,7 +180,7 @@ const styles = StyleSheet.create({
   shootButton: {
     height: 100,
     width: 100,
-    backgroundColor: '#ff0000',
+    backgroundColor: '#ff000075',
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 50,

@@ -16,7 +16,7 @@ export default props => {
         velocity: props.velocity,
         useGravity: false
       }}
-      viroTag={'boxBullet'}
+      viroTag={'bullet'}
     />
   );
 }

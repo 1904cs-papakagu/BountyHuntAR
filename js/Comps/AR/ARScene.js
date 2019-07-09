@@ -1,14 +1,12 @@
 'use strict';
+
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Platform, Vibration } from 'react-native';
 import {
   ViroARScene,
-  ViroText,
   ViroConstants,
-  ViroBox,
   ViroMaterials,
   ViroAnimations,
-  ViroCamera,
   ViroSpotLight,
   ViroAmbientLight,
   ViroSound
@@ -20,13 +18,11 @@ import Geolocation from 'react-native-geolocation-service';
 import {
   setInactiveThunk,
   endGame,
-  sendPosition,
   setBullets,
   resetShooting,
   setLoading
 } from '../../store/';
 import Targets from './Targets';
-import Agents from './Agents';
 import Walls from './Walls';
 import Bullet from './Bullet';
 import Loading from '../../../Loading';
@@ -35,79 +31,93 @@ export default class ARScene extends Component {
     super(props);
 
     this.state = {
-      shoot: true,
       score: 0,
       displacement: [0, -10],
       update: true,
       reloading: false
+      report: false,
+      deathSound: false,
     };
 
-    this.velocity = [0, 0, 0];
-    this.pos = [0, 0, 0];
-    this.rot = [0, 0, 0];
     this.bullets = [];
 
     this._onInitialized = this._onInitialized.bind(this);
     this._updateLocation = this._updateLocation.bind(this);
-    this.boxShoot = this.boxShoot.bind(this);
+    this.generateBullet = this.generateBullet.bind(this);
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
     this.hitGuard = this.hitGuard.bind(this);
-    this.agentUpdate = this.agentUpdate.bind(this);
-  }
-
-  boxShoot() {
-    return (
-      <Bullet
-        key={this.bullets.length}
-        position={this.pos}
-        velocity={this.velocity}
-        rotation={this.rot}
-      />
-    );
+    this.fire = this.fire.bind(this);
+    this.stopShotSound = this.stopShotSound.bind(this);
+    this.stopDeathSound = this.stopDeathSound.bind(this);
+    this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
   }
 
   hitTarget(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === 'bullet') {
+      this.setState({ targetDeathSound: true });
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
-
       this.props.setInactive(locationId, userId, score);
       setTimeout(this.props.winGame, 2000);
     }
   }
 
   hitGuard(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === 'bullet') {
+      this.setState({ deathSound: true });
       const score = this.state.score - 1;
       this.setState({ score });
     }
   }
 
   hitCiv(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === 'bullet') {
+      this.setState({ deathSound: true });
       const score = this.state.score - 3;
       this.setState({ score });
     }
   }
 
-  agentUpdate({ position, rotation, forward }) {
-    if (this.props.shooting && this.props.bullets > 0) {
-      this.velocity = forward.map(vector => 30 * vector);
-      this.pos = position;
-      this.rot = rotation;
 
-      if (this.state.shoot && !this.props.reloading) {
-        const newCount = this.props.bullets - 1;
-        this.bullets.push(this.boxShoot());
-        this.setState({ shoot: false, magazine: newCount });
-        this.props.setBullets(newCount);
-      }
-      setTimeout(() => this.setState({ shoot: true }), 1500);
-      setTimeout(() => this.bullets.unshift(), 1500);
-      this.props.reset();
-    }
+  stopShotSound() {
+    this.setState({ report: false });
   }
+
+  stopDeathSound() {
+    this.setState({ deathSound: false });
+  }
+
+  stopTargetDeathSound() {
+    this.setState({ targetDeathSound: false });
+  }
+
+
+  fire({ position, rotation, forward }) {
+    if (this.props.shooting && this.props.bullets > 0) {
+      const velocity = forward.map(vector => 30 * vector);
+      Vibration.vibrate(250);
+      const newCount = this.props.bullets - 1;
+      this.bullets.push(this.generateBullet(position, rotation, velocity));
+      this.setState({ report: true });
+      this.props.setBullets(newCount);
+      setTimeout(() => this.setState({ shoot: true }), 3500);
+      setTimeout(() => this.bullets.unshift(), 1500);
+    }
+    this.props.reset();
+  }
+
+  generateBullet(position, rotation, velocity) {
+    return (
+      <Bullet
+        key={this.bullets.length}
+        position={position}
+        velocity={velocity}
+        rotation={rotation}
+      />
+    );
+  }
+
 
   render() {
     return (
@@ -115,12 +125,39 @@ export default class ARScene extends Component {
         ref="scene"
         onTrackingUpdated={this._onInitialized}
         postProcessEffects={['']}
-        onCameraTransformUpdate={this.agentUpdate}
+        onCameraTransformUpdate={this.fire}
       >
         <ViroSound
           source={require('./rising-tide-by-kevin-macleod.mp3')}
           loop={true}
           volume={0.5}
+        />
+        <ViroSound
+          source={require('./audio/shot.mp3')}
+          loop={true}
+          paused={!this.state.report}
+          volume={0.5}
+          onFinish={this.stopShotSound}
+        />
+        <ViroSound
+          source={require('./audio/death.mp3')}
+          loop={true}
+          paused={!this.state.deathSound}
+          volume={0.5}
+          onFinish={this.stopDeathSound}
+        />
+        <ViroSound
+          source={require('./audio/wilhelm.mp3')}
+          loop={true}
+          paused={!this.state.targetDeathSound}
+          volume={0.5}
+          onFinish={this.stopTargetDeathSound}
+        />
+        <ViroSound
+          source={require('./audio/reload.mp3')}
+          loop={true}
+          paused={!this.props.reloading}
+          volume={1.0}
         />
         {this.bullets}
         <ViroAmbientLight color="#aaaaaa" />
@@ -139,7 +176,6 @@ export default class ARScene extends Component {
           displacement={this.state.displacement}
           setLoading={this.props.setLoading}
         />
-
         <Walls />
       </ViroARScene>
     );
@@ -163,8 +199,8 @@ export default class ARScene extends Component {
           const displacement = [
             (targetLatitude - currentLatitude) * 111111,
             (targetLongitude - currentLongitude) *
-              111111 *
-              Math.cos((Math.PI * targetLatitude) / 180)
+            111111 *
+            Math.cos((Math.PI * targetLatitude) / 180)
           ];
           this.setState({ displacement });
         },
@@ -206,7 +242,6 @@ const mapStateToProps = state => {
     location: state.location,
     userId: state.user.id,
     locationId: state.location.id,
-    agents: state.game.agents,
     bullets: state.game.bullets,
     reloading: state.game.reloading,
     shooting: state.game.shooting

@@ -10,9 +10,13 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 
+import { loginThunk, signUpThunk } from '../../store'
+
+import {connect} from 'react-redux'
+
 import Instructions from './Instructions';
 
-export default class SigninScreen extends Component {
+class SigninScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +50,7 @@ export default class SigninScreen extends Component {
             style={this.props.error ? styles.errorField : styles.inputField}
           />
           <TextInput
-            secureTextEntry={true}
+         Props   secureTextEntry={true}
             onChangeText={text => this.setState({ password: text })}
             value={this.state.password}
             placeholder="Password"
@@ -94,6 +98,25 @@ export default class SigninScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    error: state.user.error
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return  {
+    signUp(email,password){
+      dispatch(signUpThunk(email,password))
+    },
+    login(email,password){
+      dispatch(loginThunk(email,password))
+    }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SigninScreen)
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
