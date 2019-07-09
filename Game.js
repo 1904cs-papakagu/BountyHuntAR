@@ -51,11 +51,17 @@ const Game = props => (
           {!props.bullets && !props.reloading ? 'Tap To Reload' : ''}
         </Text>
 
-          {props.reloading ? <Text style={styles.textStyle}>RELOADING</Text> : <></>}
+        {props.reloading ? (
+          <Text style={styles.textStyle}>RELOADING</Text>
+        ) : (
+          <></>
+        )}
 
-
-          {props.bullets ? <Text style={styles.textStyle}>Ammo: ${props.bullets}/7</Text> : <></>}
-
+        {props.bullets && !props.reloading ? (
+          <Text style={styles.textStyle}>Ammo: {props.bullets}/7</Text>
+        ) : (
+          <></>
+        )}
       </TouchableOpacity>
     </View>
 
@@ -84,40 +90,34 @@ const styles = StyleSheet.create({
   reloadContainer: {
     width: width / 2,
     height: 50,
-    // justifyContent: 'space-around',
-    position: 'absolute',
-    // top: 25,
-
+    position: 'absolute'
   },
   reloadButton: {
     height: 75,
     width: 150,
-    backgroundColor: '#000000',
+    backgroundColor: '#00000050',
     borderColor: '#ff0000',
     borderWidth: 2,
     borderRadius: 12,
     margin: 20,
-    padding: 12,
+    padding: 12
   },
   textStyle: {
     textAlign: 'center',
     fontFamily: 'American Typewriter',
     fontSize: 20,
-    color: 'white',
-
+    color: 'white'
   },
   abandonContainer: {
     width: width / 2,
     height: 50,
     position: 'absolute',
-    // justifyContent: 'space-around',
-    // top: 25,
-    left: width / 1.90,
+    left: width / 1.9
   },
   abandonButton: {
     height: 75,
     width: 150,
-    backgroundColor: '#000000',
+    backgroundColor: '#00000050',
     borderColor: '#841584',
     borderWidth: 2,
     borderRadius: 12,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    bottom: 75,
+    bottom: 75
   },
   shootButton: {
     height: 100,
@@ -145,6 +145,6 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });
