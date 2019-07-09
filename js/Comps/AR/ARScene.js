@@ -21,7 +21,8 @@ import {
   setInactiveThunk,
   endGame,
   sendPosition,
-  setBullets
+  setBullets,
+  resetShooting
 } from '../../store/';
 import Targets from './Targets';
 import Agents from './Agents';
@@ -52,32 +53,7 @@ export default class ARScene extends Component {
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
     this.hitGuard = this.hitGuard.bind(this);
-    this.getForce = this.getForce.bind(this);
     this.agentUpdate = this.agentUpdate.bind(this);
-  }
-
-  async getForce() {
-    if (this.props.bullets && !this.props.reloading) {
-      const {
-        forward,
-        position,
-        rotation
-      } = await this.refs.scene.getCameraOrientationAsync();
-
-      this.velocity = forward.map(vector => 30 * vector);
-      this.pos = position;
-      this.rot = rotation;
-
-      if (this.state.shoot) {
-        const newCount = this.props.bullets - 1;
-        this.bullets.push(this.boxShoot());
-        this.setState({ shoot: false, magazine: newCount });
-        this.props.setBullets(newCount);
-      }
-
-      setTimeout(() => this.setState({ shoot: true }), 1500);
-      setTimeout(() => this.bullets.unshift(), 1500);
-    }
   }
 
   boxShoot() {
@@ -115,13 +91,21 @@ export default class ARScene extends Component {
     }
   }
 
-  async agentUpdate() {
-    if (this.state.update) {
-      const { position } = await this.refs.scene.getCameraOrientationAsync();
-      const { locationId, userId } = this.props;
-      sendPosition(locationId, userId, position);
-      this.setState({ update: false });
-      setTimeout(() => this.setState({ update: true }), 50);
+  agentUpdate({ position, rotation, forward }) {
+    if (this.props.shooting) {
+      this.velocity = forward.map(vector => 30 * vector);
+      this.pos = position;
+      this.rot = rotation;
+
+      if (this.state.shoot) {
+        const newCount = this.props.bullets - 1;
+        this.bullets.push(this.boxShoot());
+        this.setState({ shoot: false, magazine: newCount });
+        this.props.setBullets(newCount);
+      }
+      setTimeout(() => this.setState({ shoot: true }), 1500);
+      setTimeout(() => this.bullets.unshift(), 1500);
+      this.props.reset();
     }
   }
 
@@ -134,11 +118,11 @@ export default class ARScene extends Component {
         onCameraTransformUpdate={this.agentUpdate}
         onClick={this.getForce}
       >
-      <ViroSound
-        source={require('./rising-tide-by-kevin-macleod.mp3')}
-        loop={true}
-        volume={0.5}
-      />
+        <ViroSound
+          source={require('./rising-tide-by-kevin-macleod.mp3')}
+          loop={true}
+          volume={0.5}
+        />
         {this.bullets}
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
@@ -215,6 +199,9 @@ const mapDispatchToProps = dispatch => {
     },
     setBullets(bullets) {
       dispatch(setBullets(bullets));
+    },
+    reset(){
+      dispatch(resetShooting())
     }
   };
 };
@@ -226,7 +213,9 @@ const mapStateToProps = state => {
     locationId: state.location.id,
     agents: state.game.agents,
     bullets: state.game.bullets,
-    reloading: state.game.reloading
+    reloading: state.game.reloading,
+    shooting: state.game.shooting,
+
   };
 };
 

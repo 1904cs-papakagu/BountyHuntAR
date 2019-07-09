@@ -12,7 +12,9 @@ import game, {
   resetStatus,
   exitGame,
   setBullets,
-  reloading
+  reloading,
+  setShooting,
+  resetShooting
 } from './reducers/game';
 import {
   location,
@@ -51,5 +53,7 @@ export {
   signUpThunk,
   exitGame,
   setBullets,
-  reloading
+  reloading,
+  setShooting,
+  resetShooting,
 };

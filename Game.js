@@ -10,11 +10,15 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import { ViroARSceneNavigator } from 'react-viro';
 
 import Crosshair, { numOfCrosshairs } from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
+
+import { setShooting } from './js/store';
 
 console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
@@ -72,14 +76,25 @@ const Game = props => (
     </View>
 
     <View style={styles.shootContainer}>
-      <TouchableOpacity style={styles.shootButton}>
+      <TouchableOpacity onPress={props.fire} style={styles.shootButton}>
         <Text style={styles.textStyle}>SHOOT</Text>
       </TouchableOpacity>
     </View>
   </View>
 );
 
-export default Game;
+const mapDispatchToProps = dispatch => {
+  return {
+    fire() {
+      dispatch(setShooting());
+    }
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Game);
 
 const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
