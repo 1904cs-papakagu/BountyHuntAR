@@ -12,11 +12,11 @@ import { connect } from 'react-redux';
 
 import { ViroARSceneNavigator } from 'react-viro';
 
-import Crosshair, { numOfCrosshairs } from './js/Comps/AR/Crosshair';
+import Crosshair from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
-import { setShooting } from './js/store';
+import { setShooting, resetStatus, setBullets, reloading } from './js/store';
 
 console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
@@ -81,16 +81,33 @@ const Game = props => (
   </View>
 );
 
+const mapStatetToProps = state => {
+  return {
+    crosshairId: state.user.crosshairId,
+    bullets: state.game.bullets,
+    reloading: state.game.reloading
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     fire() {
       dispatch(setShooting());
+    },
+    exitGame(){
+      dispatch(resetStatus())
+    },
+    setBullets(n){
+      dispatch(setBullets(n))
+    },
+    setReload(isReloading){ 
+      dispatch(reloading(isReloading))
     }
   };
 };
 
 export default connect(
-  null,
+  mapStatetToProps,
   mapDispatchToProps
 )(Game);
 

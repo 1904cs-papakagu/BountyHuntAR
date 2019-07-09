@@ -38,6 +38,10 @@ const EndScreen = props => (
   </View>
 );
 
+const mapStateToProps = state => {
+  status: state.game.status
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     ok() {
