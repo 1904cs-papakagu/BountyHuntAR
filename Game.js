@@ -40,11 +40,19 @@ const Game = props => (
       <TouchableOpacity
         style={styles.reloadButton}
         onPress={() => {
-          setTimeout(() => props.setBullets(7), 3000);
+          props.setReload(true);
+          setTimeout(() => {
+            props.setBullets(7);
+            props.setReload(false);
+          }, 3000);
         }}
       >
-        <Text style={styles.textStyle}>Reload</Text>
-        <Text style={styles.textStyle}>{props.bullets}/7</Text>
+        <Text style={styles.textStyle}>
+          {!props.bullets && !props.reloading ? 'Tap To Reload' : ''}
+        </Text>
+        <Text style={styles.textStyle}>
+          {props.reloading ? 'RELOADING' : `${props.bullets}/7`}
+        </Text>
       </TouchableOpacity>
     </View>
 
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'space-around',
     position: 'absolute',
-    top: 55,
+    top: 55
   },
   reloadButton: {
     height: 75,
@@ -77,14 +85,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     margin: 20,
     padding: 12,
-    textAlign: 'center',
-
+    textAlign: 'center'
   },
   textStyle: {
     fontFamily: 'American Typewriter',
     fontSize: 25,
-    color: 'red',
-
+    color: 'red'
   },
   abandonContainer: {
     width: width,
