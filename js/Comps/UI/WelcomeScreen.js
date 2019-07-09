@@ -131,9 +131,9 @@ const styles = StyleSheet.create({
     width: width
   },
   profileImg: {
-    height: 250,
-    width: 250,
-    borderRadius: 250 / 2,
+    height: 200,
+    width: 200,
+    borderRadius: 200 / 2,
     borderWidth: 3,
     borderColor: '#ff0000'
   },
