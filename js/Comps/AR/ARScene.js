@@ -1,6 +1,6 @@
-'use strict';
-import React, { Component } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+"use strict";
+import React, { Component } from "react";
+import { StyleSheet, Dimensions,  Platform } from "react-native";
 import {
   ViroARScene,
   ViroText,
@@ -11,21 +11,21 @@ import {
   ViroCamera,
   ViroSpotLight,
   ViroAmbientLight
-} from 'react-viro';
+} from "react-viro";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation from "react-native-geolocation-service";
 import {
   setInactiveThunk,
   endGame,
   sendPosition,
   setBullets
-} from '../../store/';
-import Targets from './Targets';
-import Agents from './Agents';
-import Walls from './Walls';
-import Bullet from './Bullet';
+} from "../../store/";
+import Targets from "./Targets";
+import Agents from "./Agents";
+import Walls from "./Walls";
+import Bullet from "./Bullet";
 
 export default class ARScene extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export default class ARScene extends Component {
     this.boxShoot = this.boxShoot.bind(this);
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
-    this.hitGuard = this.hitGuard.bind(this)
+    this.hitGuard = this.hitGuard.bind(this);
     this.getForce = this.getForce.bind(this);
     this.agentUpdate = this.agentUpdate.bind(this);
   }
@@ -91,7 +91,7 @@ export default class ARScene extends Component {
   }
 
   hitTarget(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === "boxBullet") {
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
 
@@ -101,14 +101,14 @@ export default class ARScene extends Component {
   }
 
   hitGuard(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === "boxBullet") {
       const score = this.state.score - 1;
       this.setState({ score });
     }
   }
 
   hitCiv(tag) {
-    if (tag === 'boxBullet') {
+    if (tag === "boxBullet") {
       const score = this.state.score - 3;
       this.setState({ score });
     }
@@ -129,7 +129,7 @@ export default class ARScene extends Component {
       <ViroARScene
         ref="scene"
         onTrackingUpdated={this._onInitialized}
-        postProcessEffects={['']}
+        postProcessEffects={[""]}
         onCameraTransformUpdate={this.agentUpdate}
         onClick={this.getForce}
       >
@@ -156,7 +156,7 @@ export default class ARScene extends Component {
               agent={agent}
               displacement={this.state.displacement}
             />
-          )
+          );
         })}
         <Walls />
       </ViroARScene>
@@ -172,28 +172,30 @@ export default class ARScene extends Component {
   }
 
   _updateLocation() {
-    Geolocation.getCurrentPosition(
-      position => {
-        const currentLatitude = position.coords.latitude;
-        const currentLongitude = position.coords.longitude;
-        const { targetLatitude, targetLongitude } = this.props.location;
-        const displacement = [
-          (targetLatitude - currentLatitude) * 111111,
-          (targetLongitude - currentLongitude) *
-            111111 *
-            Math.cos((Math.PI * targetLatitude) / 180)
-        ];
-        this.setState({ displacement });
-      },
-      error => {
-        console.error(error);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 25000,
-        maximumAge: 3600000
-      }
-    );
+    if (Platform.OS !== "android") {
+      Geolocation.getCurrentPosition(
+        position => {
+          const currentLatitude = position.coords.latitude;
+          const currentLongitude = position.coords.longitude;
+          const { targetLatitude, targetLongitude } = this.props.location;
+          const displacement = [
+            (targetLatitude - currentLatitude) * 111111,
+            (targetLongitude - currentLongitude) *
+              111111 *
+              Math.cos((Math.PI * targetLatitude) / 180)
+          ];
+          this.setState({ displacement });
+        },
+        error => {
+          console.error(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 25000,
+          maximumAge: 3600000
+        }
+      );
+    }
   }
 }
 
@@ -230,16 +232,16 @@ module.exports = () => <ConnectedARScene />;
 
 ViroMaterials.createMaterials({
   dummy: {
-    diffuseTexture: require('./res/dummy.png')
+    diffuseTexture: require("./res/dummy.png")
   },
   black: {
-    diffuseTexture: require('./res/black.png')
+    diffuseTexture: require("./res/black.png")
   },
   finn: {
-    diffuseTexture: require('./res/Finn/Finn.png')
+    diffuseTexture: require("./res/Finn/Finn.png")
   },
   target: {
-    diffuseTexture: require('./res/target.png')
+    diffuseTexture: require("./res/target.png")
   }
 });
 
@@ -272,7 +274,7 @@ ViroAnimations.registerAnimations({
   },
 
   wander1: [
-    ['rMove1X1', 'rMove1Z1', 'rMove1X2', 'rMove1Z2', 'rMove1X3', 'rMove1Z3']
+    ["rMove1X1", "rMove1Z1", "rMove1X2", "rMove1Z2", "rMove1X3", "rMove1Z3"]
   ],
 
   rMove2X1: {
@@ -303,7 +305,7 @@ ViroAnimations.registerAnimations({
   },
 
   wander2: [
-    ['rMove2X1', 'rMove2Z1', 'rMove2X2', 'rMove2Z2', 'rMove2X3', 'rMove2Z3']
+    ["rMove2X1", "rMove2Z1", "rMove2X2", "rMove2Z2", "rMove2X3", "rMove2Z3"]
   ],
 
   rMove3X1: {
@@ -334,30 +336,30 @@ ViroAnimations.registerAnimations({
   },
 
   wander3: [
-    ['rMove3X1', 'rMove3Z1', 'rMove3X2', 'rMove3Z2', 'rMove3X3', 'rMove3Z3']
+    ["rMove3X1", "rMove3Z1", "rMove3X2", "rMove3Z2", "rMove3X3", "rMove3Z3"]
   ],
 
-  pMoveTX1: { properties: { positionX: '+=10' }, duration: 10000 },
-  pMoveTZ1: { properties: { positionZ: '+=10' }, duration: 10000 },
-  pMoveTX2: { properties: { positionX: '-=10' }, duration: 10000 },
-  pMoveTZ2: { properties: { positionZ: '-=10' }, duration: 10000 },
+  pMoveTX1: { properties: { positionX: "+=10" }, duration: 10000 },
+  pMoveTZ1: { properties: { positionZ: "+=10" }, duration: 10000 },
+  pMoveTX2: { properties: { positionX: "-=10" }, duration: 10000 },
+  pMoveTZ2: { properties: { positionZ: "-=10" }, duration: 10000 },
 
-  patrolT: [['pMoveTX1', 'pMoveTZ1', 'pMoveTX2', 'pMoveTZ2']],
+  patrolT: [["pMoveTX1", "pMoveTZ1", "pMoveTX2", "pMoveTZ2"]],
 
-  pMoveGX1: { properties: { positionX: '+=10' }, duration: 10000 },
-  pMoveGZ1: { properties: { positionZ: '+=10' }, duration: 10000 },
-  pMoveGX2: { properties: { positionX: '-=10' }, duration: 10000 },
-  pMoveGZ2: { properties: { positionZ: '-=10' }, duration: 10000 },
+  pMoveGX1: { properties: { positionX: "+=10" }, duration: 10000 },
+  pMoveGZ1: { properties: { positionZ: "+=10" }, duration: 10000 },
+  pMoveGX2: { properties: { positionX: "-=10" }, duration: 10000 },
+  pMoveGZ2: { properties: { positionZ: "-=10" }, duration: 10000 },
 
-  patrolG: [['pMoveGX1', 'pMoveGZ1', 'pMoveGX2', 'pMoveGZ2']]
+  patrolG: [["pMoveGX1", "pMoveGZ1", "pMoveGX2", "pMoveGZ2"]]
 });
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
-    fontFamily: 'Roboto',
+    fontFamily: "Roboto",
     fontSize: 60,
-    color: '#ffaaaf',
-    textAlignVertical: 'center',
-    textAlign: 'center'
+    color: "#ffaaaf",
+    textAlignVertical: "center",
+    textAlign: "center"
   }
 });
