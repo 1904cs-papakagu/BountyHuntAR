@@ -2,7 +2,8 @@ const initState = {
   status: '',
   bullets: 7,
   reloading: false,
-  shooting: false
+  shooting: false,
+  loading: true
 };
 
 const START_PLAYING = 'START_PLAYING';
@@ -12,9 +13,16 @@ const SET_BULLETS = 'SET_BULLETS';
 const RELOADING = 'RELOADING';
 const SET_SHOOTING = 'SET_SHOOTING';
 const RESET_SHOOTING = 'RESET_SHOOTING';
+const LOADING = 'LOADING';
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
+};
+export const setLoading = loading => {
+  return { type: LOADING, loading };
+};
+export const updateAgent = (agentId, agentPosition) => {
+  return { type: UPDATE_AGENT, agentId, agentPosition };
 };
 export const startGame = (locationId, userId, displacement) => {
   return { type: START_PLAYING, locationId, userId, displacement };
@@ -69,6 +77,9 @@ export default function (state = initState, action) {
       return { ...state, shooting: true };
     case RESET_SHOOTING:
       return { ...state, shooting: false };
+    case LOADING: {
+      return { ...state, loading: action.loading };
+    }
     default:
       break;
   }

@@ -5,7 +5,9 @@ import {
   View,
   Dimensions,
   YellowBox,
+  Button,
   TouchableOpacity,
+  Modal
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -16,7 +18,8 @@ import Crosshair from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
-import { setShooting, resetStatus, setBullets, reloading } from './js/store';
+import Loading from './Loading';
+import { setShooting, resetStatus, setBullets, reloading, setLoading } from './js/store';
 
 console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
@@ -68,7 +71,13 @@ const Game = props => (
     </View>
 
     <View style={styles.abandonContainer}>
-      <TouchableOpacity onPress={props.exitGame} style={styles.abandonButton}>
+      <TouchableOpacity
+        onPress={() => {
+          props.exitGame();
+          props.setLoading(true);
+        }}
+        style={styles.abandonButton}
+      >
         <Text style={styles.textStyle}>Abandon Contract</Text>
       </TouchableOpacity>
     </View>
@@ -81,11 +90,12 @@ const Game = props => (
   </View>
 );
 
-const mapStatetToProps = state => {
+const mapStateToProps = state => {
   return {
     crosshairId: state.user.crosshairId,
     bullets: state.game.bullets,
-    reloading: state.game.reloading
+    reloading: state.game.reloading,
+    loading: state.game.loading
   }
 }
 
@@ -93,6 +103,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fire() {
       dispatch(setShooting());
+    },
+    setLoading(bool) {
+      dispatch(setLoading(bool));
     },
     exitGame(){
       dispatch(resetStatus())
@@ -107,7 +120,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStatetToProps,
+  mapStateToProps,
   mapDispatchToProps
 )(Game);
 
