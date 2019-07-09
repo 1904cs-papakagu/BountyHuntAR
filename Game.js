@@ -7,7 +7,8 @@ import {
   Dimensions,
   YellowBox,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Vibration
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -76,7 +77,13 @@ const Game = props => (
     </View>
 
     <View style={styles.shootContainer}>
-      <TouchableOpacity onPress={props.fire} style={styles.shootButton}>
+      <TouchableOpacity
+        onPress={() => {
+          props.fire();
+          Vibration.vibrate(250);
+        }}
+        style={styles.shootButton}
+      >
         <Text style={styles.textStyle}>SHOOT</Text>
       </TouchableOpacity>
     </View>
@@ -152,7 +159,7 @@ const styles = StyleSheet.create({
   shootButton: {
     height: 100,
     width: 100,
-    backgroundColor: '#ff0000',
+    backgroundColor: '#ff000075',
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 50,
