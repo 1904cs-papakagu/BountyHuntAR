@@ -4,12 +4,9 @@ import React, { Component } from 'react';
 import { StyleSheet, Platform, Vibration } from 'react-native';
 import {
   ViroARScene,
-  ViroText,
   ViroConstants,
-  ViroBox,
   ViroMaterials,
   ViroAnimations,
-  ViroCamera,
   ViroSpotLight,
   ViroAmbientLight,
   ViroSound
@@ -21,12 +18,10 @@ import Geolocation from 'react-native-geolocation-service';
 import {
   setInactiveThunk,
   endGame,
-  sendPosition,
   setBullets,
   resetShooting
 } from '../../store/';
 import Targets from './Targets';
-import Agents from './Agents';
 import Walls from './Walls';
 import Bullet from './Bullet';
 
@@ -136,7 +131,7 @@ export default class ARScene extends Component {
         ref="scene"
         onTrackingUpdated={this._onInitialized}
         postProcessEffects={['']}
-        onCameraTransformUpdate={this.agentUpdate}
+        onCameraTransformUpdate={this.fire}
       >
         <ViroSound
           source={require('./rising-tide-by-kevin-macleod.mp3')}
