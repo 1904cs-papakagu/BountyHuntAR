@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   Dimensions,
   YellowBox,
-  Button,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -152,7 +150,7 @@ const styles = StyleSheet.create({
   shootButton: {
     height: 100,
     width: 100,
-    backgroundColor: '#ff0000',
+    backgroundColor: '#ff000075',
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 50,
