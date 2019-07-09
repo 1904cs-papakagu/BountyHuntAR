@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, TouchableOpacity, StyleSheet, Image, View, Text} from 'react-native';
+import { Dimensions, TouchableOpacity, StyleSheet, Image, View, Text } from 'react-native';
 
 export default props => (
   <View
@@ -10,31 +10,31 @@ export default props => (
       style={styles.rulesContainer}
     >
       <Text style={styles.rules}>
-        Players earn points and virtual cash which can be spent on ammunition or upgrades. Points are deducted for harming civilians and other bystanders. Extra points are awarded for neutralizing other competing players in the same killzone.
+        Objective 1: Get to an active killzone.
       </Text>
-
       <Text style={styles.rules}>
-        Eliminate the target before any other player can to earn $$$ and 3 points:
+        Objective 2: Eliminate the target before any other player can to earn cash and 3 points!
       </Text>
-
       {/* <Image
         source={require('../../Images/Readme/Target.jpg')}
         style={{height: 50}}
       /> */}
-
       <Text style={styles.rules}>
-        Do not shoot the target's bodyguards (-1 point):
+        Cash can be spent on ammunition or upgrades. Extra points are awarded for neutralizing other competing players in the same killzone.
       </Text>
-
+      <Text style={styles.rules}>
+        Points are deducted for harming civilians and other bystanders.
+      </Text>
+      <Text style={styles.rules}>
+        Do NOT shoot the target's bodyguards (-1 point).
+      </Text>
       {/* <Image
         source={require('../../Images/Readme/Guard.jpg')}
         style={{ height: 50 }}
       /> */}
-
       <Text style={styles.rules}>
-        Do not shoot civilians(-3 points):
+        Do NOT shoot civilians(-3 points).
       </Text>
-
       {/* <Image
         source={require('../../Images/Readme/Civilian.jpg')}
         style={{ height: 50 }}
@@ -44,11 +44,11 @@ export default props => (
     <View style={styles.buttonContainer}>
       <TouchableOpacity onPress={() => props.onChange(false)}>
         <Text style={styles.profileButton}>
-          {props.signedIn ? 'Profile' : 'Sign in'}
+          {props.signedIn ? 'Back to Profile' : 'Go to Sign in screen'}
         </Text>
       </TouchableOpacity>
     </View>
-    
+
   </View>
 )
 
