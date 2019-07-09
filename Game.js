@@ -26,7 +26,16 @@ var sharedProps = {
 };
 
 const Game = props => (
-  <View style={{ flex: 1 }}>
+  <View style={styles.container}>
+    <ViroARSceneNavigator
+      {...sharedProps}
+      initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
+      worldAlignment="GravityAndHeading"
+      debug={true}
+    />
+
+    <Crosshair crosshair={props.crosshairId} />
+
     <View style={styles.reloadContainer}>
       <TouchableOpacity
         style={styles.reloadButton}
@@ -38,15 +47,6 @@ const Game = props => (
         <Text style={styles.textStyle}>{props.bullets}/7</Text>
       </TouchableOpacity>
     </View>
-
-    <ViroARSceneNavigator
-      {...sharedProps}
-      initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
-      worldAlignment="GravityAndHeading"
-      debug={true}
-    />
-
-    <Crosshair crosshair={props.crosshairId} />
 
     <View style={styles.abandonContainer}>
       <TouchableOpacity onPress={props.exitGame} style={styles.abandonButton}>
@@ -61,41 +61,41 @@ export default Game;
 const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000000'
+    flex: 1
   },
   reloadContainer: {
     width: width,
-    height: 150,
-    justifyContent: 'flex-start',
-    backgroundColor: '#000000'
+    height: 50,
+    justifyContent: 'space-around',
+    position: 'absolute',
+    top: 55,
   },
   reloadButton: {
-    height: 100,
-    backgroundColor: '#000000',
-    borderColor: '#ff0000',
+    height: 75,
+    width: 125,
+    // backgroundColor: '#000000',
+    // borderColor: '#ff0000',
     borderWidth: 1,
     borderRadius: 12,
     margin: 20,
     padding: 12,
-    textAlign: 'center'
+    textAlign: 'center',
+
   },
   textStyle: {
     fontFamily: 'American Typewriter',
     fontSize: 25,
-    color: 'white'
+    color: 'red',
+
   },
   abandonContainer: {
     width: width,
     height: 0,
     justifyContent: 'flex-end',
-    backgroundColor: '#000000'
+    position: 'absolute'
   },
   abandonButton: {
-    height: 100,
-    backgroundColor: '#000000',
+    height: 50,
     borderColor: '#841584',
     borderWidth: 1,
     borderRadius: 12,
