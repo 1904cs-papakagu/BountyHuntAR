@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   Dimensions,
   YellowBox,
-  Button,
   TouchableOpacity,
-  Vibration
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -77,13 +74,7 @@ const Game = props => (
     </View>
 
     <View style={styles.shootContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          props.fire();
-          Vibration.vibrate(250);
-        }}
-        style={styles.shootButton}
-      >
+      <TouchableOpacity onPress={props.fire} style={styles.shootButton}>
         <Text style={styles.textStyle}>SHOOT</Text>
       </TouchableOpacity>
     </View>

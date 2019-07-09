@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Dimensions, Platform, Vibration } from 'react-native';
 import {
   ViroARScene,
   ViroText,
@@ -98,6 +98,7 @@ export default class ARScene extends Component {
       this.rot = rotation;
 
       if (this.state.shoot && !this.props.reloading) {
+        Vibration.vibrate(250);
         const newCount = this.props.bullets - 1;
         this.bullets.push(this.boxShoot());
         this.setState({ shoot: false, magazine: newCount });
