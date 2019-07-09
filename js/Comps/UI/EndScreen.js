@@ -38,6 +38,10 @@ const EndScreen = props => (
   </View>
 );
 
+const mapStateToProps = state => ({
+  status: state.game.status
+});
+
 const mapDispatchToProps = dispatch => {
   return {
     ok() {
@@ -47,7 +51,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(EndScreen);
 
