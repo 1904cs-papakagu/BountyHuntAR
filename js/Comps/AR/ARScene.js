@@ -92,12 +92,12 @@ export default class ARScene extends Component {
   }
 
   agentUpdate({ position, rotation, forward }) {
-    if (this.props.shooting) {
+    if (this.props.shooting && this.props.bullets > 0) {
       this.velocity = forward.map(vector => 30 * vector);
       this.pos = position;
       this.rot = rotation;
 
-      if (this.state.shoot) {
+      if (this.state.shoot && !this.props.reloading) {
         const newCount = this.props.bullets - 1;
         this.bullets.push(this.boxShoot());
         this.setState({ shoot: false, magazine: newCount });
@@ -116,7 +116,6 @@ export default class ARScene extends Component {
         onTrackingUpdated={this._onInitialized}
         postProcessEffects={['']}
         onCameraTransformUpdate={this.agentUpdate}
-        onClick={this.getForce}
       >
         <ViroSound
           source={require('./rising-tide-by-kevin-macleod.mp3')}
