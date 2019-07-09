@@ -34,7 +34,21 @@ class DcApp extends Component {
   }
 
   render() {
-    if (this.props.gameStatus) {
+    if (!this.props.gameStatus) {
+      return (
+        <View style={styles.container}>
+          {this.props.user.userName ? (
+            <WelcomeScreen user={this.props.user} />
+          ) : (
+              <SigninScreen
+                login={this.props.login}
+                signUp={this.props.signUp}
+                error={this.props.user.error}
+              />
+            )}
+        </View>
+      );
+    } else {
       if (this.props.gameStatus === 'playing') {
         return (
           <Game
@@ -49,20 +63,6 @@ class DcApp extends Component {
       } else {
         return <EndScreen status={this.props.gameStatus} />;
       }
-    } else {
-      return (
-        <View style={styles.container}>
-          {this.props.user.userName ? (
-            <WelcomeScreen user={this.props.user} />
-          ) : (
-            <SigninScreen
-              login={this.props.login}
-              signUp={this.props.signUp}
-              error={this.props.user.error}
-            />
-          )}
-        </View>
-      );
     }
   }
 }

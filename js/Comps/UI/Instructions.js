@@ -5,40 +5,36 @@ export default props => (
   <View
     style={styles.container}
   >
-
     <View
       style={styles.rulesContainer}
     >
       <Text style={styles.rules}>
         Objective 1: Get to an active killzone.
-      </Text>
-      <Text style={styles.rules}>
+        {'\n'}{'\n'}
         Objective 2: Eliminate the target before any other player can to earn cash and 3 points!
       </Text>
-      {/* <Image
-        source={require('../../Images/Readme/Target.jpg')}
-        style={{height: 50}}
-      /> */}
+      <Image
+        source={require('../../Images/Readme/Target.png')}
+        style={{ height: 75, width: 75 }}
+      />
       <Text style={styles.rules}>
         Cash can be spent on ammunition or upgrades. Extra points are awarded for neutralizing other competing players in the same killzone.
-      </Text>
-      <Text style={styles.rules}>
+        {'\n'}{'\n'}
         Points are deducted for harming civilians and other bystanders.
-      </Text>
-      <Text style={styles.rules}>
+        {'\n'}{'\n'}
         Do NOT shoot the target's bodyguards (-1 point).
       </Text>
-      {/* <Image
-        source={require('../../Images/Readme/Guard.jpg')}
-        style={{ height: 50 }}
-      /> */}
+      <Image
+        source={require('../../Images/Readme/Guard.png')}
+        style={{ height: 75, width: 75 }}
+      />
       <Text style={styles.rules}>
         Do NOT shoot civilians(-3 points).
       </Text>
-      {/* <Image
-        source={require('../../Images/Readme/Civilian.jpg')}
-        style={{ height: 50 }}
-      /> */}
+      <Image
+        source={require('../../Images/Readme/Civilian.png')}
+        style={{ height: 75, width: 75 }}
+      />
     </View>
 
     <View style={styles.buttonContainer}>
@@ -94,5 +90,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     margin: 20,
     padding: 12,
+    alignItems: 'center'
   }
 })
