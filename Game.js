@@ -50,15 +50,30 @@ const Game = props => (
         <Text style={styles.textStyle}>
           {!props.bullets && !props.reloading ? 'Tap To Reload' : ''}
         </Text>
-        <Text style={styles.textStyle}>
-          {props.reloading ? 'RELOADING' : `${props.bullets}/7`}
-        </Text>
+
+        {props.reloading ? (
+          <Text style={styles.textStyle}>RELOADING</Text>
+        ) : (
+          <></>
+        )}
+
+        {props.bullets && !props.reloading ? (
+          <Text style={styles.textStyle}>Ammo: {props.bullets}/7</Text>
+        ) : (
+          <></>
+        )}
       </TouchableOpacity>
     </View>
 
     <View style={styles.abandonContainer}>
       <TouchableOpacity onPress={props.exitGame} style={styles.abandonButton}>
         <Text style={styles.textStyle}>Abandon Contract</Text>
+      </TouchableOpacity>
+    </View>
+
+    <View style={styles.shootContainer}>
+      <TouchableOpacity style={styles.shootButton}>
+        <Text style={styles.textStyle}>SHOOT</Text>
       </TouchableOpacity>
     </View>
   </View>
@@ -69,43 +84,67 @@ export default Game;
 const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between'
   },
   reloadContainer: {
-    width: width,
+    width: width / 2,
     height: 50,
-    justifyContent: 'space-around',
-    position: 'absolute',
-    top: 55
+    position: 'absolute'
   },
   reloadButton: {
     height: 75,
-    width: 125,
-    borderWidth: 1,
+    width: 150,
+    backgroundColor: '#00000050',
+    borderColor: '#ff0000',
+    borderWidth: 2,
     borderRadius: 12,
     margin: 20,
-    padding: 12,
-    textAlign: 'center'
+    padding: 12
   },
   textStyle: {
+    textAlign: 'center',
     fontFamily: 'American Typewriter',
-    fontSize: 25,
-    color: 'red'
+    fontSize: 20,
+    color: 'white'
   },
   abandonContainer: {
-    width: width,
-    height: 0,
-    justifyContent: 'flex-end',
-    position: 'absolute'
+    width: width / 2,
+    height: 50,
+    position: 'absolute',
+    left: width / 1.9
   },
   abandonButton: {
-    height: 50,
+    height: 75,
+    width: 150,
+    backgroundColor: '#00000050',
     borderColor: '#841584',
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 12,
     color: 'white',
     margin: 20,
     padding: 12,
     textAlign: 'center'
+  },
+  shootContainer: {
+    width: width,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 75
+  },
+  shootButton: {
+    height: 100,
+    width: 100,
+    backgroundColor: '#ff0000',
+    borderColor: '#000000',
+    borderWidth: 2,
+    borderRadius: 50,
+    margin: 20,
+    padding: 12,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
