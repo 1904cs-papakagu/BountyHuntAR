@@ -43,7 +43,6 @@ const Game = props => (
           setTimeout(() => props.setBullets(7), 3000);
         }}
       >
-        <Text style={styles.textStyle}>Reload</Text>
         <Text style={styles.textStyle}>{props.bullets}/7</Text>
       </TouchableOpacity>
     </View>
@@ -51,6 +50,12 @@ const Game = props => (
     <View style={styles.abandonContainer}>
       <TouchableOpacity onPress={props.exitGame} style={styles.abandonButton}>
         <Text style={styles.textStyle}>Abandon Contract</Text>
+      </TouchableOpacity>
+    </View>
+
+    <View style={styles.shootContainer}>
+      <TouchableOpacity style={styles.shootButton}>
+        <Text style={styles.textStyle}>SHOOT</Text>
       </TouchableOpacity>
     </View>
   </View>
@@ -61,48 +66,72 @@ export default Game;
 const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between'
   },
   reloadContainer: {
-    width: width,
+    width: width / 2,
     height: 50,
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     position: 'absolute',
-    top: 55,
+    // top: 25,
+
   },
   reloadButton: {
     height: 75,
-    width: 125,
-    borderWidth: 1,
+    width: 150,
+    backgroundColor: '#000000',
+    borderColor: '#ff0000',
+    borderWidth: 2,
     borderRadius: 12,
     margin: 20,
     padding: 12,
-    textAlign: 'center',
-
   },
   textStyle: {
     fontFamily: 'American Typewriter',
-    fontSize: 25,
-    color: 'red',
+    fontSize: 20,
+    color: 'white',
 
   },
   abandonContainer: {
-    width: width,
-    // height: 0,
-    // justifyContent: 'flex-end',
+    width: width / 2,
     height: 50,
-    justifyContent: 'space-around',
     position: 'absolute',
-    bottom: 55,
+    // justifyContent: 'space-around',
+    // top: 25,
+    left: width / 1.90,
   },
   abandonButton: {
-    height: 50,
+    height: 75,
+    width: 150,
+    backgroundColor: '#000000',
     borderColor: '#841584',
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 12,
     color: 'white',
     margin: 20,
     padding: 12,
     textAlign: 'center'
-  }
+  },
+  shootContainer: {
+    width: width,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 75,
+  },
+  shootButton: {
+    height: 100,
+    width: 100,
+    backgroundColor: '#ff0000',
+    borderColor: '#000000',
+    borderWidth: 2,
+    borderRadius: 50,
+    margin: 20,
+    padding: 12,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
