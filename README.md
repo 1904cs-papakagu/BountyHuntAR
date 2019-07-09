@@ -19,3 +19,13 @@ Do not shoot the target's bodyguards (-1 point):
 Do not shoot civilians (-3 points):
 
 ![Civilian](/js/Images/Readme/Civilian.jpg)
+
+---
+
+Music from https://filmmusic.io
+
+"Tyrant" by Kevin MacLeod (https://incompetech.com)
+License: CC BY (http://creativecommons.org/licenses/by/4.0/)
+
+"Rising Tide" by Kevin MacLeod (https://incompetech.com)
+License: CC BY (http://creativecommons.org/licenses/by/4.0/)

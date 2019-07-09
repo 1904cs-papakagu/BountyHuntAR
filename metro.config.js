@@ -26,7 +26,8 @@ module.exports = {
       'bin',
       'arobject',
       'gif',
-      'png'
+      'png',
+      'mp3'
     ]
   }
 };

@@ -10,7 +10,8 @@ import {
   ViroAnimations,
   ViroCamera,
   ViroSpotLight,
-  ViroAmbientLight
+  ViroAmbientLight,
+  ViroSound
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -133,6 +134,11 @@ export default class ARScene extends Component {
         onCameraTransformUpdate={this.agentUpdate}
         onClick={this.getForce}
       >
+      <ViroSound
+        source={require('./rising-tide-by-kevin-macleod.mp3')}
+        loop={true}
+        volume={0.5}
+      />
         {this.bullets}
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
