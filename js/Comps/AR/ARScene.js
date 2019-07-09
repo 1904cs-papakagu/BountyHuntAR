@@ -60,6 +60,7 @@ export default class ARScene extends Component {
     this.agentUpdate = this.agentUpdate.bind(this);
     this.stopShotSound = this.stopShotSound.bind(this);
     this.stopDeathSound = this.stopDeathSound.bind(this);
+    this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
   }
 
   boxShoot() {
@@ -75,10 +76,9 @@ export default class ARScene extends Component {
 
   hitTarget(tag) {
     if (tag === 'boxBullet') {
-      this.setState({ deathSound: true });
+      this.setState({ targetDeathSound: true });
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
-
       this.props.setInactive(locationId, userId, score);
       setTimeout(this.props.winGame, 2000);
     }
@@ -126,6 +126,10 @@ export default class ARScene extends Component {
     this.setState({ deathSound: false });
   }
 
+  stopTargetDeathSound() {
+    this.setState({ targetDeathSound: false });
+  }
+
   render() {
     return (
       <ViroARScene
@@ -152,6 +156,13 @@ export default class ARScene extends Component {
           paused={!this.state.deathSound}
           volume={0.5}
           onFinish={this.stopDeathSound}
+        />
+        <ViroSound
+          source={require('./audio/wilhelm.mp3')}
+          loop={true}
+          paused={!this.state.targetDeathSound}
+          volume={0.5}
+          onFinish={this.stopTargetDeathSound}
         />
         <ViroSound
           source={require('./audio/reload.mp3')}
