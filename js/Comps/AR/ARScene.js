@@ -57,7 +57,7 @@ export default class ARScene extends Component {
     this.hitTarget = this.hitTarget.bind(this);
     this.hitCiv = this.hitCiv.bind(this);
     this.hitGuard = this.hitGuard.bind(this);
-    this.agentUpdate = this.agentUpdate.bind(this);
+    this.fire = this.fire.bind(this);
     this.stopShotSound = this.stopShotSound.bind(this);
     this.stopDeathSound = this.stopDeathSound.bind(this);
     this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
@@ -100,7 +100,7 @@ export default class ARScene extends Component {
     }
   }
 
-  agentUpdate({ position, rotation, forward }) {
+  fire({ position, rotation, forward }) {
     if (this.props.shooting && this.props.bullets > 0) {
       this.velocity = forward.map(vector => 30 * vector);
       this.pos = position;
@@ -186,15 +186,6 @@ export default class ARScene extends Component {
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
         />
-        {Object.values(this.props.agents).map((agent, index) => {
-          return (
-            <Agents
-              key={index}
-              agent={agent}
-              displacement={this.state.displacement}
-            />
-          );
-        })}
         <Walls />
       </ViroARScene>
     );
@@ -258,7 +249,6 @@ const mapStateToProps = state => {
     location: state.location,
     userId: state.user.id,
     locationId: state.location.id,
-    agents: state.game.agents,
     bullets: state.game.bullets,
     reloading: state.game.reloading,
     shooting: state.game.shooting,
