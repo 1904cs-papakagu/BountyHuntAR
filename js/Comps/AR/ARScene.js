@@ -34,7 +34,7 @@ export default class ARScene extends Component {
       score: 0,
       displacement: [0, -10],
       update: true,
-      reloading: false
+      reloading: false,
       report: false,
       deathSound: false,
     };
