@@ -91,7 +91,7 @@ class SigninScreen extends Component {
             <></>
           )}
         <TouchableOpacity onPress={() => this.onChangeRules(true)}>
-          <Text style={styles.briefingButton}>Mission briefing (rules)</Text>
+          <Text style={styles.briefingButton}>Mission briefing (How to play)</Text>
         </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
