@@ -80,7 +80,7 @@ class WelcomePage extends React.Component {
             <Text style={styles.killzoneButton}>See Active Killzones</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.onChangeRules(true)}>
-            <Text style={styles.briefingButton}>Mission briefing (How to play)</Text>
+            <Text style={styles.briefingButton}>Mission Briefing (How to Play)</Text>
           </TouchableOpacity>
         </View>
       </View>
