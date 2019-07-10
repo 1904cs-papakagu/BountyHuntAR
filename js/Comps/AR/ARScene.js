@@ -38,7 +38,8 @@ export default class ARScene extends Component {
       update: true,
       reloading: false,
       report: false,
-      deathSound: false,
+      targetDeathSound: false,
+      guardDeathSound: false,
       civDeathSound: false,
     };
 
@@ -52,13 +53,14 @@ export default class ARScene extends Component {
     this.hitGuard = this.hitGuard.bind(this);
     this.fire = this.fire.bind(this);
     this.stopShotSound = this.stopShotSound.bind(this);
-    this.stopDeathSound = this.stopDeathSound.bind(this);
+    this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
+    this.stopGuardDeathSound = this.stopGuardDeathSound.bind(this);
     this.stopCivDeathSound = this.stopCivDeathSound.bind(this);
   }
 
   hitTarget(tag) {
     if (tag === 'bullet') {
-      this.setState({ deathSound: true });
+      this.setState({ targetDeathSound: true });
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
       this.props.setInactive(locationId, userId, score);
@@ -68,7 +70,7 @@ export default class ARScene extends Component {
 
   hitGuard(tag) {
     if (tag === 'bullet') {
-      this.setState({ deathSound: true });
+      this.setState({ guardDeathSound: true });
       const score = this.state.score - 1;
       this.setState({ score });
     }
@@ -87,8 +89,12 @@ export default class ARScene extends Component {
     this.setState({ report: false });
   }
 
-  stopDeathSound() {
-    this.setState({ deathSound: false });
+  stopTargetDeathSound() {
+    this.setState({ targetDeathSound: false })
+  }
+
+  stopGuardDeathSound() {
+    this.setState({ guardDeathSound: false });
   }
 
   stopCivDeathSound() {
@@ -150,11 +156,18 @@ export default class ARScene extends Component {
           volume={0.5}
         />
         <ViroSound
+          source={require('./audio/targetDeath.mp3')}
+          loop={true}
+          paused={!this.state.targetDeathSound}
+          volume={0.5}
+          onFinish={this.stopTargetDeathSound}
+        />
+        <ViroSound
           source={require('./audio/death.mp3')}
           loop={true}
-          paused={!this.state.deathSound}
+          paused={!this.state.guardDeathSound}
           volume={0.5}
-          onFinish={this.stopDeathSound}
+          onFinish={this.stopGuardDeathSound}
         />
         <ViroSound
           source={require('./audio/wilhelm.mp3')}
