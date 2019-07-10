@@ -81,7 +81,7 @@ const Game = props => (
   </View>
 );
 
-const mapStatetToProps = state => {
+const mapStateToProps = state => {
   return {
     crosshairId: state.user.crosshairId,
     bullets: state.game.bullets,
@@ -107,7 +107,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStatetToProps,
+  mapStateToProps,
   mapDispatchToProps
 )(Game);
 

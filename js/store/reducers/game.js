@@ -2,7 +2,8 @@ const initState = {
   status: '',
   bullets: 7,
   reloading: false,
-  shooting: false
+  shooting: false,
+  canShoot: true,
 };
 
 const START_PLAYING = 'START_PLAYING';
@@ -12,6 +13,7 @@ const SET_BULLETS = 'SET_BULLETS';
 const RELOADING = 'RELOADING';
 const SET_SHOOTING = 'SET_SHOOTING';
 const RESET_SHOOTING = 'RESET_SHOOTING';
+const TOGGLE_SHOT = 'TOGGLE_SHOT';
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
@@ -47,6 +49,11 @@ export const resetShooting = () => {
     type: RESET_SHOOTING
   };
 };
+export const toggleShot = () => {
+  return {
+    type: TOGGLE_SHOT
+  };
+}
 export const spookTarget = () => { };
 
 export default function (state = initState, action) {
@@ -69,6 +76,8 @@ export default function (state = initState, action) {
       return { ...state, shooting: true };
     case RESET_SHOOTING:
       return { ...state, shooting: false };
+    case TOGGLE_SHOT:
+      return { ...state, canShoot: !state.canShoot };
     default:
       break;
   }
