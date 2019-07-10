@@ -36,10 +36,8 @@ class WelcomePage extends React.Component {
   }
 
   render() {
-    if (this.state.renderKillZone)
-      return <KillZone onChange={this.onChangeKZ} />;
-    if (this.state.renderRules)
-      return <Instructions onChange={this.onChangeRules} signedIn={true} />;
+    if (this.state.renderKillZone) {return <KillZone onChange={this.onChangeKZ} />;}
+    if (this.state.renderRules) {return <Instructions onChange={this.onChangeRules} signedIn={true} />;}
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -77,7 +75,7 @@ class WelcomePage extends React.Component {
             ))}
           </ScrollView>
         </View>
-        <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
+        <View>
           <TouchableOpacity onPress={() => this.onChangeKZ(true)}>
             <Text style={styles.killzoneButton}>See Active Killzones</Text>
           </TouchableOpacity>
@@ -123,6 +121,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     color: '#ffffff',
+    margin: 10,
     padding: 12,
     textAlign: 'center'
   },

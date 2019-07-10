@@ -31,9 +31,9 @@ class SigninScreen extends Component {
   onChangeRules(bool) {
     this.setState({ renderRules: bool });
   }
-  
+
   render() {
-    if (this.state.renderRules) return <Instructions onChange={this.onChangeRules} signedIn={false} /> 
+    if (this.state.renderRules) return <Instructions onChange={this.onChangeRules} signedIn={false} />
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image
@@ -90,10 +90,10 @@ class SigninScreen extends Component {
           ) : (
             <></>
           )}
-        </View>
         <TouchableOpacity onPress={() => this.onChangeRules(true)}>
-          <Text style={styles.button}>Mission briefing (rules)</Text>
+          <Text style={styles.briefingButton}>Mission briefing (rules)</Text>
         </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -107,16 +107,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return  {
-    signUp(email,password){
-      dispatch(signUpThunk(email,password))
+    signUp(email, password){
+      dispatch(signUpThunk(email, password))
     },
-    login(email,password){
-      dispatch(loginThunk(email,password))
+    login(email, password){
+      dispatch(loginThunk(email, password))
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(SigninScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SigninScreen)
 
 let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -133,6 +133,16 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     color: '#ffffff',
     margin: 10,
+    padding: 12,
+    textAlign: 'center'
+  },
+  briefingButton: {
+    backgroundColor: '#000000',
+    borderColor: '#ffffff75',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: '#ff0000',
+    margin: 50,
     padding: 12,
     textAlign: 'center'
   },
