@@ -3,7 +3,9 @@ import { Provider, connect } from 'react-redux';
 import {
   StyleSheet,
   View,
-  YellowBox
+  Dimensions,
+  YellowBox,
+  Modal
 } from 'react-native';
 
 console.ignoredYellowBox = ['Remote debugger'];
@@ -14,8 +16,17 @@ import Game from './Game';
 import WelcomeScreen from './js/Comps/UI/WelcomeScreen';
 import SigninScreen from './js/Comps/UI/SigninScreen';
 import EndScreen from './js/Comps/UI/EndScreen';
+import Loading from './Loading';
+import store, {
+  loginThunk,
+  startGame,
+  resetStatus,
+  signUpThunk,
+  exitGame,
+  setBullets,
+  reloading
+} from './js/store';
 
-import store from './js/store';
 
 class DcApp extends Component {
   constructor(props) {
@@ -29,16 +40,30 @@ class DcApp extends Component {
           {this.props.user.userName ? (
             <WelcomeScreen />
           ) : (
-              <SigninScreen
-              />
-            )}
+            <SigninScreen
+              login={this.props.login}
+              signUp={this.props.signUp}
+              error={this.props.user.error}
+            />
+          )}
         </View>
       );
     } else {
       if (this.props.gameStatus === 'playing') {
         return (
-          <Game
-          />
+          <View style={styles.container}>
+            <Modal visible={this.props.loading}>
+              <Loading loading={this.props.loading} />
+            </Modal>
+            <Game
+              crosshairId={this.props.crosshairId}
+              exitGame={this.props.exitGame}
+              bullets={this.props.bullets}
+              setBullets={this.props.setBullets}
+              reloading={this.props.reloading}
+              setReload={this.props.setReload}
+            />
+          </View>
         );
       } else {
         return <EndScreen />;
@@ -52,13 +77,34 @@ const mapStateToProps = state => {
     user: state.user,
     crosshairId: state.user.crosshairId,
     gameStatus: state.game.status,
-
+    bullets: state.game.bullets,
+    reloading: state.game.reloading,
+    loading: state.game.loading
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    login(email, password) {
+      dispatch(loginThunk(email, password));
+    },
+    signUp(email, password) {
+      dispatch(signUpThunk(email, password));
+    },
+    exitGame() {
+      dispatch(exitGame());
+    },
+    setBullets(bullets) {
+      dispatch(setBullets(bullets));
+    },
+    setReload(status) {
+      dispatch(reloading(status));
+    }
   };
 };
 
 const App = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(DcApp);
 
 export default () => (
@@ -69,9 +115,6 @@ export default () => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    flex: 1
   }
 });

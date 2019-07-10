@@ -21,7 +21,7 @@ class WelcomePage extends React.Component {
     this.state = {
       renderKillZone: false,
       renderRules: false,
-      crosshairs: crosshairs.map((crosshair, index) => index),
+      crosshairs: crosshairs.map((crosshair, index) => index)
     };
     this.onChangeKZ = this.onChangeKZ.bind(this);
     this.onChangeRules = this.onChangeRules.bind(this);
@@ -62,9 +62,9 @@ class WelcomePage extends React.Component {
         <Text style={styles.userInfoText}>Select crosshair:</Text>
         <View style={styles.crosshairContainer}>
           <ScrollView horizontal={true}>
-            {this.state.crosshairs.map((crosshair,index) => (
+            {this.state.crosshairs.map((crosshair, index) => (
               <TouchableOpacity
-               key={index}
+                key={index}
                 style={
                   this.props.crosshairId !== crosshair
                     ? styles.crosshairButtonUnselected
@@ -77,13 +77,14 @@ class WelcomePage extends React.Component {
             ))}
           </ScrollView>
         </View>
-
-        <TouchableOpacity onPress={() => this.onChangeKZ(true)}>
-          <Text style={styles.killzoneButton}>See Active Killzones</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.onChangeRules(true)}>
-          <Text style={styles.killzoneButton}>Mission briefing (rules)</Text>
-        </TouchableOpacity>
+        <View style={{ flex: 1, justifyContent: 'space-evenly' }}>
+          <TouchableOpacity onPress={() => this.onChangeKZ(true)}>
+            <Text style={styles.killzoneButton}>See Active Killzones</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.onChangeRules(true)}>
+            <Text style={styles.killzoneButton}>Mission briefing (rules)</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     justifyContent: 'flex-start',
-    height: height / 2,
+    height: height / 2.5,
     width: width
   },
   profileImg: {

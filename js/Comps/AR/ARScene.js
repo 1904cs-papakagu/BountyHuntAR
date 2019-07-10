@@ -22,11 +22,12 @@ import {
   resetShooting,
   setShooting,
   toggleShot,
+  setLoading
 } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
-
+import Loading from '../../../Loading';
 export default class ARScene extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +35,8 @@ export default class ARScene extends Component {
     this.state = {
       score: 0,
       displacement: [0, -10],
+      update: true,
+      reloading: false,
       report: false,
       deathSound: false,
       targetDeathSound: false,
@@ -181,6 +184,7 @@ export default class ARScene extends Component {
           hitGuard={this.hitGuard}
           hitCiv={this.hitCiv}
           displacement={this.state.displacement}
+          setLoading={this.props.setLoading}
         />
         <Walls />
       </ViroARScene>
@@ -243,6 +247,9 @@ const mapDispatchToProps = dispatch => {
     toggleShot() {
       dispatch(toggleShot())
     },
+    setLoading(bool) {
+      dispatch(setLoading(bool));
+    }
   };
 };
 const mapStateToProps = state => {

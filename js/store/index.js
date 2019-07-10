@@ -16,6 +16,7 @@ import game, {
   setShooting,
   resetShooting,
   toggleShot,
+  setLoading,
 } from './reducers/game';
 import {
   location,
@@ -58,4 +59,5 @@ export {
   setShooting,
   resetShooting,
   toggleShot,
+  setLoading,
 };
