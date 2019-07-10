@@ -58,6 +58,7 @@ export default class ARScene extends Component {
     this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
     this.stopGuardDeathSound = this.stopGuardDeathSound.bind(this);
     this.stopCivDeathSound = this.stopCivDeathSound.bind(this);
+    this.onHitAgent = this.onHitAgent.bind(this);
   }
 
   hitTarget(tag) {
@@ -79,7 +80,6 @@ export default class ARScene extends Component {
   }
 
   hitCiv(tag) {
-    console.log(tag);
     if (tag === 'bullet') {
       this.setState({ civDeathSound: true });
       const score = this.state.score - 3;
@@ -123,7 +123,7 @@ export default class ARScene extends Component {
 
   onHitAgent(tag) {
     if (Number(tag)) {
-      killAgent(tag);
+      killAgent(this.props.locationId, tag);
     }
   }
 

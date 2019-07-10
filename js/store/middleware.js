@@ -31,6 +31,7 @@ const socketMiddleware = ({ dispatch, getState }) => {
     }
   })
   socket.on('agentKilled', (userId) => {
+    console.log('user:', userId)
     if (`${getState().user.id}` !== `${userId}`) {
       dispatch(killAgent(userId))
     } else {
