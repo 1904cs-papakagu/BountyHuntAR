@@ -20,6 +20,8 @@ import {
   endGame,
   setBullets,
   resetShooting,
+  setShooting,
+  toggleShot,
   setLoading
 } from '../../store/';
 import Targets from './Targets';
@@ -37,6 +39,7 @@ export default class ARScene extends Component {
       reloading: false,
       report: false,
       deathSound: false,
+      targetDeathSound: false,
     };
 
     this.bullets = [];
@@ -94,17 +97,18 @@ export default class ARScene extends Component {
 
 
   fire({ position, rotation, forward }) {
-    if (this.props.shooting && this.props.bullets > 0) {
-      const velocity = forward.map(vector => 30 * vector);
+    if (this.props.canShoot && this.props.shooting && this.props.bullets > 0) {
+      this.props.toggleShot();
+      this.setState({ report: true });
       Vibration.vibrate(250);
+      const velocity = forward.map(vector => 30 * vector);
       const newCount = this.props.bullets - 1;
       this.bullets.push(this.generateBullet(position, rotation, velocity));
-      this.setState({ report: true });
       this.props.setBullets(newCount);
-      setTimeout(() => this.setState({ shoot: true }), 3500);
+      this.props.reset();
+      setTimeout(() => this.props.toggleShot(), 3500);
       setTimeout(() => this.bullets.unshift(), 1500);
     }
-    this.props.reset();
   }
 
   generateBullet(position, rotation, velocity) {
@@ -138,6 +142,12 @@ export default class ARScene extends Component {
           paused={!this.state.report}
           volume={0.5}
           onFinish={this.stopShotSound}
+        />
+        <ViroSound
+          source={require('./audio/casing.mp3')}
+          loop={true}
+          paused={!this.state.report}
+          volume={0.5}
         />
         <ViroSound
           source={require('./audio/death.mp3')}
@@ -229,7 +239,13 @@ const mapDispatchToProps = dispatch => {
       dispatch(setBullets(bullets));
     },
     reset() {
-      dispatch(resetShooting());
+      dispatch(resetShooting())
+    },
+    setShooting() {
+      dispatch(setShooting())
+    },
+    toggleShot() {
+      dispatch(toggleShot())
     },
     setLoading(bool) {
       dispatch(setLoading(bool));
@@ -244,7 +260,8 @@ const mapStateToProps = state => {
     locationId: state.location.id,
     bullets: state.game.bullets,
     reloading: state.game.reloading,
-    shooting: state.game.shooting
+    shooting: state.game.shooting,
+    canShoot: state.game.canShoot,
   };
 };
 
