@@ -38,8 +38,9 @@ export default class ARScene extends Component {
       update: true,
       reloading: false,
       report: false,
-      deathSound: false,
       targetDeathSound: false,
+      guardDeathSound: false,
+      civDeathSound: false,
     };
 
     this.bullets = [];
@@ -52,8 +53,9 @@ export default class ARScene extends Component {
     this.hitGuard = this.hitGuard.bind(this);
     this.fire = this.fire.bind(this);
     this.stopShotSound = this.stopShotSound.bind(this);
-    this.stopDeathSound = this.stopDeathSound.bind(this);
     this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
+    this.stopGuardDeathSound = this.stopGuardDeathSound.bind(this);
+    this.stopCivDeathSound = this.stopCivDeathSound.bind(this);
   }
 
   hitTarget(tag) {
@@ -68,7 +70,7 @@ export default class ARScene extends Component {
 
   hitGuard(tag) {
     if (tag === 'bullet') {
-      this.setState({ deathSound: true });
+      this.setState({ guardDeathSound: true });
       const score = this.state.score - 1;
       this.setState({ score });
     }
@@ -76,7 +78,7 @@ export default class ARScene extends Component {
 
   hitCiv(tag) {
     if (tag === 'bullet') {
-      this.setState({ deathSound: true });
+      this.setState({ civDeathSound: true });
       const score = this.state.score - 3;
       this.setState({ score });
     }
@@ -87,12 +89,16 @@ export default class ARScene extends Component {
     this.setState({ report: false });
   }
 
-  stopDeathSound() {
-    this.setState({ deathSound: false });
+  stopTargetDeathSound() {
+    this.setState({ targetDeathSound: false })
   }
 
-  stopTargetDeathSound() {
-    this.setState({ targetDeathSound: false });
+  stopGuardDeathSound() {
+    this.setState({ guardDeathSound: false });
+  }
+
+  stopCivDeathSound() {
+    this.setState({ civDeathSound: false });
   }
 
 
@@ -150,18 +156,25 @@ export default class ARScene extends Component {
           volume={0.5}
         />
         <ViroSound
-          source={require('./audio/death.mp3')}
-          loop={true}
-          paused={!this.state.deathSound}
-          volume={0.5}
-          onFinish={this.stopDeathSound}
-        />
-        <ViroSound
-          source={require('./audio/wilhelm.mp3')}
+          source={require('./audio/targetDeath.mp3')}
           loop={true}
           paused={!this.state.targetDeathSound}
           volume={0.5}
           onFinish={this.stopTargetDeathSound}
+        />
+        <ViroSound
+          source={require('./audio/death.mp3')}
+          loop={true}
+          paused={!this.state.guardDeathSound}
+          volume={0.5}
+          onFinish={this.stopGuardDeathSound}
+        />
+        <ViroSound
+          source={require('./audio/wilhelm.mp3')}
+          loop={true}
+          paused={!this.state.civDeathSound}
+          volume={0.5}
+          onFinish={this.stopCivDeathSound}
         />
         <ViroSound
           source={require('./audio/reload.mp3')}
@@ -279,8 +292,14 @@ ViroMaterials.createMaterials({
   black: {
     diffuseTexture: require('./res/black.png')
   },
-  finn: {
-    diffuseTexture: require('./res/Finn/Finn.png')
+  finnBenRodriguez: {
+    diffuseTexture: require('./res/Finn/Finn-ben-rodriguez.png')
+  },
+  finnDavidPatlut: {
+    diffuseTexture: require('./res/Finn/Finn-david-patlut.png')
+  },
+  finnDavidYang: {
+    diffuseTexture: require('./res/Finn/Finn-david-yang.png')
   },
   target: {
     diffuseTexture: require('./res/target.png')
