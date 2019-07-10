@@ -47,18 +47,18 @@ const civPositions = [
 
 const randomTarget = [
   {
-    source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
-    type: 'OBJ',
-    scale: [0.0075, 0.0075, 0.0075],
+    source: require('./res/suit01/suit01.vrx'),
+    type: 'VRX',
+    scale: [0.01, 0.01, 0.01],
     rotationPivot: [-0.5, 1, -0.5],
   },
   {
-    source: require('./res/woman_in_suit/woman_in_suit.obj'),
-    type: 'OBJ',
-    scale: [0.00075, 0.00075, 0.00075],
+    source: require('./res/suit02/suit02.vrx'),
+    type: 'VRX',
+    scale: [0.01, 0.01, 0.01],
     rotationPivot: [-0.5, 1, -0.5],
   },
-][1]//[Math.floor(Math.random() * 2)];
+][Math.floor(Math.random() * 2)];
 
 const Targets = props => {
   const [x, z] = props.displacement;
@@ -89,9 +89,9 @@ const Targets = props => {
     ...guardPositions.map((guard, i) => (
       <Viro3DObject
         key={i + 1}
-        source={require('./res/bodyguard/MyCharacter.vrx')}
+        source={require('./res/security/security.vrx')}
         type="VRX"
-        scale={[0.009, 0.009, 0.009]}
+        scale={[0.01, 0.01, 0.01]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
         rotationPivot={[-0.5, 1, -0.5]}
