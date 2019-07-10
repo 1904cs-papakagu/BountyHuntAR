@@ -39,7 +39,7 @@ export default class ARScene extends Component {
       reloading: false,
       report: false,
       deathSound: false,
-      targetDeathSound: false,
+      civDeathSound: false,
     };
 
     this.bullets = [];
@@ -53,12 +53,12 @@ export default class ARScene extends Component {
     this.fire = this.fire.bind(this);
     this.stopShotSound = this.stopShotSound.bind(this);
     this.stopDeathSound = this.stopDeathSound.bind(this);
-    this.stopTargetDeathSound = this.stopTargetDeathSound.bind(this);
+    this.stopCivDeathSound = this.stopCivDeathSound.bind(this);
   }
 
   hitTarget(tag) {
     if (tag === 'bullet') {
-      this.setState({ targetDeathSound: true });
+      this.setState({ deathSound: true });
       const score = this.state.score + 3;
       const { userId, locationId } = this.props;
       this.props.setInactive(locationId, userId, score);
@@ -76,7 +76,7 @@ export default class ARScene extends Component {
 
   hitCiv(tag) {
     if (tag === 'bullet') {
-      this.setState({ deathSound: true });
+      this.setState({ civDeathSound: true });
       const score = this.state.score - 3;
       this.setState({ score });
     }
@@ -91,8 +91,8 @@ export default class ARScene extends Component {
     this.setState({ deathSound: false });
   }
 
-  stopTargetDeathSound() {
-    this.setState({ targetDeathSound: false });
+  stopCivDeathSound() {
+    this.setState({ civDeathSound: false });
   }
 
 
@@ -159,9 +159,9 @@ export default class ARScene extends Component {
         <ViroSound
           source={require('./audio/wilhelm.mp3')}
           loop={true}
-          paused={!this.state.targetDeathSound}
+          paused={!this.state.civDeathSound}
           volume={0.5}
-          onFinish={this.stopTargetDeathSound}
+          onFinish={this.stopCivDeathSound}
         />
         <ViroSound
           source={require('./audio/reload.mp3')}
@@ -279,8 +279,14 @@ ViroMaterials.createMaterials({
   black: {
     diffuseTexture: require('./res/black.png')
   },
-  finn: {
-    diffuseTexture: require('./res/Finn/Finn.png')
+  finnBenRodriguez: {
+    diffuseTexture: require('./res/Finn/Finn-ben-rodriguez.png')
+  },
+  finnDavidPatlut: {
+    diffuseTexture: require('./res/Finn/Finn-david-patlut.png')
+  },
+  finnDavidYang: {
+    diffuseTexture: require('./res/Finn/Finn-david-yang.png')
   },
   target: {
     diffuseTexture: require('./res/target.png')

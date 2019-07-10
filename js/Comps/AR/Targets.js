@@ -15,27 +15,33 @@ const guardPositions = [
 const civPositions = [
   {
     position: [-2.4, -4.2],
-    rotationAngle: Math.floor(Math.random() * 360)
+    rotationAngle: Math.floor(Math.random() * 360),
+    face: Math.floor(Math.random() * 3),
   },
   {
     position: [5.2, -3.6],
-    rotationAngle: Math.floor(Math.random() * 360)
+    rotationAngle: Math.floor(Math.random() * 360),
+    face: Math.floor(Math.random() * 3),
   },
   {
     position: [-3.1, 2.1],
-    rotationAngle: Math.floor(Math.random() * 360)
+    rotationAngle: Math.floor(Math.random() * 360),
+    face: Math.floor(Math.random() * 3),
   },
   {
     position: [4.2, 2.7],
-    rotationAngle: Math.floor(Math.random() * 360)
+    rotationAngle: Math.floor(Math.random() * 360),
+    face: Math.floor(Math.random() * 3),
   },
   {
     position: [1.2, 4.3],
-    rotationAngle: Math.floor(Math.random() * 360)
+    rotationAngle: Math.floor(Math.random() * 360),
+    face: Math.floor(Math.random() * 3),
   },
   {
     position: [0.0, 5.0],
-    rotationAngle: Math.floor(Math.random() * 360)
+    rotationAngle: Math.floor(Math.random() * 360),
+    face: Math.floor(Math.random() * 3),
   }
 ];
 
@@ -93,7 +99,7 @@ const Targets = props => {
         key={i + 3}
         source={require('./res/Finn/Finn.obj')}
         type="OBJ"
-        materials={['finn']}
+        materials={[['finnBenRodriguez'], ['finnDavidPatlut'], ['finnDavidYang']][civ.face]}
         scale={[0.02, 0.02, 0.02]}
         position={[civ.position[0] - x, 0, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}

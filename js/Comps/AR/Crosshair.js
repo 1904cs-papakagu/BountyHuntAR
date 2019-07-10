@@ -29,10 +29,23 @@ const styles = StyleSheet.create({
 
 export const crosshairs = [
 
-  // CROSSHAIR 0
+  // CROSSHAIR 0: blue transparency with highlighted cross
   [
     <View
-    key={0}
+      key={0}
+      style={{
+        ...styles.crosshair1,
+        height: 100,
+        width: 100,
+        borderRadius: 1000,
+        top: SCREEN_HEIGHT / 2 - 50,
+        left: SCREEN_WIDTH / 2 - 50,
+        backgroundColor: "#00f9ff",
+        opacity: 0.2
+      }}
+    />,
+    <View
+      key={1}
       style={{
         ...styles.crosshair0,
         height: 100,
@@ -44,7 +57,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={1}
+      key={2}
       style={{
         ...styles.crosshair0,
         height: 2,
@@ -56,7 +69,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={2}
+      key={3}
       style={{
         ...styles.crosshair0,
         height: 25,
@@ -67,7 +80,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={3}
+      key={4}
       style={{
         ...styles.crosshair0,
         height: 25,
@@ -78,7 +91,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={4}
+      key={5}
       style={{
         ...styles.crosshair0,
         height: 4,
@@ -89,7 +102,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={5}
+      key={6}
       style={{
         ...styles.crosshair0,
         height: 4,
@@ -100,7 +113,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={6}
+      key={7}
       style={{
         ...styles.crosshair0,
         height: 100,
@@ -116,10 +129,10 @@ export const crosshairs = [
 
   ],
   
-  // CROSSHAIR 1
+  // CROSSHAIR 1: red dot sight and transparency with cross
   [
     <View
-    key={0}
+      key={0}
       style={{
         ...styles.crosshair1,
         height: 100,
@@ -132,7 +145,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={1}
+      key={1}
       style={{
         ...styles.crosshair1,
         height: 35,
@@ -142,7 +155,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={2}
+      key={2}
       style={{
         ...styles.crosshair1,
         height: 35,
@@ -152,7 +165,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={3}
+      key={3}
       style={{
         ...styles.crosshair1,
         height: 2,
@@ -162,7 +175,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={4}
+      key={4}
       style={{
         ...styles.crosshair1,
         height: 2,
@@ -172,7 +185,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={5}
+      key={5}
       style={{
         ...styles.crosshair1,
         height: 100,
@@ -186,7 +199,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={6}
+      key={6}
       style={{
         ...styles.crosshair1,
         height: 80,
@@ -196,11 +209,11 @@ export const crosshairs = [
         top: SCREEN_HEIGHT / 2 - 40,
         left: SCREEN_WIDTH / 2 - 40,
         backgroundColor: '',
-        borderColor: styles.crosshair1.backgroundColor
+        borderColor: 'red'
       }}
     />,
     <View
-    key={7}
+      key={7}
       style={{
         ...styles.crosshair1,
         height: 4,
@@ -208,15 +221,16 @@ export const crosshairs = [
         borderRadius: 1000,
         top: SCREEN_HEIGHT / 2 - 2,
         left: SCREEN_WIDTH / 2 - 2,
+        backgroundColor: 'red'
       }}
     />
   ],
 
 
-  // CROSSHAIR 2
+  // CROSSHAIR 2: green transparency with black cross
   [
     <View
-    key={0}
+      key={0}
       style={{
         ...styles.crosshair2,
         height: 90,
@@ -228,7 +242,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={1}
+      key={1}
       style={{
         ...styles.crosshair2,
         height: 60,
@@ -238,7 +252,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={2}
+      key={2}
       style={{
         ...styles.crosshair2,
         height: 2,
@@ -248,7 +262,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={3}
+      key={3}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -258,7 +272,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={4}
+      key={4}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -268,7 +282,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={5}
+      key={5}
       style={{
         ...styles.crosshair2,
         height: 25,
@@ -278,7 +292,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={6}
+      key={6}
       style={{
         ...styles.crosshair2,
         height: 100,
@@ -292,7 +306,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={7}
+      key={7}
       style={{
         ...styles.crosshair2,
         height: 90,
@@ -306,7 +320,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={8}
+      key={8}
       style={{
         ...styles.crosshair2,
         height: 4,
@@ -320,10 +334,10 @@ export const crosshairs = [
   ],
 
 
-  // CROSSHAIR 3
+  // CROSSHAIR 3: gray transparency with red dot sight and black T shape
   [
     <View
-    key={0}
+      key={0}
       style={{
         ...styles.crosshair3,
         height: 100,
@@ -336,7 +350,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={1}
+      key={1}
       style={{
         ...styles.crosshair3,
         height: 50,
@@ -346,7 +360,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={3}
+      key={2}
       style={{
         ...styles.crosshair3,
         height: 2,
@@ -356,7 +370,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={4}
+      key={3}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -368,7 +382,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={5}
+      key={4}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -380,7 +394,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={6}
+      key={5}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -392,7 +406,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={7}
+      key={6}
       style={{
         ...styles.crosshair3,
         borderWidth: 1,
@@ -404,7 +418,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={8}
+      key={7}
       style={{
         ...styles.crosshair3,
         height: 100,
@@ -419,10 +433,10 @@ export const crosshairs = [
     />
   ],
 
-  // CROSSHAIR 4
+  // CROSSHAIR 4: yellow transparency with sniper bars
   [
     <View
-    key={0}
+      key={0}
       style={{
         ...styles.crosshair4,
         height: 100,
@@ -435,7 +449,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={1}
+      key={1}
       style={{
         ...styles.crosshair4,
         height: 100,
@@ -445,7 +459,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={2}
+      key={2}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -455,7 +469,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={3}
+      key={3}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -465,7 +479,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={4}
+      key={4}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -475,7 +489,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={5}
+      key={5}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -485,7 +499,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={6}
+      key={6}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -495,7 +509,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={7}
+      key={7}
       style={{
         ...styles.crosshair4,
         height: 2,
@@ -505,7 +519,7 @@ export const crosshairs = [
       }}
     />,
     <View
-    key={8}
+      key={8}
       style={{
         ...styles.crosshair4,
         height: 100,
