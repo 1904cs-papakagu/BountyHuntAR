@@ -45,17 +45,32 @@ const civPositions = [
   }
 ];
 
+const randomTarget = [
+  {
+    source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
+    type: 'OBJ',
+    scale: [0.0075, 0.0075, 0.0075],
+    rotationPivot: [-0.5, 1, -0.5],
+  },
+  {
+    source: require('./res/woman_in_suit/woman_in_suit.obj'),
+    type: 'OBJ',
+    scale: [0.00075, 0.00075, 0.00075],
+    rotationPivot: [-0.5, 1, -0.5],
+  },
+][1]//[Math.floor(Math.random() * 2)];
+
 const Targets = props => {
   const [x, z] = props.displacement;
 
   return [
     <Viro3DObject
       key={0}
-      source={require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj')}
-      type="OBJ"
+      source={randomTarget.source}
+      type={randomTarget.type}
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
-      scale={[0.0075, 0.0075, 0.0075]}
-      rotationPivot={[-0.5, 1, -0.5]}
+      scale={randomTarget.scale}
+      rotationPivot={randomTarget.rotationPivot}
       onLoadEnd={() => props.setLoading(false)}
       physicsBody={{
         type: 'Dynamic',
