@@ -10,7 +10,7 @@ import {
   ViroSpotLight,
   ViroAmbientLight,
   ViroSound,
-  ViroBox
+  Viro3DObject
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -196,22 +196,22 @@ export default class ARScene extends Component {
         {Object.values(this.props.agents).map((agent, index) => {
           const { displacement, transform, id } = agent;
           return (
-            <ViroBox
+            <Viro3DObject
               key={index}
+              source={require('./res/agent/Runner.unity_1.obj')}
+              type="OBJ"
+              scale={[0.9, 0.9, 0.9]}
               position={[
                 transform[0] - displacement[0],
                 0,
                 transform[2] - displacement[2]
               ]}
+              rotationPivot={[-0.5, 1, -0.5]}
               physicsBody={{
                 type: 'Dynamic',
                 mass: 1,
                 useGravity: false
               }}
-              height={2}
-              width={0.5}
-              length={0.5}
-              materials={['target']}
               viroTag={id}
             />
           );
