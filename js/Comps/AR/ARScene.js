@@ -299,6 +299,7 @@ const mapStateToProps = state => {
     reloading: state.game.reloading,
     shooting: state.game.shooting,
     canShoot: state.game.canShoot,
+    agents: state.game.agents,
   };
 };
 

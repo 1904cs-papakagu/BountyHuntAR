@@ -25,7 +25,7 @@ import {
   getAllActiveLocationThunk
 } from './reducers/locations';
 
-import socket, { updateTransform } from './socket';
+import socket, { updateTransform, killAgent } from './socket';
 
 socket.connect();
 
@@ -60,4 +60,5 @@ export {
   resetShooting,
   toggleShot,
   setLoading,
+  killAgent
 };

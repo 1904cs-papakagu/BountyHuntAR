@@ -30,13 +30,13 @@ const socketMiddleware = ({ dispatch, getState }) => {
       dispatch(updateAgent(transform))
     }
   })
-  socket.on('agentKilled', agentId ){
+  socket.on('agentKilled', (userId) => {
     if (`${getState().user.id}` !== `${userId}`) {
-      dispatch(killAgent(agentId))
+      dispatch(killAgent(userId))
     } else {
       dispatch(endGame(false));
     }
-  }
+  })
   return next => action => {
     return next(action);
   }

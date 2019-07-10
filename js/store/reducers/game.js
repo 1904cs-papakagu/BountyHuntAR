@@ -101,13 +101,13 @@ export default function (state = initState, action) {
       if (agents[action.agentId]) {
         agents[action.agentId] = { ...agents[action.agentId], transform: action.transform }
       } else {
-        agents[action.agentId] = { id: action.agentID, displacement: action.transform }
+        agents[action.agentId] = { id: action.agentID, displacement: action.transform, transform: [0,0,0] }
       }
       return { ...state, agents }
     case KILL_AGENT:
-      const agents = { ...state.agents }
-      delete agents[action.agentId]
-      return { ...state, agents }
+      const newAgents = { ...state.agents }
+      delete newAgents[action.agentId]
+      return { ...state, agents: newAgents }
     default:
       break;
   }
