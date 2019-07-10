@@ -42,7 +42,7 @@ export default class ARScene extends Component {
       report: false,
       targetDeathSound: false,
       guardDeathSound: false,
-      civDeathSound: false,
+      civDeathSound: false
     };
 
     this.bullets = [];
@@ -79,6 +79,7 @@ export default class ARScene extends Component {
   }
 
   hitCiv(tag) {
+    console.log(tag);
     if (tag === 'bullet') {
       this.setState({ civDeathSound: true });
       const score = this.state.score - 3;
@@ -86,13 +87,12 @@ export default class ARScene extends Component {
     }
   }
 
-
   stopShotSound() {
     this.setState({ report: false });
   }
 
   stopTargetDeathSound() {
-    this.setState({ targetDeathSound: false })
+    this.setState({ targetDeathSound: false });
   }
 
   stopGuardDeathSound() {
@@ -102,7 +102,6 @@ export default class ARScene extends Component {
   stopCivDeathSound() {
     this.setState({ civDeathSound: false });
   }
-
 
   fire({ position, rotation, forward }) {
     if (this.props.canShoot && this.props.shooting && this.props.bullets > 0) {
@@ -117,11 +116,15 @@ export default class ARScene extends Component {
       setTimeout(() => this.props.toggleShot(), 3500);
       setTimeout(() => this.bullets.unshift(), 1500);
     }
-    updateTransform({position})
+    if (Date.now() % 1000 < 100) {
+      updateTransform(this.props.locationId, this.props.userId, position);
+    }
   }
 
-  killAgent(tag){
-    killAgent(tag)
+  onHitAgent(tag) {
+    if (Number(tag)) {
+      killAgent(tag);
+    }
   }
 
   generateBullet(position, rotation, velocity) {
@@ -131,11 +134,10 @@ export default class ARScene extends Component {
         position={position}
         velocity={velocity}
         rotation={rotation}
-        killAgent={this.killAgent}     
+        killAgent={this.onHitAgent}
       />
     );
   }
-
 
   render() {
     return (
@@ -191,21 +193,28 @@ export default class ARScene extends Component {
           volume={1.0}
         />
         {this.bullets}
-        {Object.values(this.props.agents).map( agent => {
-          const {displacement, transform, id} = agent
+        {Object.values(this.props.agents).map((agent, index) => {
+          const { displacement, transform, id } = agent;
           return (
-            <ViroBox 
-              position={[transform[0]-displacement[0], 0, transform[2] - displacement[2]]}
+            <ViroBox
+              key={index}
+              position={[
+                transform[0] - displacement[0],
+                0,
+                transform[2] - displacement[2]
+              ]}
               physicsBody={{
-                type: kinematic
+                type: 'Dynamic',
+                mass: 1,
+                useGravity: false
               }}
               height={2}
-              width={.5}
-              length={.5}
+              width={0.5}
+              length={0.5}
               materials={['target']}
-              viroTag={`${id}`}
+              viroTag={id}
             />
-          )
+          );
         })}
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
@@ -246,8 +255,8 @@ export default class ARScene extends Component {
           const displacement = [
             (targetLatitude - currentLatitude) * 111111,
             (targetLongitude - currentLongitude) *
-            111111 *
-            Math.cos((Math.PI * targetLatitude) / 180)
+              111111 *
+              Math.cos((Math.PI * targetLatitude) / 180)
           ];
           this.setState({ displacement });
         },
@@ -276,13 +285,13 @@ const mapDispatchToProps = dispatch => {
       dispatch(setBullets(bullets));
     },
     reset() {
-      dispatch(resetShooting())
+      dispatch(resetShooting());
     },
     setShooting() {
-      dispatch(setShooting())
+      dispatch(setShooting());
     },
     toggleShot() {
-      dispatch(toggleShot())
+      dispatch(toggleShot());
     },
     setLoading(bool) {
       dispatch(setLoading(bool));
@@ -299,7 +308,7 @@ const mapStateToProps = state => {
     reloading: state.game.reloading,
     shooting: state.game.shooting,
     canShoot: state.game.canShoot,
-    agents: state.game.agents,
+    agents: state.game.agents
   };
 };
 
@@ -332,33 +341,32 @@ ViroMaterials.createMaterials({
 });
 
 const mkWanderAnim = n => {
-  let anim = {}
-  for(let i = 1 ; i < 7 ; i++){
-   anim[`rMove${n}X${i}`] = {
-     properties: { positionX: `+=${Math.random() * 2 - 1}` },
-     duration: 1000
-    }
-     anim[`rMove${n}Z${i}`] = {
-     properties: { positionZ: `+=${Math.random() * 2 - 1}` },
-     duration: 1000
-    }
+  let anim = {};
+  for (let i = 1; i < 7; i++) {
+    anim[`rMove${n}X${i}`] = {
+      properties: { positionX: `+=${Math.random() * 2 - 1}` },
+      duration: 1000
+    };
+    anim[`rMove${n}Z${i}`] = {
+      properties: { positionZ: `+=${Math.random() * 2 - 1}` },
+      duration: 1000
+    };
   }
-  const chain = new Array(12).fill('').map( (e,i) => {
+  const chain = new Array(12).fill('').map((e, i) => {
     let dir;
-    if(i%2)  dir = "X"
-    else dir = "Z"
-    return `rMove${n}${dir}${Math.floor(i/2) + 1}`
-  })
-  anim[`wander${n}`] = [chain]
-  return anim 
-}
+    if (i % 2) dir = 'X';
+    else dir = 'Z';
+    return `rMove${n}${dir}${Math.floor(i / 2) + 1}`;
+  });
+  anim[`wander${n}`] = [chain];
+  return anim;
+};
 
-for (let i=1; i<4; i++){
-  ViroAnimations.registerAnimations(mkWanderAnim(i))
+for (let i = 1; i < 4; i++) {
+  ViroAnimations.registerAnimations(mkWanderAnim(i));
 }
 
 ViroAnimations.registerAnimations({
-
   pMoveTX1: { properties: { positionX: '+=10' }, duration: 10000 },
   pMoveTZ1: { properties: { positionZ: '+=10' }, duration: 10000 },
   pMoveTX2: { properties: { positionX: '-=10' }, duration: 10000 },

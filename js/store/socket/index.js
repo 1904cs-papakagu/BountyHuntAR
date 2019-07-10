@@ -12,6 +12,6 @@ export function killTarget(locationId, userId) {
 export function updateTransform(locationId, userId, transform){
   socket.emit('updateAgent', `${locationId}`, `${userId}`, transform )
 }
-export function killAgent(locationId,agentId){
+export function killAgent(locationId, agentId){
   socket.emit('killAgent', `${locationId}`, `${agentId}`)
 }
