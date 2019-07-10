@@ -22,6 +22,8 @@ let { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: height,
+    width: width,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000000'
