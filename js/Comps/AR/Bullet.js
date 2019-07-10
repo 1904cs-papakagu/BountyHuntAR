@@ -16,6 +16,7 @@ export default props => {
         velocity: props.velocity,
         useGravity: false
       }}
+      onCollision={props.killAgent}
       viroTag={'bullet'}
     />
   );

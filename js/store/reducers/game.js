@@ -5,6 +5,7 @@ const initState = {
   shooting: false,
   canShoot: true,
   loading: true,
+  agents: {},
 };
 
 const START_PLAYING = 'START_PLAYING';
@@ -16,6 +17,8 @@ const SET_SHOOTING = 'SET_SHOOTING';
 const RESET_SHOOTING = 'RESET_SHOOTING';
 const TOGGLE_SHOT = 'TOGGLE_SHOT';
 const LOADING = 'LOADING';
+const UPDATE_AGENT = "UPDATE_AGENT"
+const KILL_AGENT = "KILL_AGENT"
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
@@ -23,8 +26,8 @@ export const exitGame = () => {
 export const setLoading = loading => {
   return { type: LOADING, loading };
 };
-export const updateAgent = (agentId, agentPosition) => {
-  return { type: UPDATE_AGENT, agentId, agentPosition };
+export const updateAgent = (agentId, transform) => {
+  return { type: UPDATE_AGENT, agentId, transform };
 };
 export const startGame = (locationId, userId, displacement) => {
   return { type: START_PLAYING, locationId, userId, displacement };
@@ -62,7 +65,12 @@ export const toggleShot = () => {
     type: TOGGLE_SHOT
   };
 }
-export const spookTarget = () => { };
+export const killAgent = (agentId) => {
+  return {
+    type: KILL_AGENT,
+    agentId
+  }
+};
 
 export default function (state = initState, action) {
   switch (action.type) {
@@ -86,9 +94,20 @@ export default function (state = initState, action) {
       return { ...state, shooting: false };
     case TOGGLE_SHOT:
       return { ...state, canShoot: !state.canShoot };
-    case LOADING: {
+    case LOADING:
       return { ...state, loading: action.loading };
-    }
+    case UPDATE_AGENT:
+      const agents = { ...state.agents }
+      if (agents[action.agentId]) {
+        agents[action.agentId] = { ...agents[action.agentId], transform: action.transform }
+      } else {
+        agents[action.agentId] = { id: action.agentID, displacement: action.transform }
+      }
+      return { ...state, agents }
+    case KILL_AGENT:
+      const agents = { ...state.agents }
+      delete agents[action.agentId]
+      return { ...state, agents }
     default:
       break;
   }

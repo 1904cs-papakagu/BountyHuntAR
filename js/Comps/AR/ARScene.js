@@ -9,7 +9,8 @@ import {
   ViroAnimations,
   ViroSpotLight,
   ViroAmbientLight,
-  ViroSound
+  ViroSound,
+  ViroBox
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -22,12 +23,13 @@ import {
   resetShooting,
   setShooting,
   toggleShot,
-  setLoading
+  setLoading,
+  updateTransform,
+  killAgent
 } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
-import Loading from '../../../Loading';
 export default class ARScene extends Component {
   constructor(props) {
     super(props);
@@ -115,6 +117,11 @@ export default class ARScene extends Component {
       setTimeout(() => this.props.toggleShot(), 3500);
       setTimeout(() => this.bullets.unshift(), 1500);
     }
+    updateTransform({position})
+  }
+
+  killAgent(tag){
+    killAgent(tag)
   }
 
   generateBullet(position, rotation, velocity) {
@@ -124,6 +131,7 @@ export default class ARScene extends Component {
         position={position}
         velocity={velocity}
         rotation={rotation}
+        killAgent={this.killAgent}     
       />
     );
   }
@@ -183,6 +191,22 @@ export default class ARScene extends Component {
           volume={1.0}
         />
         {this.bullets}
+        {Object.values(this.props.agents).map( agent => {
+          const {displacement, transform, id} = agent
+          return (
+            <ViroBox 
+              position={[transform[0]-displacement[0], 0, transform[2] - displacement[2]]}
+              physicsBody={{
+                type: kinematic
+              }}
+              height={2}
+              width={.5}
+              length={.5}
+              materials={['target']}
+              viroTag={`${id}`}
+            />
+          )
+        })}
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}
