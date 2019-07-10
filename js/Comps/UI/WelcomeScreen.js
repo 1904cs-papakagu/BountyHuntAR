@@ -80,7 +80,7 @@ class WelcomePage extends React.Component {
             <Text style={styles.killzoneButton}>See Active Killzones</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.onChangeRules(true)}>
-            <Text style={styles.killzoneButton}>Mission briefing (rules)</Text>
+            <Text style={styles.briefingButton}>Mission Briefing (How to Play)</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -122,6 +122,16 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     color: '#ffffff',
     margin: 10,
+    padding: 12,
+    textAlign: 'center'
+  },
+  briefingButton: {
+    backgroundColor: '#000000',
+    borderColor: '#ffffff75',
+    borderWidth: 1,
+    borderRadius: 12,
+    color: '#ff0000',
+    margin: 50,
     padding: 12,
     textAlign: 'center'
   },

@@ -74,7 +74,6 @@ const Game = props => (
       <TouchableOpacity
         onPress={() => {
           props.exitGame();
-          props.setLoading(true);
         }}
         style={styles.abandonButton}
       >
