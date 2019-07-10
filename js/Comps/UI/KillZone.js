@@ -93,7 +93,7 @@ class KillZone extends React.Component {
           {this.props.locations
             ? this.props.locations.map(location => {
               const { distance, displacement } = this.calculateDisplacement(...location.GPS);
-              if (distance < 15) {
+              if (distance > 15) {
                 return (
                   <TouchableOpacity
                     key={location.id}
