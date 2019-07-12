@@ -9,7 +9,8 @@ import {
   ViroAnimations,
   ViroSpotLight,
   ViroAmbientLight,
-  ViroSound
+  ViroSound,
+  ViroBox
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -22,12 +23,11 @@ import {
   resetShooting,
   setShooting,
   toggleShot,
-  setLoading
+  setLoading,
 } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
-import Loading from '../../../Loading';
 export default class ARScene extends Component {
   constructor(props) {
     super(props);
@@ -35,8 +35,6 @@ export default class ARScene extends Component {
     this.state = {
       score: 0,
       displacement: [0, -10],
-      update: true,
-      reloading: false,
       report: false,
       targetDeathSound: false,
       guardDeathSound: false,
@@ -123,7 +121,7 @@ export default class ARScene extends Component {
         key={this.bullets.length}
         position={position}
         velocity={velocity}
-        rotation={rotation}
+        rotation={rotation} 
       />
     );
   }

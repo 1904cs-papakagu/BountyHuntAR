@@ -25,7 +25,7 @@ import {
   getAllActiveLocationThunk
 } from './reducers/locations';
 
-import socket, { sendPosition } from './socket';
+import socket from './socket';
 
 socket.connect();
 
@@ -51,7 +51,6 @@ export {
   getAllActiveLocationThunk,
   resetStatus,
   setCrosshair,
-  sendPosition,
   signUpThunk,
   exitGame,
   setBullets,

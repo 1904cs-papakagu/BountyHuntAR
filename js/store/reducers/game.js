@@ -5,6 +5,7 @@ const initState = {
   shooting: false,
   canShoot: true,
   loading: true,
+  agents: {},
 };
 
 const START_PLAYING = 'START_PLAYING';
@@ -22,9 +23,6 @@ export const exitGame = () => {
 };
 export const setLoading = loading => {
   return { type: LOADING, loading };
-};
-export const updateAgent = (agentId, agentPosition) => {
-  return { type: UPDATE_AGENT, agentId, agentPosition };
 };
 export const startGame = (locationId, userId, displacement) => {
   return { type: START_PLAYING, locationId, userId, displacement };
@@ -61,8 +59,7 @@ export const toggleShot = () => {
   return {
     type: TOGGLE_SHOT
   };
-}
-export const spookTarget = () => { };
+};
 
 export default function (state = initState, action) {
   switch (action.type) {
@@ -86,9 +83,8 @@ export default function (state = initState, action) {
       return { ...state, shooting: false };
     case TOGGLE_SHOT:
       return { ...state, canShoot: !state.canShoot };
-    case LOADING: {
+    case LOADING:
       return { ...state, loading: action.loading };
-    }
     default:
       break;
   }
