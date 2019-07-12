@@ -59,6 +59,8 @@ class SigninScreen extends Component {
             style={this.props.error ? styles.errorField : styles.inputField}
           />
 
+
+          <View style={styles.buttonContainer}>
           {this.state.signingUp
           ? <></>
           : <TouchableOpacity
@@ -67,7 +69,7 @@ class SigninScreen extends Component {
                 this.props.login(email, password);
               }}
             >
-              <Text style={styles.button}>Sign In</Text>
+              <Text style={styles.button}> Sign In  </Text>
             </TouchableOpacity>
           }
 
@@ -90,6 +92,8 @@ class SigninScreen extends Component {
           ) : (
             <></>
           )}
+          </View>
+
         <TouchableOpacity onPress={() => this.onChangeRules(true)}>
           <Text style={styles.briefingButton}>Mission Briefing (How to Play)</Text>
         </TouchableOpacity>
@@ -124,6 +128,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: height,
     width: width,
+    backgroundColor: '#000000'
+  },
+  buttonContainer: {
+    height: 100,
+    width: width,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#000000'
   },
   button: {
