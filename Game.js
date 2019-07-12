@@ -35,7 +35,7 @@ const Game = props => (
     <ViroARSceneNavigator
       {...sharedProps}
       initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
-      worldAlignment="GravityAndHeading"
+      worldAlignment="Gravity"
       debug={true}
     />
 
