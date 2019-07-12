@@ -1,5 +1,5 @@
 import socket from './socket';
-import { endGame, updateAgent, killAgent } from './reducers/game';
+import { endGame } from './reducers/game';
 
 const loggingMiddleware = ({ dispatch, getState }) => {
   return next => action => {
@@ -22,18 +22,6 @@ const thunkMiddleware = ({ dispatch, getState }) => {
 const socketMiddleware = ({ dispatch, getState }) => {
   socket.on('targetKilled', userId => {
     if (`${getState().user.id}` !== `${userId}`) {
-      dispatch(endGame(false));
-    }
-  })
-  socket.on('agentUpdate', (userId, transform) => {
-    if (`${getState().user.id}` !== `${userId}`) {
-      dispatch(updateAgent(transform))
-    }
-  })
-  socket.on('agentKilled', (userId) => {
-    if (`${getState().user.id}` !== `${userId}`) {
-      dispatch(killAgent(userId))
-    } else {
       dispatch(endGame(false));
     }
   })
