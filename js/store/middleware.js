@@ -1,5 +1,5 @@
 import socket from './socket';
-import { endGame } from './reducers/game';
+import { endGame, updateAgent, killAgent } from './reducers/game';
 
 const loggingMiddleware = ({ dispatch, getState }) => {
   return next => action => {

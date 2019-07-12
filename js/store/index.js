@@ -17,6 +17,7 @@ import game, {
   resetShooting,
   toggleShot,
   setLoading,
+  updateAgent,
 } from './reducers/game';
 import {
   location,
@@ -25,7 +26,7 @@ import {
   getAllActiveLocationThunk
 } from './reducers/locations';
 
-import socket from './socket';
+import socket, { updateTransform, killAgent } from './socket';
 
 socket.connect();
 
@@ -59,4 +60,7 @@ export {
   resetShooting,
   toggleShot,
   setLoading,
+  updateTransform,
+  killAgent,
+  updateAgent,
 };
