@@ -24,8 +24,6 @@ import {
   setShooting,
   toggleShot,
   setLoading,
-  updateTransform,
-  killAgent
 } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
@@ -115,11 +113,6 @@ export default class ARScene extends Component {
       setTimeout(() => this.props.toggleShot(), 3500);
       setTimeout(() => this.bullets.unshift(), 1500);
     }
-    updateTransform({position})
-  }
-
-  killAgent(tag){
-    killAgent(tag)
   }
 
   generateBullet(position, rotation, velocity) {
@@ -128,8 +121,7 @@ export default class ARScene extends Component {
         key={this.bullets.length}
         position={position}
         velocity={velocity}
-        rotation={rotation}
-        killAgent={this.killAgent}     
+        rotation={rotation} 
       />
     );
   }
@@ -189,22 +181,6 @@ export default class ARScene extends Component {
           volume={1.0}
         />
         {this.bullets}
-        {Object.values(this.props.agents).map( agent => {
-          const {displacement, transform, id} = agent
-          return (
-            <ViroBox 
-              position={[transform[0]-displacement[0], 0, transform[2] - displacement[2]]}
-              physicsBody={{
-                type: kinematic
-              }}
-              height={2}
-              width={.5}
-              length={.5}
-              materials={['target']}
-              viroTag={`${id}`}
-            />
-          )
-        })}
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}
@@ -297,7 +273,6 @@ const mapStateToProps = state => {
     reloading: state.game.reloading,
     shooting: state.game.shooting,
     canShoot: state.game.canShoot,
-    agents: state.game.agents,
   };
 };
 
