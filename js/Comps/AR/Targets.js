@@ -49,13 +49,13 @@ const randomTarget = [
   {
     source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
     type: 'OBJ',
-    scale: [0.0075, 0.0075, 0.0075],
+    scale: [0.0070, 0.0070, 0.0070],
     rotationPivot: [-0.5, 1, -0.5],
   },
   {
     source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
     type: 'OBJ',
-    scale: [0.0075, 0.0075, 0.0075],
+    scale: [0.0070, 0.0070, 0.0070],
     rotationPivot: [-0.5, 1, -0.5],
   },
 ][Math.floor(Math.random() * 2)];
@@ -68,6 +68,8 @@ const Targets = props => {
       key={0}
       source={randomTarget.source}
       type={randomTarget.type}
+      resources={[]}
+      materials={['white']}
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={randomTarget.scale}
       rotationPivot={randomTarget.rotationPivot}
@@ -91,6 +93,8 @@ const Targets = props => {
         key={i + 1}
         source={require('./res/bodyguard/MyCharacter.vrx')}
         type="VRX"
+        resources={[]}
+        materials={['gray']}
         scale={[0.0075, 0.0075, 0.0075]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
@@ -112,14 +116,11 @@ const Targets = props => {
     ...civPositions.map((civ, i) => (
       <Viro3DObject
         key={i + 3}
-        // source={require('./res/Finn/Finn.obj')}
-        // type="OBJ"
-        // materials={[['finnBenRodriguez'], ['finnDavidPatlut'], ['finnDavidYang']][civ.face]}
-        // scale={[0.02, 0.02, 0.02]}
-
-        source={require('./res/cilveks2/cilveks2.vrx')}
-        type="VRX"
-        scale={[0.01, 0.01, 0.01]}
+        source={require('./res/cilveks2/cilveks2.obj')}
+        type="OBJ"
+        resources={[]}
+        materials={['blue']}
+        scale={[0.008, 0.008, 0.008]}
 
         position={[civ.position[0] - x, -0.5, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}

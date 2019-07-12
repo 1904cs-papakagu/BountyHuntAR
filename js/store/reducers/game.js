@@ -62,6 +62,15 @@ export const toggleShot = () => {
     type: TOGGLE_SHOT
   };
 };
+export const killAgent = agentId => {
+  return {
+    type: KILL_AGENT,
+    agentId
+  }
+};
+export const updateAgent = (agentId, transform) => {
+  return { type: UPDATE_AGENT, agentId, transform };
+};
 
 export default function (state = initState, action) {
   switch (action.type) {

@@ -11,9 +11,7 @@ import {
   ViroAmbientLight,
   ViroSound,
   Viro3DObject,
-
   ViroCamera,
-  ViroImage
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -27,6 +25,8 @@ import {
   setShooting,
   toggleShot,
   setLoading,
+  updateTransform,
+  killAgent,
 } from '../../store/';
 import Gun from './Gun';
 import Targets from './Targets';
@@ -123,6 +123,8 @@ export default class ARScene extends Component {
 
   onHitAgent(tag) {
     if (Number(tag)) {
+      const {score} = this.state
+      this.setState({score: score + 5})
       killAgent(this.props.locationId, tag);
     }
   }
@@ -201,6 +203,7 @@ export default class ARScene extends Component {
               key={index}
               source={require('./res/agent/Runner.unity_1.obj')}
               type="OBJ"
+              materials={['red']}
               scale={[0.9, 0.9, 0.9]}
               position={[
                 transform[0] - displacement[0],
@@ -217,10 +220,6 @@ export default class ARScene extends Component {
             />
           );
         })}
-
-        <ViroCamera position={[0, 0, 0]} active={true}>
-          <Gun />
-        </ViroCamera>
 
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
@@ -332,14 +331,17 @@ ViroMaterials.createMaterials({
   black: {
     diffuseTexture: require('./res/black.png')
   },
-  finnBenRodriguez: {
-    diffuseTexture: require('./res/Finn/Finn-ben-rodriguez.png')
+  white: {
+    diffuseTexture: require('./res/white.png')
   },
-  finnDavidPatlut: {
-    diffuseTexture: require('./res/Finn/Finn-david-patlut.png')
+  gray: {
+    diffuseTexture: require('./res/gray.png')
   },
-  finnDavidYang: {
-    diffuseTexture: require('./res/Finn/Finn-david-yang.png')
+  blue: {
+    diffuseTexture: require('./res/blue.png')
+  },
+  red: {
+    diffuseTexture: require('./res/red.png')
   },
   target: {
     diffuseTexture: require('./res/target.png')
