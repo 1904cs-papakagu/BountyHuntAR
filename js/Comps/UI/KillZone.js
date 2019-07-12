@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     color: '#ffffff',
     margin: 5,
+    marginBottom: 25,
     padding: 12,
     textAlign: 'center'
   },
