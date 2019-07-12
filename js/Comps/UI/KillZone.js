@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   Platform,
   Dimensions,
-  Image
+  Image,
+  ScrollView,
 } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
@@ -90,34 +91,42 @@ class KillZone extends React.Component {
             {this.state.currentCoordinates[0]},{' '}
             {this.state.currentCoordinates[1]}
           </Text>
+          <ScrollView contentContainerStyle={styles.contentContainer}>
           {this.props.locations
             ? this.props.locations.map(location => {
               const { distance, displacement } = this.calculateDisplacement(...location.GPS);
-              if (distance < 15) {
+              if (distance < 50) {
                 return (
+                  <View style={{alignItems: 'center'}}>
+                  <Text style={styles.textStyle}>{location.name}: </Text>
                   <TouchableOpacity
                     key={location.id}
                     onPress={() => this.props.start(location.id, this.props.userId, displacement)}
                   >
                     <Text style={styles.acceptButton}>
-                      {location.name}: Accept Contract
+                      Accept Contract
                     </Text>
                   </TouchableOpacity>
+                  </View>
                 );
               } else {
                 return (
+                  <View>
+                  <Text style={styles.textStyle}>{location.name}: </Text>
                   <TouchableOpacity
                     key={location.id}
                   >
                     <Text style={styles.invalidButton}>
-                      {location.name}: {Math.floor(distance)}m away
+                      {Math.floor(distance)}m away
                     </Text>
                   </TouchableOpacity>
+                  </View>
                 );
               }
             })
             : <></>
           }
+          </ScrollView>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -168,6 +177,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#000000'
   },
+  contentContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   locationContainer: {
     height: height / 2,
     width: width,
@@ -214,24 +228,20 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   invalidButton: {
-    backgroundColor: '#000000',
-    borderColor: '#ff0000',
-    borderWidth: 1,
-    borderRadius: 12,
-    color: '#ffffff',
-    margin: 5,
-    padding: 12,
+    color: '#ff0000',
+    marginBottom: 25,
     textAlign: 'center'
   },
   textStyle: {
     fontFamily: 'American Typewriter',
-    fontSize: 25,
+    fontSize: 18,
     color: '#ffffff'
   },
   currentCoords: {
     fontFamily: 'American Typewriter',
     fontSize: 12,
-    color: '#ffffff'
+    color: '#ffffff',
+    textDecorationLine: 'underline'
   },
   logoImg: {
     width: width,
