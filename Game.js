@@ -7,7 +7,8 @@ import {
   YellowBox,
   Button,
   TouchableOpacity,
-  Modal
+  Modal,
+  Image,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -32,6 +33,7 @@ var sharedProps = {
 
 const Game = props => (
   <View style={styles.container}>
+
     <ViroARSceneNavigator
       {...sharedProps}
       initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}

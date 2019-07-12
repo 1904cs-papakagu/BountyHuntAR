@@ -10,7 +10,10 @@ import {
   ViroSpotLight,
   ViroAmbientLight,
   ViroSound,
-  Viro3DObject
+  Viro3DObject,
+
+  ViroCamera,
+  ViroImage
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -27,6 +30,7 @@ import {
   updateTransform,
   killAgent
 } from '../../store/';
+import Gun from './Gun';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
@@ -216,6 +220,11 @@ export default class ARScene extends Component {
             />
           );
         })}
+
+        <ViroCamera position={[0, 0, 0]} active={true}>
+          <Gun />
+        </ViroCamera>
+
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}

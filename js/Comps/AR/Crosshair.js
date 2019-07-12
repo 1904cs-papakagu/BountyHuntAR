@@ -148,9 +148,9 @@ export const crosshairs = [
       key={1}
       style={{
         ...styles.crosshair1,
-        height: 35,
+        height: 30,
         width: 2,
-        top: SCREEN_HEIGHT / 2 - 60,
+        top: SCREEN_HEIGHT / 2 - 55,
         left: SCREEN_WIDTH / 2 - 1
       }}
     />,
@@ -158,7 +158,7 @@ export const crosshairs = [
       key={2}
       style={{
         ...styles.crosshair1,
-        height: 35,
+        height: 30,
         width: 2,
         top: SCREEN_HEIGHT / 2 + 25,
         left: SCREEN_WIDTH / 2 - 1
@@ -169,9 +169,9 @@ export const crosshairs = [
       style={{
         ...styles.crosshair1,
         height: 2,
-        width: 35,
+        width: 30,
         top: SCREEN_HEIGHT / 2 - 1,
-        left: SCREEN_WIDTH / 2 - 60
+        left: SCREEN_WIDTH / 2 - 55
       }}
     />,
     <View
@@ -179,7 +179,7 @@ export const crosshairs = [
       style={{
         ...styles.crosshair1,
         height: 2,
-        width: 35,
+        width: 30,
         top: SCREEN_HEIGHT / 2 - 1,
         left: SCREEN_WIDTH / 2 + 25
       }}
