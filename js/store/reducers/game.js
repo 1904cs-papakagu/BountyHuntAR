@@ -17,17 +17,12 @@ const SET_SHOOTING = 'SET_SHOOTING';
 const RESET_SHOOTING = 'RESET_SHOOTING';
 const TOGGLE_SHOT = 'TOGGLE_SHOT';
 const LOADING = 'LOADING';
-const UPDATE_AGENT = "UPDATE_AGENT"
-const KILL_AGENT = "KILL_AGENT"
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
 };
 export const setLoading = loading => {
   return { type: LOADING, loading };
-};
-export const updateAgent = (agentId, transform) => {
-  return { type: UPDATE_AGENT, agentId, transform };
 };
 export const startGame = (locationId, userId, displacement) => {
   return { type: START_PLAYING, locationId, userId, displacement };
@@ -64,12 +59,6 @@ export const toggleShot = () => {
   return {
     type: TOGGLE_SHOT
   };
-}
-export const killAgent = (agentId) => {
-  return {
-    type: KILL_AGENT,
-    agentId
-  }
 };
 
 export default function (state = initState, action) {
@@ -96,18 +85,6 @@ export default function (state = initState, action) {
       return { ...state, canShoot: !state.canShoot };
     case LOADING:
       return { ...state, loading: action.loading };
-    case UPDATE_AGENT:
-      const agents = { ...state.agents }
-      if (agents[action.agentId]) {
-        agents[action.agentId] = { ...agents[action.agentId], transform: action.transform }
-      } else {
-        agents[action.agentId] = { id: action.agentID, displacement: action.transform, transform: [0,0,0] }
-      }
-      return { ...state, agents }
-    case KILL_AGENT:
-      const newAgents = { ...state.agents }
-      delete newAgents[action.agentId]
-      return { ...state, agents: newAgents }
     default:
       break;
   }
