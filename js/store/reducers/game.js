@@ -17,6 +17,8 @@ const SET_SHOOTING = 'SET_SHOOTING';
 const RESET_SHOOTING = 'RESET_SHOOTING';
 const TOGGLE_SHOT = 'TOGGLE_SHOT';
 const LOADING = 'LOADING';
+const UPDATE_AGENT = 'UPDATE_AGENT'
+const KILL_AGENT = 'KILL_AGENT'
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
@@ -67,7 +69,7 @@ export default function (state = initState, action) {
       return { ...state, status: 'playing' };
     case STOP_PLAYING:
       if (action.won) {
-        return { ...state, status: 'won' , loading: true};
+        return { ...state, status: 'won', loading: true};
       } else {
         return { ...state, status: 'lost', loading: true };
       }
@@ -85,6 +87,18 @@ export default function (state = initState, action) {
       return { ...state, canShoot: !state.canShoot };
     case LOADING:
       return { ...state, loading: action.loading };
+    case UPDATE_AGENT:
+      const agents = { ...state.agents }
+      if (agents[action.agentId]) {
+        agents[action.agentId] = { ...agents[action.agentId], transform: action.transform }
+      } else {
+        agents[action.agentId] = { id: action.agentId, displacement: action.transform, transform: [0, 0, 0] }
+      }
+      return { ...state, agents }
+    case KILL_AGENT:
+      const newAgents = { ...state.agents }
+      delete newAgents[action.agentId]
+      return { ...state, agents: newAgents }
     default:
       break;
   }

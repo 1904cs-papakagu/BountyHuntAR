@@ -29,6 +29,7 @@ var sharedProps = {
 
 const Game = props => (
   <View style={styles.container}>
+
     <ViroARSceneNavigator
       {...sharedProps}
       initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}

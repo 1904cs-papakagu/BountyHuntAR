@@ -47,15 +47,15 @@ const civPositions = [
 
 const randomTarget = [
   {
-    source: require('./res/suit01/suit01.vrx'),
-    type: 'VRX',
-    scale: [0.01, 0.01, 0.01],
+    source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
+    type: 'OBJ',
+    scale: [0.0075, 0.0075, 0.0075],
     rotationPivot: [-0.5, 1, -0.5],
   },
   {
-    source: require('./res/suit02/suit02.vrx'),
-    type: 'VRX',
-    scale: [0.01, 0.01, 0.01],
+    source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
+    type: 'OBJ',
+    scale: [0.0075, 0.0075, 0.0075],
     rotationPivot: [-0.5, 1, -0.5],
   },
 ][Math.floor(Math.random() * 2)];
@@ -89,9 +89,9 @@ const Targets = props => {
     ...guardPositions.map((guard, i) => (
       <Viro3DObject
         key={i + 1}
-        source={require('./res/security/security.vrx')}
+        source={require('./res/bodyguard/MyCharacter.vrx')}
         type="VRX"
-        scale={[0.01, 0.01, 0.01]}
+        scale={[0.0075, 0.0075, 0.0075]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
         rotationPivot={[-0.5, 1, -0.5]}
@@ -112,11 +112,16 @@ const Targets = props => {
     ...civPositions.map((civ, i) => (
       <Viro3DObject
         key={i + 3}
-        source={require('./res/Finn/Finn.obj')}
-        type="OBJ"
-        materials={[['finnBenRodriguez'], ['finnDavidPatlut'], ['finnDavidYang']][civ.face]}
-        scale={[0.02, 0.02, 0.02]}
-        position={[civ.position[0] - x, 0, civ.position[1] + z]}
+        // source={require('./res/Finn/Finn.obj')}
+        // type="OBJ"
+        // materials={[['finnBenRodriguez'], ['finnDavidPatlut'], ['finnDavidYang']][civ.face]}
+        // scale={[0.02, 0.02, 0.02]}
+
+        source={require('./res/cilveks2/cilveks2.vrx')}
+        type="VRX"
+        scale={[0.01, 0.01, 0.01]}
+
+        position={[civ.position[0] - x, -0.5, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}
         rotationPivot={[-0.5, 1, -0.5]}
         physicsBody={{

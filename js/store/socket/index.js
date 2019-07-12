@@ -9,3 +9,9 @@ export function joinRoom(locationId, userId, displacement) {
 export function killTarget(locationId, userId) {
   socket.emit('killTarget', `${locationId}`, `${userId}`);
 }
+export function updateTransform(locationId, userId, transform){
+  socket.emit('updateAgent', `${locationId}`, `${userId}`, transform )
+}
+export function killAgent(locationId, userId){
+  socket.emit('killAgent', `${locationId}`, `${userId}`)
+}
