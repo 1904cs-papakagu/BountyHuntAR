@@ -37,8 +37,6 @@ export default class ARScene extends Component {
     this.state = {
       score: 0,
       displacement: [0, -10],
-      update: true,
-      reloading: false,
       report: false,
       targetDeathSound: false,
       guardDeathSound: false,

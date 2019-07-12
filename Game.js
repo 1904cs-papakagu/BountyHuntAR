@@ -5,9 +5,7 @@ import {
   View,
   Dimensions,
   YellowBox,
-  Button,
   TouchableOpacity,
-  Modal
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -18,7 +16,6 @@ import Crosshair from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
-import Loading from './Loading';
 import { setShooting, resetStatus, setBullets, reloading, setLoading } from './js/store';
 
 console.ignoredYellowBox = ['Remote debugger'];
