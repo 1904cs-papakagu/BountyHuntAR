@@ -27,8 +27,6 @@ import {
   setShooting,
   toggleShot,
   setLoading,
-  updateTransform,
-  killAgent
 } from '../../store/';
 import Gun from './Gun';
 import Targets from './Targets';
@@ -41,8 +39,6 @@ export default class ARScene extends Component {
     this.state = {
       score: 0,
       displacement: [0, -10],
-      update: true,
-      reloading: false,
       report: false,
       targetDeathSound: false,
       guardDeathSound: false,
@@ -197,6 +193,7 @@ export default class ARScene extends Component {
           volume={1.0}
         />
         {this.bullets}
+
         {Object.values(this.props.agents).map((agent, index) => {
           const { displacement, transform, id } = agent;
           return (

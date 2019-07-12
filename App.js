@@ -40,11 +40,7 @@ class DcApp extends Component {
           {this.props.user.userName ? (
             <WelcomeScreen />
           ) : (
-            <SigninScreen
-              login={this.props.login}
-              signUp={this.props.signUp}
-              error={this.props.user.error}
-            />
+            <SigninScreen />
           )}
         </View>
       );
@@ -55,14 +51,7 @@ class DcApp extends Component {
             <Modal visible={this.props.loading}>
               <Loading loading={this.props.loading} />
             </Modal>
-            <Game
-              crosshairId={this.props.crosshairId}
-              exitGame={this.props.exitGame}
-              bullets={this.props.bullets}
-              setBullets={this.props.setBullets}
-              reloading={this.props.reloading}
-              setReload={this.props.setReload}
-            />
+            <Game />
           </View>
         );
       } else {
@@ -75,36 +64,14 @@ class DcApp extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    crosshairId: state.user.crosshairId,
     gameStatus: state.game.status,
-    bullets: state.game.bullets,
-    reloading: state.game.reloading,
     loading: state.game.loading
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    login(email, password) {
-      dispatch(loginThunk(email, password));
-    },
-    signUp(email, password) {
-      dispatch(signUpThunk(email, password));
-    },
-    exitGame() {
-      dispatch(exitGame());
-    },
-    setBullets(bullets) {
-      dispatch(setBullets(bullets));
-    },
-    setReload(status) {
-      dispatch(reloading(status));
-    }
   };
 };
 
 const App = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(DcApp);
 
 export default () => (

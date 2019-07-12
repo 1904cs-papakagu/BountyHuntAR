@@ -26,9 +26,6 @@ export const exitGame = () => {
 export const setLoading = loading => {
   return { type: LOADING, loading };
 };
-export const updateAgent = (agentId, transform) => {
-  return { type: UPDATE_AGENT, agentId, transform };
-};
 export const startGame = (locationId, userId, displacement) => {
   return { type: START_PLAYING, locationId, userId, displacement };
 };
@@ -64,12 +61,6 @@ export const toggleShot = () => {
   return {
     type: TOGGLE_SHOT
   };
-}
-export const killAgent = (agentId) => {
-  return {
-    type: KILL_AGENT,
-    agentId
-  }
 };
 
 export default function (state = initState, action) {
