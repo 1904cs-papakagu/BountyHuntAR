@@ -99,9 +99,9 @@ export default function (state = initState, action) {
       return { ...state, status: 'playing' };
     case STOP_PLAYING:
       if (action.won) {
-        return { ...state, status: 'won', loading: true };
+        return { ...initState, status: 'won'};
       } else {
-        return { ...state, status: 'lost', loading: true };
+        return { ...initState, status: 'lost'};
       }
     case EXIT_GAME:
       return initState;
