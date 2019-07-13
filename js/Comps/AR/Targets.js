@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViroBox, Viro3DObject } from 'react-viro';
+import { Viro3DObject } from 'react-viro';
 
 const guardPositions = [
   {
@@ -69,7 +69,7 @@ const Targets = props => {
       source={randomTarget.source}
       type={randomTarget.type}
       resources={[]}
-      materials={['white']}
+      materials={['red']}
       position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={randomTarget.scale}
       rotationPivot={randomTarget.rotationPivot}
@@ -94,7 +94,7 @@ const Targets = props => {
         source={require('./res/bodyguard/MyCharacter.vrx')}
         type="VRX"
         resources={[]}
-        materials={['gray']}
+        materials={['blue']}
         scale={[0.0075, 0.0075, 0.0075]}
         position={[guard.position[0] - x, 0, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
@@ -119,7 +119,7 @@ const Targets = props => {
         source={require('./res/cilveks2/cilveks2.obj')}
         type="OBJ"
         resources={[]}
-        materials={['blue']}
+        materials={['gray']}
         scale={[0.0075, 0.0075, 0.0075]}
 
         position={[civ.position[0] - x, -0.5, civ.position[1] + z]}

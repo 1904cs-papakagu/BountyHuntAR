@@ -202,10 +202,10 @@ export default class ARScene extends Component {
                 source={require('./res/agent/Runner.unity_1.obj')}
                 type="OBJ"
                 materials={['orange']}
-                scale={[0.9, 0.9, 0.9]}
+                scale={[0.4, 0.4, 0.4]}
                 position={[
                   transform[0] - displacement[0],
-                  0,
+                  -2,
                   transform[2] - displacement[2]
                 ]}
                 rotationPivot={[-0.5, 1, -0.5]}
