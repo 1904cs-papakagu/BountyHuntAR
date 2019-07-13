@@ -2,13 +2,14 @@ import axios from 'axios';
 
 const initState = {
   username: null,
-  crosshairId: 0
+  crosshairId: 0,
+  score: 0
 };
 
 const SET_USER_ON_STATE = 'SET_USER_ON_STATE';
 const HANDLE_ERROR = 'HANDLE_ERROR';
 const SET_CROSSHAIR = 'SET_CROSSHAIR';
-
+const UPDATE_SCORE = 'UPDATE_SCORE';
 export const setCrosshair = crosshairId => {
   return {
     type: SET_CROSSHAIR,
@@ -61,13 +62,19 @@ export const signUpThunk = (email, password) => {
     }
   };
 };
-
+export const updateScore = score => {
+  return { type: UPDATE_SCORE, score };
+};
 export function user(state = initState, action) {
   switch (action.type) {
     case SET_USER_ON_STATE:
       return { ...state, ...action.user };
     case SET_CROSSHAIR:
       return { ...state, crosshairId: action.crosshairId };
+
+    case UPDATE_SCORE:
+      const currentScore = state.score;
+      return { ...state, score: currentScore + action.score };
     case HANDLE_ERROR:
       return { error: action.error };
     default:

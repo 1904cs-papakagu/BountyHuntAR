@@ -5,7 +5,7 @@ import {
   View,
   Dimensions,
   YellowBox,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -16,7 +16,13 @@ import Crosshair from './js/Comps/AR/Crosshair';
 
 import { keyRing } from './secrets.js';
 
-import { setShooting, resetStatus, setBullets, reloading, setLoading } from './js/store';
+import {
+  setShooting,
+  resetStatus,
+  setBullets,
+  reloading,
+  setLoading
+} from './js/store';
 
 console.ignoredYellowBox = ['Remote debugger'];
 YellowBox.ignoreWarnings([
@@ -29,7 +35,6 @@ var sharedProps = {
 
 const Game = props => (
   <View style={styles.container}>
-
     <ViroARSceneNavigator
       {...sharedProps}
       initialScene={{ scene: require('./js/Comps/AR/ARScene.js') }}
@@ -37,7 +42,7 @@ const Game = props => (
       debug={true}
     />
 
-    <Crosshair crosshair={props.crosshairId} />
+    <Crosshair crosshair={props.crosshairId ? props.crosshairId : 0} />
 
     <View style={styles.reloadContainer}>
       <TouchableOpacity
@@ -93,8 +98,8 @@ const mapStateToProps = state => {
     bullets: state.game.bullets,
     reloading: state.game.reloading,
     loading: state.game.loading
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -104,14 +109,14 @@ const mapDispatchToProps = dispatch => {
     setLoading(bool) {
       dispatch(setLoading(bool));
     },
-    exitGame(){
-      dispatch(resetStatus())
+    exitGame() {
+      dispatch(resetStatus());
     },
-    setBullets(n){
-      dispatch(setBullets(n))
+    setBullets(n) {
+      dispatch(setBullets(n));
     },
-    setReload(isReloading){ 
-      dispatch(reloading(isReloading))
+    setReload(isReloading) {
+      dispatch(reloading(isReloading));
     }
   };
 };

@@ -36,8 +36,12 @@ class WelcomePage extends React.Component {
   }
 
   render() {
-    if (this.state.renderKillZone) {return <KillZone onChange={this.onChangeKZ} />;}
-    if (this.state.renderRules) {return <Instructions onChange={this.onChangeRules} signedIn={true} />;}
+    if (this.state.renderKillZone) {
+      return <KillZone onChange={this.onChangeKZ} />;
+    }
+    if (this.state.renderRules) {
+      return <Instructions onChange={this.onChangeRules} signedIn={true} />;
+    }
     return (
       <View style={styles.container}>
         <View style={styles.imageContainer}>
@@ -54,7 +58,7 @@ class WelcomePage extends React.Component {
         <Text style={styles.userInfoText}>
           Welcome {this.props.user.userName}
         </Text>
-        <Text style={styles.userInfoText}>$$: {this.props.user.cash}</Text>
+        <Text style={styles.userInfoText}>$: {this.props.user.cash}</Text>
         <Text style={styles.userInfoText}>Score: {this.props.user.score}</Text>
 
         <Text style={styles.userInfoText}>Select crosshair:</Text>
@@ -80,7 +84,9 @@ class WelcomePage extends React.Component {
             <Text style={styles.killzoneButton}>See Active Killzones</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.onChangeRules(true)}>
-            <Text style={styles.briefingButton}>Mission Briefing (How to Play)</Text>
+            <Text style={styles.briefingButton}>
+              Mission Briefing (How to Play)
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

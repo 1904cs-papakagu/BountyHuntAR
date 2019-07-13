@@ -16,32 +16,32 @@ const civPositions = [
   {
     position: [-2.4, -4.2],
     rotationAngle: Math.floor(Math.random() * 360),
-    face: Math.floor(Math.random() * 3),
+    face: Math.floor(Math.random() * 3)
   },
   {
     position: [5.2, -3.6],
     rotationAngle: Math.floor(Math.random() * 360),
-    face: Math.floor(Math.random() * 3),
+    face: Math.floor(Math.random() * 3)
   },
   {
     position: [-3.1, 2.1],
     rotationAngle: Math.floor(Math.random() * 360),
-    face: Math.floor(Math.random() * 3),
+    face: Math.floor(Math.random() * 3)
   },
   {
     position: [4.2, 2.7],
     rotationAngle: Math.floor(Math.random() * 360),
-    face: Math.floor(Math.random() * 3),
+    face: Math.floor(Math.random() * 3)
   },
   {
     position: [1.2, 4.3],
     rotationAngle: Math.floor(Math.random() * 360),
-    face: Math.floor(Math.random() * 3),
+    face: Math.floor(Math.random() * 3)
   },
   {
     position: [0.0, 5.0],
     rotationAngle: Math.floor(Math.random() * 360),
-    face: Math.floor(Math.random() * 3),
+    face: Math.floor(Math.random() * 3)
   }
 ];
 
@@ -49,15 +49,15 @@ const randomTarget = [
   {
     source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
     type: 'OBJ',
-    scale: [0.0070, 0.0070, 0.0070],
-    rotationPivot: [-0.5, 1, -0.5],
+    scale: [0.007, 0.007, 0.007],
+    rotationPivot: [-0.5, 1, -0.5]
   },
   {
     source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
     type: 'OBJ',
-    scale: [0.0070, 0.0070, 0.0070],
-    rotationPivot: [-0.5, 1, -0.5],
-  },
+    scale: [0.007, 0.007, 0.007],
+    rotationPivot: [-0.5, 1, -0.5]
+  }
 ][Math.floor(Math.random() * 2)];
 
 const Targets = props => {
@@ -121,7 +121,6 @@ const Targets = props => {
         resources={[]}
         materials={['blue']}
         scale={[0.0075, 0.0075, 0.0075]}
-
         position={[civ.position[0] - x, -0.5, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}
         rotationPivot={[-0.5, 1, -0.5]}
