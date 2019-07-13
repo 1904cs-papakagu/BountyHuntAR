@@ -62,6 +62,20 @@ export const signUpThunk = (email, password) => {
   };
 };
 
+export const updateScore = (userId, score) => {
+  return async dispatch => {
+    try{
+      await axios({
+        url: 'http://bountyhuntar.herokuapp.com/auth/signup',
+        method: 'POST',
+        data: { userId, score }
+      });
+    } catch(error){
+      console.log(error)
+    }
+  }
+}
+
 export function user(state = initState, action) {
   switch (action.type) {
     case SET_USER_ON_STATE:
