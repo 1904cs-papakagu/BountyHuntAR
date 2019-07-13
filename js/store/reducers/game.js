@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const initState = {
   status: '',
   score: 0,
@@ -80,12 +82,12 @@ export const updateScore = (score) => {
 export const loseGame = (userId, score) => {
   return async dispatch => {
     try {
-      dispatch(endGame(false))
       await axios({
         url: 'http://bountyhuntar.herokuapp.com/api/users/score',
         method: 'POST',
         data: { userId, score }
       });
+      dispatch(endGame(false))
     } catch (error) {
       console.log(error)
     }
