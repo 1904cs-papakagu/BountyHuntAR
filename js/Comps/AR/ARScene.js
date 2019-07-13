@@ -28,7 +28,7 @@ import {
   updateTransform,
   killAgent,
 } from '../../store/';
-import Gun from './Gun';
+import Agents from './Agents';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
@@ -196,31 +196,33 @@ export default class ARScene extends Component {
         />
         {this.bullets}
 
-        {Object.values(this.props.agents).map((agent, index) => {
-          const { displacement, transform, id } = agent;
-          return (
-            <Viro3DObject
-              key={index}
-              source={require('./res/agent/Runner.unity_1.obj')}
-              type="OBJ"
-              materials={['red']}
-              scale={[0.9, 0.9, 0.9]}
-              position={[
-                transform[0] - displacement[0],
-                0,
-                transform[2] - displacement[2]
-              ]}
-              rotationPivot={[-0.5, 1, -0.5]}
-              physicsBody={{
-                type: 'Dynamic',
-                mass: 1,
-                useGravity: false
-              }}
-              viroTag={id}
-            />
-          );
-        })}
-
+        {
+          Object.values(this.props.agents).map((agent, index) => {
+            const {displacement, transform, id } = agent;
+              return (
+              <Viro3DObject
+                key={index}
+                source={require('./res/agent/Runner.unity_1.obj')}
+                type="OBJ"
+                materials={['orange']}
+                scale={[0.9, 0.9, 0.9]}
+                position={[
+                  transform[0] - displacement[0],
+                  0,
+                  transform[2] - displacement[2]
+                ]}
+                rotationPivot={[-0.5, 1, -0.5]}
+                physicsBody={{
+                  type: 'Dynamic',
+                  mass: 1,
+                  useGravity: false
+                }}
+                viroTag={id}
+              />
+            );
+          })
+        }
+  
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}
@@ -342,6 +344,9 @@ ViroMaterials.createMaterials({
   },
   red: {
     diffuseTexture: require('./res/red.png')
+  },
+  orange: {
+    diffuseTexture: require('./res/orange.png')
   },
   target: {
     diffuseTexture: require('./res/target.png')
