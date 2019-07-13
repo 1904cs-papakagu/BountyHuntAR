@@ -11,7 +11,7 @@ import {
   ViroAmbientLight,
   ViroSound,
   Viro3DObject,
-  ViroCamera,
+  ViroCamera
 } from 'react-viro';
 
 import { connect } from 'react-redux';
@@ -27,7 +27,7 @@ import {
   setLoading,
   updateTransform,
   killAgent,
-  updateScore,
+  updateScoreThunk
 } from '../../store/';
 import Targets from './Targets';
 import Walls from './Walls';
@@ -63,7 +63,7 @@ export default class ARScene extends Component {
   hitTarget(tag) {
     if (tag === 'bullet') {
       this.setState({ targetDeathSound: true });
-      this.props.score(3);
+      this.props.score(this.props.userId, 3 + this.props.userScore);
       const { userId, locationId, userScore } = this.props;
       this.props.setInactive(locationId, userId, userScore);
       setTimeout(this.props.winGame, 2000);
@@ -73,14 +73,14 @@ export default class ARScene extends Component {
   hitGuard(tag) {
     if (tag === 'bullet') {
       this.setState({ guardDeathSound: true });
-      this.props.score(-1);
+      this.props.score(this.props.userId, -1 + this.props.userScore);
     }
   }
 
   hitCiv(tag) {
     if (tag === 'bullet') {
       this.setState({ civDeathSound: true });
-      this.props.score(-3);
+      this.props.score(this.props.userId, -3 + this.props.userScore);
     }
   }
 
@@ -120,7 +120,7 @@ export default class ARScene extends Component {
 
   onHitAgent(tag) {
     if (Number(tag)) {
-      this.props.score(5)          
+      // this.props.score(5);
       killAgent(this.props.locationId, tag);
     }
   }
@@ -192,33 +192,31 @@ export default class ARScene extends Component {
         />
         {this.bullets}
 
-        {
-          Object.values(this.props.agents).map((agent, index) => {
-            const {displacement, transform, id } = agent;
-              return (
-              <Viro3DObject
-                key={index}
-                source={require('./res/agent/Runner.unity_1.obj')}
-                type="OBJ"
-                materials={['orange']}
-                scale={[0.4, 0.4, 0.4]}
-                position={[
-                  transform[0] - displacement[0],
-                  0,
-                  transform[2] - displacement[2]
-                ]}
-                rotationPivot={[-0.5, 1, -0.5]}
-                physicsBody={{
-                  type: 'Dynamic',
-                  mass: 1,
-                  useGravity: false
-                }}
-                viroTag={id}
-              />
-            );
-          })
-        }
-  
+        {Object.values(this.props.agents).map((agent, index) => {
+          const { displacement, transform, id } = agent;
+          return (
+            <Viro3DObject
+              key={index}
+              source={require('./res/agent/Runner.unity_1.obj')}
+              type="OBJ"
+              materials={['orange']}
+              scale={[0.4, 0.4, 0.4]}
+              position={[
+                transform[0] - displacement[0],
+                0,
+                transform[2] - displacement[2]
+              ]}
+              rotationPivot={[-0.5, 1, -0.5]}
+              physicsBody={{
+                type: 'Dynamic',
+                mass: 1,
+                useGravity: false
+              }}
+              viroTag={id}
+            />
+          );
+        })}
+
         <ViroAmbientLight color="#aaaaaa" />
         <ViroSpotLight
           innerAngle={5}
@@ -299,8 +297,8 @@ const mapDispatchToProps = dispatch => {
     setLoading(bool) {
       dispatch(setLoading(bool));
     },
-    score(score){
-      dispatch(updateScore(score))
+    score(userId, score) {
+      dispatch(updateScoreThunk(userId, score));
     }
   };
 };
@@ -315,7 +313,7 @@ const mapStateToProps = state => {
     shooting: state.game.shooting,
     canShoot: state.game.canShoot,
     agents: state.game.agents,
-    userScore: state.game.score,
+    userScore: state.user.score
   };
 };
 

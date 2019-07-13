@@ -5,7 +5,13 @@ import {
   socketMiddleware
 } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { user, loginThunk, setCrosshair, signUpThunk } from './reducers/users';
+import {
+  user,
+  loginThunk,
+  setCrosshair,
+  signUpThunk,
+  updateScoreThunk
+} from './reducers/users';
 import game, {
   startGame,
   endGame,
@@ -18,8 +24,8 @@ import game, {
   toggleShot,
   setLoading,
   updateAgent,
-  updateScore,
-  loseGame,
+  // updateScore,
+  loseGame
 } from './reducers/game';
 import {
   location,
@@ -65,6 +71,6 @@ export {
   updateTransform,
   killAgent,
   updateAgent,
-  updateScore,
-  loseGame,
+  updateScoreThunk,
+  loseGame
 };
