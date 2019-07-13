@@ -29,7 +29,6 @@ import {
   killAgent,
   updateScore,
 } from '../../store/';
-import Agents from './Agents';
 import Targets from './Targets';
 import Walls from './Walls';
 import Bullet from './Bullet';
