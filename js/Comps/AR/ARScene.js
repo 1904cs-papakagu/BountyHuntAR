@@ -120,7 +120,6 @@ export default class ARScene extends Component {
 
   onHitAgent(tag) {
     if (Number(tag)) {
-      const {score} = this.state
       this.props.score(5)          
       killAgent(this.props.locationId, tag);
     }
