@@ -3,13 +3,17 @@ import { Viro3DObject } from 'react-viro';
 
 const guardPositions = [
   {
-    position: [-1.0, 1.0],
+    position: [2.0, 2.0],
     rotationAngle: Math.floor(Math.random() * 360)
   },
   {
-    position: [0.9, -0.1],
+    position: [-1.8, -0.2],
     rotationAngle: Math.floor(Math.random() * 360)
-  }
+  },
+  {
+    position: [0.2, -1.8],
+    rotationAngle: Math.floor(Math.random() * 360)
+  },
 ];
 
 const civPositions = [
@@ -49,13 +53,15 @@ const randomTarget = [
   {
     source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
     type: 'OBJ',
-    scale: [0.0070, 0.0070, 0.0070],
+    scale: [0.006, 0.006, 0.006],
+    y: -0.75,
     rotationPivot: [-0.5, 1, -0.5],
   },
   {
-    source: require('./res/GTP_BMan_Jack/GTP_BMan_Jack_07_Stg_Lsn_Adl_Ccs_Gry_Mgr.obj'),
+    source: require('./res/ladylonghair/ladylonghair.obj'),
     type: 'OBJ',
-    scale: [0.0070, 0.0070, 0.0070],
+    scale: [0.007, 0.007, 0.007],
+    y: -0.2,
     rotationPivot: [-0.5, 1, -0.5],
   },
 ][Math.floor(Math.random() * 2)];
@@ -70,7 +76,7 @@ const Targets = props => {
       type={randomTarget.type}
       resources={[]}
       materials={['red']}
-      position={[-x, 0, z]} // negating x to make Viro and GPS signal agree on coordinates
+      position={[-x, randomTarget.y, z]} // negating x to make Viro and GPS signal agree on coordinates
       scale={randomTarget.scale}
       rotationPivot={randomTarget.rotationPivot}
       onLoadEnd={() => props.setLoading(false)}
@@ -78,7 +84,7 @@ const Targets = props => {
         type: 'Dynamic',
         mass: 1,
         shape: { type: 'Box', params: [0.5, 2, 0.5] },
-        useGravity: true
+        useGravity: false
       }}
       onCollision={props.hitTarget}
       animation={{
@@ -91,19 +97,19 @@ const Targets = props => {
     ...guardPositions.map((guard, i) => (
       <Viro3DObject
         key={i + 1}
-        source={require('./res/bodyguard/MyCharacter.vrx')}
-        type="VRX"
+        source={require('./res/old_asian_man/old_asian_man.obj')}
+        type="OBJ"
         resources={[]}
         materials={['blue']}
-        scale={[0.0075, 0.0075, 0.0075]}
-        position={[guard.position[0] - x, 0, guard.position[1] + z]}
+        scale={[0.0011, 0.0011, 0.0011]}
+        position={[guard.position[0] - x, -0.9, guard.position[1] + z]}
         rotation={[0, guard.rotationAngle, 0]}
         rotationPivot={[-0.5, 1, -0.5]}
         physicsBody={{
           type: 'Dynamic',
           mass: 1,
           shape: { type: 'Box', params: [1, 2, 1] },
-          useGravity: true
+          useGravity: false
         }}
         onCollision={props.hitGuard}
         animation={{
@@ -115,21 +121,21 @@ const Targets = props => {
     )),
     ...civPositions.map((civ, i) => (
       <Viro3DObject
-        key={i + 3}
+        key={i + 4}
         source={require('./res/cilveks2/cilveks2.obj')}
         type="OBJ"
         resources={[]}
-        materials={['gray']}
+        materials={['white']}
         scale={[0.0075, 0.0075, 0.0075]}
 
-        position={[civ.position[0] - x, -0.5, civ.position[1] + z]}
+        position={[civ.position[0] - x, -2.2, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}
         rotationPivot={[-0.5, 1, -0.5]}
         physicsBody={{
           type: 'Dynamic',
           mass: 1,
           shape: { type: 'Box', params: [1, 2, 1] },
-          useGravity: true
+          useGravity: false
         }}
         animation={{
           name: `wander${Math.ceil(Math.random() * 3)}`,
