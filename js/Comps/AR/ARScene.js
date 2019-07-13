@@ -64,8 +64,8 @@ export default class ARScene extends Component {
     if (tag === 'bullet') {
       this.setState({ targetDeathSound: true });
       this.props.score(3);
-      const { userId, locationId } = this.props;
-      this.props.setInactive(locationId, userId, this.props.score);
+      const { userId, locationId, userScore } = this.props;
+      this.props.setInactive(locationId, userId, userScore);
       setTimeout(this.props.winGame, 2000);
     }
   }
@@ -316,7 +316,7 @@ const mapStateToProps = state => {
     shooting: state.game.shooting,
     canShoot: state.game.canShoot,
     agents: state.game.agents,
-    score: state.game.score,
+    userScore: state.game.score,
   };
 };
 
