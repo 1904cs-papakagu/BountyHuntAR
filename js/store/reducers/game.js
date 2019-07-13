@@ -76,7 +76,6 @@ export const updateAgent = (agentId, transform) => {
 export const updateScore = (score) => {
   return { type: UPDATE_SCORE, score };
 }
-]
 
 export const loseGame = (userId, score) => {
   return async dispatch => {
