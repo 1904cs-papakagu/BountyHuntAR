@@ -97,16 +97,16 @@ class KillZone extends React.Component {
               const { distance, displacement } = this.calculateDisplacement(...location.GPS);
               if (distance < 50) {
                 return (
-                  <View style={{alignItems: 'center'}}>
-                  <Text style={styles.textStyle}>{location.name}: </Text>
-                  <TouchableOpacity
-                    key={location.id}
-                    onPress={() => this.props.start(location.id, this.props.userId, displacement)}
-                  >
-                    <Text style={styles.acceptButton}>
-                      Accept Contract
-                    </Text>
-                  </TouchableOpacity>
+                  <View key={location.id} style={{alignItems: 'center'}}>
+                    <Text style={styles.textStyle}>{location.name}: </Text>
+                    <TouchableOpacity
+                      key={location.id}
+                      onPress={() => this.props.start(location.id, this.props.userId, displacement)}
+                    >
+                      <Text style={styles.acceptButton}>
+                        Accept Contract
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 );
               } else {

@@ -3,7 +3,7 @@ import { ViroBox } from 'react-viro';
 
 const walls = [
   {
-    position: [0, -2.5, 0],
+    position: [0, -2.25, 0],
     height: 0.5,
     width: 200,
     length: 200,

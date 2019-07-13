@@ -120,7 +120,7 @@ const Targets = props => {
         type="OBJ"
         resources={[]}
         materials={['blue']}
-        scale={[0.008, 0.008, 0.008]}
+        scale={[0.0075, 0.0075, 0.0075]}
 
         position={[civ.position[0] - x, -0.5, civ.position[1] + z]}
         rotation={[0, civ.rotationAngle, 0]}
