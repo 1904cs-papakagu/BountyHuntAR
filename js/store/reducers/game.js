@@ -1,5 +1,6 @@
 const initState = {
   status: '',
+  score: 0,
   bullets: 7,
   reloading: false,
   shooting: false,
@@ -19,6 +20,7 @@ const TOGGLE_SHOT = 'TOGGLE_SHOT';
 const LOADING = 'LOADING';
 const UPDATE_AGENT = 'UPDATE_AGENT'
 const KILL_AGENT = 'KILL_AGENT'
+const UPDATE_SCORE = 'UPDATE_SCORE'
 
 export const exitGame = () => {
   return { type: EXIT_GAME };
@@ -71,6 +73,25 @@ export const killAgent = agentId => {
 export const updateAgent = (agentId, transform) => {
   return { type: UPDATE_AGENT, agentId, transform };
 };
+export const updateScore = (score) => {
+  return { type: UPDATE_SCORE, score };
+}
+]
+
+export const loseGame = (userId, score) => {
+  return async dispatch => {
+    try {
+      await axios({
+        url: 'http://bountyhuntar.herokuapp.com/api/users/score',
+        method: 'POST',
+        data: { userId, score }
+      });
+      dispatch(endGame(false))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 
 export default function (state = initState, action) {
   switch (action.type) {
@@ -84,6 +105,9 @@ export default function (state = initState, action) {
       }
     case EXIT_GAME:
       return initState;
+    case UPDATE_SCORE:
+      const currentScore = state.score
+      return { ...state, score: currentScore + action.score }
     case SET_BULLETS:
       return { ...state, bullets: action.bullets };
     case RELOADING:
