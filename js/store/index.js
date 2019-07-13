@@ -18,6 +18,8 @@ import game, {
   toggleShot,
   setLoading,
   updateAgent,
+  updateScore,
+  loseGame,
 } from './reducers/game';
 import {
   location,
@@ -63,4 +65,6 @@ export {
   updateTransform,
   killAgent,
   updateAgent,
+  updateScore,
+  loseGame,
 };

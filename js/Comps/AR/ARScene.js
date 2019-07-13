@@ -27,6 +27,7 @@ import {
   setLoading,
   updateTransform,
   killAgent,
+  updateScore,
 } from '../../store/';
 import Gun from './Gun';
 import Targets from './Targets';
@@ -37,7 +38,6 @@ export default class ARScene extends Component {
     super(props);
 
     this.state = {
-      score: 0,
       displacement: [0, -10],
       report: false,
       targetDeathSound: false,
@@ -64,9 +64,9 @@ export default class ARScene extends Component {
   hitTarget(tag) {
     if (tag === 'bullet') {
       this.setState({ targetDeathSound: true });
-      const score = this.state.score + 3;
+      this.props.updateScore(3);
       const { userId, locationId } = this.props;
-      this.props.setInactive(locationId, userId, score);
+      this.props.setInactive(locationId, userId, this.props.score);
       setTimeout(this.props.winGame, 2000);
     }
   }
@@ -74,16 +74,14 @@ export default class ARScene extends Component {
   hitGuard(tag) {
     if (tag === 'bullet') {
       this.setState({ guardDeathSound: true });
-      const score = this.state.score - 1;
-      this.setState({ score });
+      this.props.updateScore(-1);
     }
   }
 
   hitCiv(tag) {
     if (tag === 'bullet') {
       this.setState({ civDeathSound: true });
-      const score = this.state.score - 3;
-      this.setState({ score });
+      this.props.updateScore(-3);
     }
   }
 
@@ -300,6 +298,9 @@ const mapDispatchToProps = dispatch => {
     },
     setLoading(bool) {
       dispatch(setLoading(bool));
+    },
+    score(score){
+      dispatch(updateScore(score))
     }
   };
 };
@@ -313,7 +314,8 @@ const mapStateToProps = state => {
     reloading: state.game.reloading,
     shooting: state.game.shooting,
     canShoot: state.game.canShoot,
-    agents: state.game.agents
+    agents: state.game.agents,
+    score: state.game.score,
   };
 };
 
