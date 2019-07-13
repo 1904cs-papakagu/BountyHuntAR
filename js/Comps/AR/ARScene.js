@@ -64,7 +64,7 @@ export default class ARScene extends Component {
   hitTarget(tag) {
     if (tag === 'bullet') {
       this.setState({ targetDeathSound: true });
-      this.props.updateScore(3);
+      this.props.score(3);
       const { userId, locationId } = this.props;
       this.props.setInactive(locationId, userId, this.props.score);
       setTimeout(this.props.winGame, 2000);
@@ -74,14 +74,14 @@ export default class ARScene extends Component {
   hitGuard(tag) {
     if (tag === 'bullet') {
       this.setState({ guardDeathSound: true });
-      this.props.updateScore(-1);
+      this.props.score(-1);
     }
   }
 
   hitCiv(tag) {
     if (tag === 'bullet') {
       this.setState({ civDeathSound: true });
-      this.props.updateScore(-3);
+      this.props.score(-3);
     }
   }
 
@@ -122,7 +122,7 @@ export default class ARScene extends Component {
   onHitAgent(tag) {
     if (Number(tag)) {
       const {score} = this.state
-      this.setState({score: score + 5})
+      this.props.score(5)          
       killAgent(this.props.locationId, tag);
     }
   }
